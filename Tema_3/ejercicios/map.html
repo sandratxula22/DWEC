@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script type="text/javascript">
-        
+        let opc;
+        let mapa = new Map();
+
+        do {
+            opc = prompt("Elige una opción:\n1. Añadir usuario\n2. Eliminar usuario\n3. Mostrar usuarios y contraseñas\n0. Salir");
+
+            switch (opc) {
+                case '0':
+                    break;
+                case '1':
+                    let adduser = prompt("Escribe el nombre de usuario a crear:");
+                    let psswd = prompt("Escribe la contraseña:");
+                    if (mapa.has(adduser) == true) {
+                        alert("Usuario existente");
+                    } else {
+                        mapa.set(adduser, psswd);
+                        alert("Usuario creado");
+                    }
+                    break;
+                case '2':
+                    let deluser = prompt("Escribe el usuario a eliminar:");
+                    if (mapa.has(deluser) == true) {
+                        mapa.delete(deluser);
+                        alert("Usuario eliminado");
+                    } else {
+                        alert("Debes elegir un usuario existente");
+                    }
+                    break;
+                case '3':
+                    for (let [key, value] of mapa) {
+                        let datos = "Usuario: " + key + "\nContraseña: " + value + "\n";
+                    }
+                    break;
+                default:
+                    alert("Opción no contemplada, elige '1', '2' o '3'.");
+                    break;
+            }
+        } while (opc != 0);
     </script>
 </body>
+
 </html>
