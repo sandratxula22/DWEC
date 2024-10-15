@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 79 - tiempo entre dos fechas</title>
+</head>
+<body>
+    <script type="text/javascript">
+        let fecha1 = new Date("2024-11-22");
+        let fecha2 = new Date("2024-12-30");
+
+        let ms = Math.abs(fecha1.getTime() - fecha2.getTime());
+
+        const msdia = 1000 * 60 * 60 * 24;
+        const msmes = msdia * 30.437;
+        const msanio = msmes * 365.25;
+
+        let anios = Math.floor(ms/msanio);
+        ms = ms - (anios * msanio);
+        let meses = Math.floor(ms/msmes);
+        ms = ms - (meses * msmes);
+        let dias = Math.floor(ms/msdia);
+
+        const options = {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+        
+        document.write("Diferencia de tiempo entre el "+fecha1.toLocaleDateString('es-ES', options)+" y el "+fecha2.toLocaleDateString('es-ES', options));
+        document.write("<br>");
+        document.write("Años: "+anios);
+        document.write("<br>");
+        document.write("Meses: "+meses);
+        document.write("<br>");
+        document.write("Días: "+dias);
+    </script>
+</body>
+</html>

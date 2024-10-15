@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 - Prompt</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        let datos = prompt("Introduce tu nombre y dos apellidos y tu fecha de nacimiento (dd/mm/aaaa) separado por comas.", "");
+        let datos2 = datos.split(",");
+
+        let nom = datos2[0];
+        let apell1 = datos2[1];
+        let apell2 = datos2[2];
+        let fecha = datos2[3].split("/");
+        let dia = fecha[0];
+        let mes = fecha[1] - 1;
+        let anio = fecha[2];
+        let fecha2 = new Date(anio, mes, dia);
+        const opc = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+        let fecha3 = fecha2.toLocaleDateString('es-ES', opc);
+
+        let hoy = new Date();
+        if (fecha2 > hoy) {
+            alert("La fecha de nacimiento no puede ser superior a la de hoy.");
+        }else{
+            if (isNaN(Date.parse(fecha2)) != true) {
+                document.write('<table border="2">');
+                    document.write('<tr>');
+                        document.write('<td>Nombre</td>');
+                        document.write('<td>' + nom + '</td>');
+                    document.write('</tr>');
+                    document.write('<tr>');
+                        document.write('<td>Primer apellido</td>');
+                        document.write('<td>' + apell1 + '</td>');
+                    document.write('</tr>');
+                    document.write('<tr>');
+                        document.write('<td>Segundo apellido</td>');
+                        document.write('<td>' + apell2 + '</td>');
+                    document.write('</tr>');
+                    document.write('<tr>');
+                        document.write('<td>Fecha</td>');
+                        document.write('<td>' + fecha3 + '</td>');
+                    document.write('</tr>');
+                document.write('</table>');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

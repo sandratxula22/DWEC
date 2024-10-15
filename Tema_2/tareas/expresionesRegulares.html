@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea expresiones regulares</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //funcion para comprobar la que el dato cumpla las condiciones
+        function comprobar(titulo, dato, expr){
+            if((expr.test(dato))){
+                document.write("Resultado: "+ expr.test(dato) + "<br>");
+                document.write("Título: " + titulo + "<br>");
+                document.write("Dato: " + dato + "<br>");
+                document.write("Expresión regular: " +expr + "<br>");
+                document.write("<br>");
+                return true;
+            }else{
+                document.write("Resultado: "+ expr.test(dato) + "<br>");
+                document.write("Título: " + titulo + "<br>");
+                document.write("Dato: " + dato + "<br>");
+                document.write("Expresión regular: " +expr + "<br>");
+                document.write("<br>");
+                return false;
+            }
+        }
+
+        //solicitamos los datos
+        let nombre = prompt("Introduce tu nombre");
+        let apellidos = prompt("Introduce tus apellidos");
+        let edad = prompt("Introduce tu edad");
+        let email = prompt("Introduce tu email");
+        let telefono = prompt("Introduce tu teléfono");
+        let centro = prompt("Introduce tu centro");
+        let curso = prompt("Introduce tu curso");
+        let observaciones = prompt("Introduce tus observaciones");
+        let anio = prompt("Introduce tu año de nacimiento");
+
+        //expresiones a comprobar
+        comprobar("Nombre", nombre, /^[A-ZÁÉÍÓÚ][a-zA-ZáéíóúÁÉÍÓÚ\s]*$/);
+        comprobar("Apellidos", apellidos, /^[A-ZÁÉÍÓÚ][a-zA-ZáéíóúÁÉÍÓÚ\s]*$/);
+        comprobar("Edad", edad, /^\d{1,3}$/);
+        comprobar("Email", email, /^[a-zA-Z0-9_-]+@[a-zA-Z0-9]+\.[a-z]{2,3}$/);
+        comprobar("Teléfono", telefono, /^[69]\d{8}$/);
+        comprobar("centro", centro, /.{5,120}/);
+        comprobar("Curso", curso, /^[12]$/);
+        comprobar("Observaciones", observaciones, /^[a-zA-z0-9\s.,]{0,120}$/);
+        comprobar("Año", anio, /^\d{4}$/);
+    </script>
+</body>
+</html>

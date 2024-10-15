@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 - divs aleatorios</title>
+    <style>
+        div{
+            position:absolute;
+            border: solid 1px black;
+            width: 100px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+        meses.forEach(function(elemento, index){
+            let width = (Math.random()*801)+ 'px';
+            let height = (Math.random()*201)+ 'px';
+            let red = Math.round((Math.random()*256));
+            let green = Math.round((Math.random()*256));
+            let blue = Math.round((Math.random()*256));
+            document.write('<div style="left:'+width+'; top:'+height+';background-color:rgb('+red+','+green+','+blue+');">'+elemento+'</div>');
+        });
+    </script>
+</body>
+</html>

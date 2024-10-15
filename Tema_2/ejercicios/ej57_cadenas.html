@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadenas</title>
+</head>
+<body>
+    <h1>Ejercicio 57 - Cadenas de caracteres</h1>
+    <script type="text/javascript">
+        let text = 'Esto es un texto para hacer un ejercicio de cadenas.';
+        let palabras = text.split(" ");
+        let text2 = "";
+        for(i=0;i<palabras.length;i++){
+            text2 = text2 + palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1) + " ";
+        };
+        document.write(text2);
+        
+    </script>
+</body>
+</html>

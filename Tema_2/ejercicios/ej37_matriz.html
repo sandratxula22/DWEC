@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz</title>
+</head>
+<body>
+    <h1>Ejercicio 37 - array bidimensional</h1>
+    <script type="text/javascript">
+        let matriz = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9, 10],
+            ['A', 'B', 'C']
+        ];
+
+        matriz[1][1] = 20;
+
+        document.write('Matriz pintada con for');
+        document.write('<br>');
+        for(let i=0;i<=matriz.length - 1;i++){
+            for(let j=0;j<=matriz[i].length - 1;j++){
+                document.write(matriz[i][j]);
+                document.write(' ');
+            }
+            document.write('<br>');
+        }
+
+        document.write('<br>');
+        document.write('Matriz pintada con forEach');
+        document.write('<br>');
+        matriz.forEach(function(i, index_i){
+            matriz[index_i].forEach(function(j, index_j){
+                document.write(matriz[index_i][index_j]);
+                document.write(' ');
+            });
+            document.write('<br>');
+        });
+
+        document.write('<br>');
+        document.write('El número de filas de la matriz es: ' +matriz.length);
+        document.write('<br>');
+        document.write('El número de filas de la matriz es: ' +matriz[0].length);
+        document.write('<br>');
+        
+        let matriz2 = new Array(100);
+        matriz2.fill(['A', 'B', 'C']);
+        document.write(matriz2);
+
+    </script>
+</body>
+</html>
