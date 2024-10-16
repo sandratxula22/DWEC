@@ -43,4 +43,4 @@ cambiarFuncion(trueOrFalse);
 console.log("---FUERA---");
 trueOrFalse(true);
 
-//haciendo prueba desde GitHub
+//haciendo prueba desde GitHub 2
