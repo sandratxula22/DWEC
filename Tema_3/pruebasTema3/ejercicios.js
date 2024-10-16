@@ -41,4 +41,6 @@ function cambiarFuncion(funcion){ //hacemos una function que cambia otra funcion
 
 cambiarFuncion(trueOrFalse);
 console.log("---FUERA---");
-trueOrFalse(true); 
+trueOrFalse(true);
+
+//haciendo prueba desde GitHub
