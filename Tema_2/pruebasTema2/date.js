@@ -83,3 +83,10 @@ console.log(fecha7.toLocaleDateString('es-ES', options));
 //    formatMatcher: 'basic' |'best fit',
 //    timeZoneName: 'long' | 'short' |'shortOffset'|'longOffset'|'shortGeneric'| 'longGeneric'
 //}
+
+function capturaReloj(){
+    let ms = new Date();
+    return (ms.getHours() +":"+ ms.getMinutes() +":"+ ms.getSeconds());
+}
+
+console.log(capturaReloj());
