@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        class Rio {
+            constructor(nombre, cuenca) {
+                this.nombre = nombre;
+                this.cuenca = cuenca;
+                this.caudal = null;
+                this.poblaciones = [];
+                document.write("Nuevo río: "+nombre+" de la cuenca: "+cuenca+"<br>");
+            }
+
+            set nombre(value) {
+                this._nombre = value;
+            }
+
+            get nombre() {
+                return this._nombre;
+            }
+
+            set cuenca(value) {
+                this._cuenca = value;
+            }
+
+            get cuenca() {
+                return this._cuenca;
+            }
+
+            set caudal(value) {
+                this._caudal = value;
+            }
+
+            get caudal() {
+                return this._caudal;
+            }
+
+            set poblaciones(value) {
+                this._poblaciones = value;
+            }
+
+            get poblaciones() {
+                return this._poblaciones;
+            }
+
+            agregarPoblacion(poblacion) {
+                //si no encuentra el elemento da -1
+                if(this._poblaciones.indexOf(poblacion) === -1){
+                    this._poblaciones.push(poblacion);
+                    return document.write("El río "+this._nombre+" pasa por "+poblacion+"<br>");
+                }
+            }
+
+            eliminarPoblacion(poblacion) {
+                for (let i = 0; i < this._poblaciones.length; i++) {
+                    if (this._poblaciones[i] === poblacion) {
+                        this._poblaciones.splice(i, 1);
+                    }
+                }
+                return document.write("El río "+this._nombre+" NO pasa por "+poblacion+"<br>");
+            }
+
+            modificarCaudal(caudal) {
+                return this._caudal = caudal;
+            }
+
+            imprimeNombre() {
+                return document.write("Nombre del río: "+this._nombre+"<br>");
+            }
+
+            imprimeCuenca() {
+                return document.write("Cuenca del río "+this._nombre+": "+this._cuenca+"<br>");
+            }
+
+            imprimeCaudal() {
+                if (this._caudal == null) {
+                    return document.write("No consta que el río "+this._nombre+" tenga caudal<br>");
+                } else {
+                    return document.write("Caudal del río "+this._nombre+": "+this._caudal+"<br>");
+                }
+            }
+
+            imprimePoblaciones() {
+                if (this._poblaciones[0] == undefined) {
+                    return document.write("No consta que el río "+this._nombre+" tenga poblaciones<br>");
+                } else {
+                    return document.write("Poblaciones del río "+ this._nombre+": "+this._poblaciones+"<br>");
+                }
+            }
+
+            imprimeRio() {
+                for (const k in this) {
+                    document.write(k + ": " + this[k] + "<br>");
+                }
+            }
+        }
+
+        document.write("RÍO A:<br>");
+        let rioA = new Rio("Duero", "Atlántica");
+        document.write("<br>");
+
+        rioA.imprimePoblaciones();
+        rioA.agregarPoblacion("Valladolid");
+        rioA.agregarPoblacion("Santander");
+        rioA.imprimePoblaciones();
+        document.write("<br>");
+
+        rioA.imprimeNombre();
+        rioA.imprimeCaudal();
+        rioA.modificarCaudal(25);
+        rioA.imprimeCaudal();
+        document.write("<br>");
+
+        rioA.imprimeNombre();
+        rioA.imprimeCuenca();
+        document.write("<br>");
+
+        rioA.eliminarPoblacion("Santander");
+        document.write("<br>");
+
+        rioA.imprimeRio();
+        document.write("<br>");
+
+        document.write("RÍO B:<br>");
+        let rioB = new Rio("Ebro", "Mediterránea");
+        document.write("<br>");
+
+        rioB.modificarCaudal(50);
+        rioB.imprimeCaudal();
+        document.write("<br>");
+
+        rioB.agregarPoblacion("Miranda de Ebro");
+        rioB.agregarPoblacion("Tortosa");
+        rioB.agregarPoblacion("Valladolid");
+        rioB.agregarPoblacion("Valladolid");
+        rioB.imprimePoblaciones();
+
+        document.write("<br>");
+        rioB.eliminarPoblacion("Valladolid");
+        rioB.imprimePoblaciones();
+    </script>
+</body>
+
+</html>
