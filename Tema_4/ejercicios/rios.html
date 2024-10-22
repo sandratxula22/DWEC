@@ -55,6 +55,8 @@
                 if(this._poblaciones.indexOf(poblacion) === -1){
                     this._poblaciones.push(poblacion);
                     return document.write("El río "+this._nombre+" pasa por "+poblacion+"<br>");
+                }else{
+                    return document.write("El río "+this._nombre+" YA pasa por "+poblacion+"<br>");
                 }
             }
 
