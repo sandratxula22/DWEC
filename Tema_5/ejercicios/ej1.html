@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <div id="id0">Esto es un contenedor
+        <a href="http://uno.com">uno</a>
+        <div id="id1">Esto es un bloque
+            <a href="http://dos.com">dos</a>
+            <input name="prueba1">
+            <input name="prueba2">
+        </div>
+    </div>
+    <script>
+        //Visualizar en consola el id y el texto de todas las etiquetas DIV del documento
+        console.log("---getElementsByTagName('div')---");
+        const d = document.getElementsByTagName("div");
+        for(let i=0;i<d.length;i++){
+            console.log(d[i].nodeName+" "+d[i].getAttribute("id")+" "+d[i].childNodes[i].nodeValue);
+        }
+
+        //Visualizar en consola las URL contenidas en las etiquetas A del documento
+        console.log("---querySelectorAll('a')---")
+        const d1 = document.querySelectorAll("a");
+        for(let i=0;i<d1.length;i++){
+            console.log(d1[i].getAttribute("href"));
+        }
+
+        //Crear una función denominada “verNodos” que recibe comoparámetro un 
+        //nodo y visualiza en consola todos los subnodos que hay debajo, diferenciado 
+        //aquellos que son de tipo text y mostrando su texto
+    </script>
+</body>
+</html>
