@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 1</title>
 </head>
+
 <body>
     <div id="id0">Esto es un contenedor
         <a href="http://uno.com">uno</a>
@@ -16,22 +18,38 @@
     </div>
     <script>
         //Visualizar en consola el id y el texto de todas las etiquetas DIV del documento
-        console.log("---getElementsByTagName('div')---");
-        const d = document.getElementsByTagName("div");
-        for(let i=0;i<d.length;i++){
-            console.log(d[i].nodeName+" "+d[i].getAttribute("id")+" "+d[i].childNodes[i].nodeValue);
-        }
+        console.log("---querySelectorAll('div')---");
+        const d = document.querySelectorAll("div");
+        d.forEach(div => {
+            console.log(div.nodeName + " " + div.id + " " + div.textContent);
+        });
 
         //Visualizar en consola las URL contenidas en las etiquetas A del documento
-        console.log("---querySelectorAll('a')---")
-        const d1 = document.querySelectorAll("a");
-        for(let i=0;i<d1.length;i++){
+        console.log("---getElementsByTagName('a')---");
+        const d1 = document.getElementsByTagName("a");
+        for (let i = 0; i < d1.length; i++) {
             console.log(d1[i].getAttribute("href"));
         }
 
         //Crear una función denominada “verNodos” que recibe comoparámetro un 
         //nodo y visualiza en consola todos los subnodos que hay debajo, diferenciado 
         //aquellos que son de tipo text y mostrando su texto
+        function verNodos(nodo) {
+            nodo.childNodes.forEach(subNodo => {
+                if (subNodo.nodeType === Node.TEXT_NODE) {
+                    console.log(subNodo.textContent);
+                } else {
+                    console.log(subNodo.nodeName);
+                    verNodos(subNodo); // Llamada recursiva
+                }
+            });
+        }
+        console.log("---verNodos de body---");
+        verNodos(document.body);
+
+        console.log("---verNodos de id0---");
+        verNodos(document.getElementById('id0'))
     </script>
 </body>
+
 </html>
