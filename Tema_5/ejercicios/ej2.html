@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+    <script>
+        const body = document.querySelector('body');
+        const strings = ["http://www.marca.es", "http://www.google.com", "https://www.educa.jcyl.es", "https://chatgpt.com"];
+        let ul = document.createElement('ul');
+        ul.id = "lista";
+        body.prepend(ul);
+        
+        const fragment = new DocumentFragment();
+        strings.forEach(function (url) {
+            let l = document.createElement('li');
+            let a = document.createElement('a');
+            a.innerHTML = url;
+            a.href = url;
+            l.appendChild(a);
+            fragment.appendChild(l);
+        })
+        const lista = document.querySelector('#lista');
+        lista.appendChild(fragment);
+    </script>
+</body>
+</html>

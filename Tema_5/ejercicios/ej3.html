@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+
+<body>
+    <div id="principal"
+        style="border: solid 1px black; height: 300px; width: 700px; margin: 0 auto; background: orange;">
+        <p>Esto es un párrafo</p>
+        <h2>Hola</h2>
+    </div>
+    <script>
+        const mensajes = ["Pepinillos Perico Perico Pérez", "Tomate una sidra El manzanal", "Pepedona tu mejor supermercado", "La gente feliz toma loca-loca", "Tu mejor coche es un haiga", "Ofertón de jabón: 10 por 2"];
+        const div = document.querySelector("#principal");
+
+        
+
+        const fragment = new DocumentFragment();
+        function divsRandom() {
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+
+            mensajes.forEach(function (msj) {
+                let width = (Math.random() * 601) + "px";
+                let height = (Math.random() * 301) + "px";
+                let red = Math.round(Math.random() * 256);
+                let green = Math.round(Math.random() * 256);
+                let blue = Math.round(Math.random() * 256);
+
+                let d = document.createElement('div');
+                d.style = "background-color: rgb(" + red + "," + green + "," + blue + ");left:" + width + "; position: relative; width: 100px; border: solid 1px black;";
+                d.innerHTML = msj;
+                fragment.append(d);
+            })
+
+            div.append(fragment);
+        }
+        
+
+        setInterval(() => { divsRandom() }, 1000); 
+    </script>
+</body>
+
+</html>

@@ -40,7 +40,7 @@
                     console.log(subNodo.textContent);
                 } else {
                     console.log(subNodo.nodeName);
-                    verNodos(subNodo); // Llamada recursiva
+                    verNodos(subNodo);
                 }
             });
         }
@@ -48,7 +48,7 @@
         verNodos(document.body);
 
         console.log("---verNodos de id0---");
-        verNodos(document.getElementById('id0'))
+        verNodos(document.getElementById('id0'));
     </script>
 </body>
 

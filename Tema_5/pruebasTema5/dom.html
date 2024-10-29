@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <div id="id0" style="border: solid 1px black">Esto es un contenedor</div>
+    <br>
+    <div id="id1" style="border: solid 1px blueviolet">Esto es un segundo contenedor
+        <p>Estoy dentro de div id1</p>
+    </div>
+    <br>
+    <ol id="listaColores"></ol>
+    <script>
+        const donde = document.querySelector('#id0');
+        const e1 = document.createElement('DIV');
+        e1.innerHTML = "<strong>Prueba 1</strong>";
+        donde.append(e1); //dentro del div al final
+
+        const e2 = document.createElement('DIV');
+        e2.innerHTML = "<strong>Prueba 2</strong>";
+        donde.prepend(e2); //dentro del div al principio
+
+        const e3 = document.createElement('DIV');
+        e3.innerHTML = "<strong>Prueba 3</strong>";
+        donde.before(e3); //fuera del div al principio
+
+        const e4 = document.createElement('DIV');
+        e4.innerHTML = "<strong>Prueba 4</strong>";
+        donde.after(e4); //fuera del div al final
+
+        const donde2 = document.querySelector('#id1');
+        const copiaProfunda = donde2.cloneNode(true); //clona todo lo de dentro
+        donde2.after(copiaProfunda);
+        const copiaSuperficial = donde2.cloneNode(false);
+        donde2.after(copiaSuperficial); //clona el contenedor
+        donde2.remove(); //borra el original, no lo añadido después
+        console.log(copiaProfunda.outerHTML);
+        console.log(copiaSuperficial.outerHTML);
+
+        const colores = ["Verde", "Azul", "Rojo", "Morado"];
+        let i = 1;
+        const fragment = new DocumentFragment();
+        colores.forEach(function (color) {
+            let l = document.createElement('li');
+            l.value = i++ * 10;
+            l.innerHTML = color;
+            fragment.appendChild(l);
+        })
+        const lista = document.querySelector("#listaColores");
+        lista.appendChild(fragment);
+    </script>
+</html>
