@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+</head>
+<body>
+    <h1>Ejercicio 9 - Cambiar párrafo anterior y siguiente al contenido del actual</h1>
+    <p onclick="cambiarParrafo(this)">Primer párrafo</p>
+    <p onclick="cambiarParrafo(this)">Segundo párrafo</p>
+    <p onclick="cambiarParrafo(this)">Tercero párrafo</p>
+    <p onclick="cambiarParrafo(this)">Cuarto párrafo</p>
+    <p onclick="cambiarParrafo(this)">Quinto párrafo</p>
+    <p onclick="cambiarParrafo(this)">Sexto párrafo</p>
+    <p onclick="cambiarParrafo(this)">Séptimo párrafo</p>
+    <p onclick="cambiarParrafo(this)">Octavo párrafo</p>
+    <p onclick="cambiarParrafo(this)">Noveno párrafo</p>
+    <p onclick="cambiarParrafo(this)">Décimo párrafo</p>
+
+    <script>
+        function cambiarParrafo(parrafo){
+            let prev = parrafo.previousElementSibling;
+            let next = parrafo.nextElementSibling;
+            
+            if(prev != null && prev.tagName == parrafo.tagName){
+                prev.textContent = parrafo.textContent;
+            }
+            if(next != null && next.tagName == parrafo.tagName){
+                next.textContent = parrafo.textContent;
+            }
+        }
+    </script>
+</body>
+</html>
