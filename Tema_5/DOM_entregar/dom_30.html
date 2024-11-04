@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 30</title>
+</head>
+
+<body>
+    <h1>Ejercicio 30 - Cambiar párrafo al contenido de los demás</h1>
+    <p onclick="cambiarParrafo(this)">Primer párrafo</p>
+    <p onclick="cambiarParrafo(this)">Segundo párrafo</p>
+    <p onclick="cambiarParrafo(this)">Tercer párrafo</p>
+    <p onclick="cambiarParrafo(this)">Cuarto párrafo</p>
+    <p onclick="cambiarParrafo(this)">Quinto párrafo</p>
+    <p onclick="cambiarParrafo(this)">Sexto párrafo</p>
+    <p onclick="cambiarParrafo(this)">Séptimo párrafo</p>
+    <p onclick="cambiarParrafo(this)">Octavo párrafo</p>
+    <p onclick="cambiarParrafo(this)">Noveno párrafo</p>
+    <p onclick="cambiarParrafo(this)">Décimo párrafo</p>
+
+    <script type="text/javascript">
+        function cambiarParrafo(parrafo) {
+            let listaParrafos = document.getElementsByTagName("p");
+            let textoNuevo = "";
+            for(i=0;i<listaParrafos.length;i++){
+                textoNuevo += listaParrafos[i].textContent + "<br>";
+            }
+            parrafo.style.border = "2px solid red";
+            parrafo.innerHTML = textoNuevo;
+        }
+    </script>
+</body>
+
+</html>

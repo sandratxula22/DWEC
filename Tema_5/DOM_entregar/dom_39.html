@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 39</title>
+</head>
+<body>
+    <h1>Ejercicio 39 - Aumentar y disminuir tamaño de fuente de un párrafo con botones</h1>
+    <hr>
+    <button onclick="cambiarTamano(2)">Aumentar</button>
+    <button onclick="cambiarTamano(-2)">Disminuir</button>
+    <hr>
+    <p id="parrafo">Esto es un texto de prueba cuyo tamaño de fuente va a aumentar o disminuir.</p>
+    <script type="text/javascript">
+        function cambiarTamano(t){
+            let parrafo = document.getElementById("parrafo");
+            let style = window.getComputedStyle(parrafo);
+            let current = parseFloat(style.fontSize);
+            parrafo.style.fontSize = (current + t) + "px";
+        }
+    </script>
+</body>
+</html>

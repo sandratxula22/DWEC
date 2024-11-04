@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 60</title>
+    <style>
+        #primer{
+            color: red;
+            text-align: left;
+        }
+        #segundo{
+            text-align: right;
+            color: blue;
+        }
+        #img1{
+            width: 100px;
+            border: 4px solid black;
+        }
+        #img2{
+            width: 300px;
+            border: 10px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 60 - Intercambiar los atributos de dos párrafos y de dos imágenes</h1>
+    <hr>
+    <button onclick="intercambiarParrafos();">Intercambiar párrafos</button>
+    <button onclick="intercambiarImg();">Intercambiar imágenes</button>
+    <hr>
+    <p id="primer">Primer párrafo</p>
+    <p id="segundo">Segundo párrafo</p>
+    <p>Tercer párrafo</p>
+    <img src="midibujo.gif" id="img1"><br>
+    <img src="images.gif" id="img2">
+
+    <script type="text/javascript">
+        function intercambiarParrafos(){
+            let primer = document.getElementById("primer");
+            let segundo = document.getElementById("segundo");
+
+            let primerStyle = getComputedStyle(primer);
+            let segundoStyle = getComputedStyle(segundo);
+
+            let temp = {
+                color: primerStyle.color,
+                textAlign: primerStyle.textAlign,
+            };
+
+            primer.style.color = segundoStyle.color;
+            primer.style.textAlign = segundoStyle.textAlign;
+            segundo.style.color = temp.color;
+            segundo.style.textAlign = temp.textAlign;
+        }
+
+        function intercambiarImg(){
+            let img1 = document.getElementById("img1");
+            let img2 = document.getElementById("img2");
+
+            let temp = {
+                src: img1.src,
+                width: img1.style.width,
+                border: img1.style.border
+            };
+
+            img1.src = img2.src;
+            img1.style.width = img2.style.width;
+            img1.style.border = img2.style.border;
+            img2.src = temp.src;
+            img2.style.width = temp.width;
+            img2.style.border = temp.border;
+        }
+    </script>
+</body>
+</html>
