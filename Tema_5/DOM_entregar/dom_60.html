@@ -52,24 +52,32 @@
             primer.style.textAlign = segundoStyle.textAlign;
             segundo.style.color = temp.color;
             segundo.style.textAlign = temp.textAlign;
+
         }
 
         function intercambiarImg(){
             let img1 = document.getElementById("img1");
             let img2 = document.getElementById("img2");
 
+            let img1Style = getComputedStyle(img1);
+            let img2Style = getComputedStyle(img2);
+
             let temp = {
                 src: img1.src,
-                width: img1.style.width,
-                border: img1.style.border
+                width: img1Style.width,
+                border: img1Style.border
             };
 
             img1.src = img2.src;
-            img1.style.width = img2.style.width;
-            img1.style.border = img2.style.border;
+            img1.style.width = img2Style.width;
+            img1.style.border = img2Style.border;
             img2.src = temp.src;
             img2.style.width = temp.width;
             img2.style.border = temp.border;
+
+            for(i=0;i<img1Style.length;i++){
+                console.log(img1Style[i]);
+            }  
         }
     </script>
 </body>
