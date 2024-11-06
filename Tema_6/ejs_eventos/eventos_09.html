@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+</head>
+<body>
+    <h1>Ejercicio 9 eventos - Al hacer click en un párrafo se mueve al primer lugar</h1>
+    <hr>
+    <p style="color: cyan;">Párrafo 1</p>
+    <p style="color: green;">Párrafo 2</p>
+    <p style="color: red;">Párrafo 3</p>
+    <p style="color: purple;">Párrafo 4</p>
+    <p style="color: darkorange;">Párrafo 5</p>
+    <hr>
+
+    <script type="text/javascript">
+        //let p = document.getElementsByTagName("p");
+        //for(i=0;i<p.length;i++){
+        //    p[i].addEventListener("click", function(event){
+        //        let primer_p = document.querySelector("p");
+        //        primer_p.before(this);
+        //    })
+        //}
+
+        document.body.addEventListener('click', function(event){
+            let primer_p = document.querySelector("p");
+            if(event.target.tagName === "P"){
+                primer_p.before(event.target);
+            }
+        })
+    </script>
+</body>
+</html>

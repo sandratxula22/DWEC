@@ -33,9 +33,23 @@
     <script type="text/javascript">
         let tabla = document.getElementById("tabla");
         tabla.addEventListener('click', function(event){
-            event.target.remove();
-            console.log(event.target);
-            console.log(event.currentTarget);
+            if(event.target.tagName === "TD"){
+                event.target.remove();
+                //console.log(event.target);
+                //console.log(event.currentTarget);  
+            }
+
+            let tr = document.getElementsByTagName("tr");
+            for(i=0;i<tr.length;i++){
+                console.log(tr[i]);
+                if(tr[i].childElementCount == 0){
+                    tr[i].remove();
+                }
+            }
+
+            if(tr.length === 0){
+                tabla.remove();
+            } 
         })
     </script>
 </body>
