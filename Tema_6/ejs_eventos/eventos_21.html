@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos</title>
+    <title>Ejercicio 21</title>
 </head>
 <body>
+    <h1>Ejercicio 21 eventos - ejecutar solo una vez el evento</h1>
+    <hr>
     <p id="parrafo">Párrafo</p>
     <script type="text/javascript">
         let p = document.getElementById("parrafo");
-        p.addEventListener("click", function(){
-            alert("Click párrafo")
+
+        p.addEventListener("click", function(event){
+            alert("Evento lanzado");
         },{ once: true });
-        p.addEventListener("click", () => alert("Click 2 párrafo"));
-        //let pClonado = p.cloneNode(true);
-        //p.remove();
-        //document.body.append(pClonado);       
     </script>
 </body>
 </html>

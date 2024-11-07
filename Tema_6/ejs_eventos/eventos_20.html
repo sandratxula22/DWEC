@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 20</title>
+    <style>
+        td{
+            width: 100px;
+            height: 100px;
+        }
+        table{
+            margin: 50px 0px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 20 eventos - Contar los clicks en cualquier parte menos en tablas</h1>
+    <hr>
+    <table border="2" id="tabla">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+    <br>
+    <img src="https://i0.wp.com/24.media.tumblr.com/tumblr_loc20i0iEz1qle2ioo1_500.gif">
+
+    <script type="text/javascript">
+        let tabla = document.getElementById("tabla");
+        let cont = 0;
+        let div = document.createElement("div");
+        div.style.fontSize = "30px";
+        div.innerHTML = "Contador de clicks: " + cont;
+        tabla.before(div);
+        
+        document.addEventListener("click", function(e){
+            cont +=1;
+            div.innerHTML = "Contador de clicks: " + cont;
+        })
+        tabla.addEventListener("click", function(e){
+            e.stopPropagation();
+        })
+    </script>
+</body>
+</html>
