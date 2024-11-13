@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextArea 100</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <p>Máximo 100 caracteres</p>
+        <textarea style="width: 300px; height: 100px;"></textarea>
+        <p id="letras">Te quedan 100 caracteres</p>
+    </div>
+    <script type="text/javascript">
+        let textarea = document.querySelector("body div textarea");
+        let p = document.querySelector("#letras");
+
+        textarea.addEventListener("keydown", function(e){
+            console.log(e.key);
+            if(textarea.value.length >= 100 && e.key != "Backspace" && e.key != "Delete" && e.key != "ArrowLeft" && e.key != "ArrowRight"){
+                e.preventDefault();
+            }
+        });
+
+        textarea.addEventListener("input", function(){
+            let restantes = 100 - textarea.value.length;
+            p.innerHTML = "Te quedan "+restantes+" caracteres";
+        });
+    </script>
+</body>
+</html>
