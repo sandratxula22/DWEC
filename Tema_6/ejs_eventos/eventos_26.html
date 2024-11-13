@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 26</title>
+    <style>
+        .caja1{
+            border: solid 5px purple;
+        }
+        .caja2{
+            border: solid 5px blue;
+        }
+        .caja3{
+            border: solid 5px green;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 26 eventos - Arrastrar y soltar: El texto solo al azul y la img solo al verde</h1>
+    <hr>
+    <div class="caja1">
+        <h2 draggable="true" id="texto">Shin chan</h2>
+        <img id="img" src="https://wallpapers.com/images/hd/crayon-shin-chan-shinnosuke-and-dog-4jh59e4tzbs7mdvr.jpg">
+    </div>
+    <br>
+    <div class="caja2"></div>
+    <br>
+    <div class="caja3"></div>
+    <script type="text/javascript">
+        const caja2 = document.querySelector(".caja2");
+        const caja3 = document.querySelector(".caja3");
+        const text = document.querySelector("#texto");
+        const img = document.querySelector("#img");
+
+        //no se pone event como parámetro
+        function cogerDatos(){
+            event.dataTransfer.setData("", event.target.id);
+            console.log(event.target.id);
+        }
+        //no hay que pasarle nada al llamar la función
+        text.addEventListener("dragstart", cogerDatos);
+        img.addEventListener("dragstart", cogerDatos);
+
+        caja2.addEventListener("drop", function(e){
+            let datos = e.dataTransfer.getData("");
+            let elemento = document.getElementById(datos);
+            if(datos === "texto"){
+                caja2.appendChild(elemento);
+            }
+        });
+
+        caja2.addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+
+        caja3.addEventListener("drop", function(e){
+            let datos = e.dataTransfer.getData("");
+            let elemento = document.getElementById(datos);
+            if(datos === "img"){
+                caja3.appendChild(elemento);
+            }
+        });
+
+        caja3.addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

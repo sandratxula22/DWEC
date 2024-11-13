@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & drop</title>
+    <style>
+        div {
+            border: solid 1px purple;
+            height: 150px;
+            width: 150px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejemplo 1</h2>
+    <div class="caja1" draggable="true">
+        <img src="https://www.movilonia.com/imagenesHistorico/sinchan150x150.jpg">
+    </div>
+    <div class="caja2" draggable="true"></div>
+    <hr>
+    <h2>Ejemplo 2</h2>
+    <div class="caja3" draggable="true"></div>
+    <div class="caja4" draggable="true"></div>
+
+    <script type="text/javascript">
+        //LAS IMÁGENES TIENEN DRAGGABLE = TRUE POR DEFECTO
+        //EJEMPLO1
+        const caja1 = document.querySelector(".caja1");
+        const caja2 = document.querySelector(".caja2");
+
+        //evento drop para que si lo soltamos encima cambie al otro div
+        caja1.addEventListener("drop", () => {
+            if(!caja1.childElementCount){
+                caja1.append(caja2.children[0]);
+            }
+        });
+
+        caja2.addEventListener("drop", () => {
+            if(caja2.childElementCount === 0){
+                caja2.append(caja1.children[0]);
+            }
+        });
+
+        //para que no vuelva a su sitio después de moverlo
+        caja1.addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+
+        caja2.addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+
+        //EJEMPLO 2
+        const caja3 = document.querySelector(".caja3");
+        const caja4 = document.querySelector(".caja4");
+
+        caja3.addEventListener("dragstart", function(e){
+            e.dataTransfer.setData("text", "string enviado");
+        });
+
+        caja4.addEventListener("drop", function(e){
+            e.preventDefault();
+            console.log(e.dataTransfer.getData("text"));
+        });
+
+        caja4.addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

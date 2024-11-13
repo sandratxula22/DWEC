@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 24</title>
+    <style>
+        .caja1{
+            border: solid 2px purple;
+        }
+        .caja2{
+            border: solid 2px blue;
+        }
+        img{
+            width: 150px;
+            height: 150px;
+        }
+        div{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 24 eventos - Arrastrar y soltar: Mover al cuadro azul pero no de vuelta</h1>
+    <hr>
+    <div class="caja1">
+        <h2 draggable="true" id="texto">Shin chan</h2>
+        <img id="img" src="https://wallpapers.com/images/hd/crayon-shin-chan-shinnosuke-and-dog-4jh59e4tzbs7mdvr.jpg">
+    </div>
+    <br>
+    <div class="caja2"></div>
+    <script type="text/javascript">
+        const caja2 = document.querySelector(".caja2");
+        const text = document.querySelector("#texto");
+        const img = document.querySelector("#img");
+
+        //no se pone event como parámetro
+        function cogerDatos(){
+            event.dataTransfer.setData("", event.target.id);
+        }
+        //no hay que pasarle nada al llamar la función
+        text.addEventListener("dragstart", cogerDatos);
+        img.addEventListener("dragstart", cogerDatos);
+
+        caja2.addEventListener("drop", function(e){
+            let datos = e.dataTransfer.getData("");
+            let elemento = document.getElementById(datos);
+            caja2.appendChild(elemento);
+        })
+
+        caja2.addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
