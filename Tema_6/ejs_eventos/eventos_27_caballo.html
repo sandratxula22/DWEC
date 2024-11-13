@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 27</title>
+    <style>
+        td {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ejercicio 27 eventos - Simular el movimiento de caballo en ajedrez</h1>
+    <table id="tabla" border="2"></table>
+    <script type="text/javascript">
+        let tabla = document.getElementById("tabla");
+        for (let i = 1; i <= 8; i++) {
+            let tr = document.createElement("tr");
+            for (let j = 1; j <= 8; j++) {
+                let td = document.createElement("td");
+                tr.append(td);
+            }
+            tabla.append(tr);
+        }
+        let imagen = document.createElement("img");
+        imagen.setAttribute("src", "https://shinchan.lukinternacional.com/c/24-category_default/peliculas-shin-chan.jpg")
+        imagen.style.width = "90px";
+        imagen.style.height = "90px";
+        document.querySelector("td").append(imagen);
+
+        let x = 0;
+        let y = 0;
+        let movimientos = [
+            [2, 1],
+            [2, -1],
+            [-2, 1],
+            [-2, -1],
+            [1, 2],
+            [1, -2],
+            [-1, 2],
+            [-1, -2]
+        ];
+
+        tabla.addEventListener("drop", function (e) {
+            if (e.target.tagName === "TD") {
+                for (let tr of tabla.children) {
+                    for (let td of tr.children) {
+                        td.removeAttribute("id");
+                    }
+                }
+                
+                
+                for (let i = 0; i < movimientos.length; i++) {
+                    let posY = y + movimientos[i][0];
+                    let posX = x + movimientos[i][1];
+
+                    if (posX >= 0 && posX < 8 && posY >= 0 && posY < 8) {
+                        tabla.children[posY].children[posX].id = "valida";
+                    }
+                }
+                
+                if(e.target.id === "valida"){
+                    let nuevoX = e.target.cellIndex;
+                    let nuevoY = e.target.parentElement.rowIndex;
+                    e.target.appendChild(imagen);
+                    console.log("("+(x+1)+", "+(y+1)+") --> ("+(nuevoX+1)+", "+(nuevoY+1)+")");
+                    x = nuevoX;
+                    y = nuevoY;
+                }
+            }
+        });
+
+        tabla.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>
