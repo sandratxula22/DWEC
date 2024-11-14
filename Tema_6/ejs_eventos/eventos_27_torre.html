@@ -43,7 +43,6 @@
                     }
                 }
                 
-                
                 for (let i = 0; i < 8; i++) {
                     tabla.children[y].children[i].id = "valida";
                     tabla.children[i].children[x].id = "valida";
@@ -55,7 +54,7 @@
                     e.target.appendChild(imagen);
                     console.log("("+(x+1)+", "+(y+1)+") --> ("+(nuevoX+1)+", "+(nuevoY+1)+")");
                     x = nuevoX;
-                    y = nuevoY;
+                    y = nuevoY;  
                 }
             }
         });

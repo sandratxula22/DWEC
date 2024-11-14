@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+    <style>
+        .divPadre{
+            display: flex;
+            width: fit-content;
+        }
+        button{
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <button id="boton">Iniciar</button>
+    <script type="text/javascript">
+        let boton = document.querySelector("#boton");
+        let divPadre = document.createElement("div");
+        divPadre.setAttribute("class", "divPadre");
+        boton.after(divPadre);
+
+        function iniciar(){
+            for(let i=0;i<10;i++){
+                let div = document.createElement("div");
+                div.setAttribute("draggable", "true");
+                div.style.border = "solid 2px black";
+                div.style.height = "75px";
+                div.style.width = "75px";
+                div.style.margin = "0px 10px";
+                div.style.background = "orange";
+                div.style.textAlign = "center";
+                div.style.fontSize = "50px";
+                div.style.fontWeight = "bold";
+                let num = Math.floor(Math.random() * 98) + 1;
+                div.innerHTML = num;
+                div.setAttribute("id", i);
+                divPadre.append(div);
+            }
+        };
+
+        function enviar(){
+            event.dataTransfer.setData("text", event.target.innerHTML);
+        }
+
+        function cambiar(){
+            if(event.target.tagName === "DIV"){
+                let enviado = event.dataTransfer.getData("text");
+                let temp = event.target.innerHTML;
+                console.log(enviado);
+                console.log(temp);
+            }
+        }
+
+        boton.addEventListener("click", iniciar,{ once: true });
+
+        divPadre.addEventListener("dragstart", enviar);
+
+        divPadre.addEventListener("drop", cambiar);
+
+        divPadre.addEventListener("dragover", function(e){
+            e.preventDefault();
+        })
+    </script>
+</body>
+</html>
