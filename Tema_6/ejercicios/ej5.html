@@ -88,13 +88,8 @@
             }
         }
 
-        function reiniciar() {
-            tiempo = 0;
-            divPadre.innerHTML = "";
-            iniciar();
-        }
 
-        boton.addEventListener("click", reiniciar);
+        boton.addEventListener("click", iniciar);
 
         divPadre.addEventListener("dragstart", enviar);
 
