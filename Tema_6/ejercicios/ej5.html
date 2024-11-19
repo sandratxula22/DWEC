@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div id="contador"></div>
+    <h2 id="contador"></h2>
     <button id="boton">Iniciar</button>
     <script type="text/javascript">
         let boton = document.querySelector("#boton");
@@ -27,7 +27,7 @@
         divPadre.setAttribute("class", "divPadre");
         boton.after(divPadre);
         let tiempo = 0;
-        let intevalo;
+        let intervalo;
 
         function iniciar() {
             for (let i = 0; i < 10; i++) {
@@ -45,6 +45,7 @@
                 div.innerHTML = num;
                 div.setAttribute("id", i);
                 divPadre.append(div);
+                contador.innerHTML = "Tiempo: 0 segundos"
             }
 
             //contador
@@ -52,10 +53,12 @@
                 tiempo++;
                 contador.textContent = "Tiempo: " + tiempo + " segundos";
             }, 1000);
+            console.log(intervalo);
         };
 
         function enviar() {
             event.dataTransfer.setData("text", event.target.id);
+            event.target.style.background = "red";
         }
 
         function cambiar() {
@@ -88,10 +91,20 @@
             }
         }
 
+        function reiniciar() {
+            tiempo = 0;
+            divPadre.innerHTML = "";
+            clearInterval(intervalo);
+            iniciar();
+        }
 
         boton.addEventListener("click", iniciar);
 
         divPadre.addEventListener("dragstart", enviar);
+
+        divPadre.addEventListener("dragend", function(e){
+            event.target.style.background = "orange";
+        })
 
         divPadre.addEventListener("drop", cambiar);
 

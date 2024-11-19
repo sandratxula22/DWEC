@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios</title>
+</head>
+<body>
+    <form id="cliente" action="#" method="get">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" value="Pedro" id="nombre">
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="apellido" value="Pérez" id="apellido">
+        <label for="edad">Edad:</label>
+        <input type="text" name="edad" value="68" id="edad">
+        <label for="Texto">Texto:</label>
+        <textarea id="texto" name="texto">Escribe aquí</textarea>
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    <form id="radio" action="#">
+        <label for="si">Afirmativo</label>
+        <input type="radio" name="pregunta" value="si" id="si" checked>
+        <label for="no">Negativo</label>
+        <input type="radio" name="pregunta" value="no" id="no">
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    <form id="checkbox" action="#">
+        <label for="azul">Azul</label>
+        <input type="checkbox" name="color" value="azul" id="azul" checked>
+        <label for="verde">Verde</label>
+        <input type="checkbox" name="color" value="verde" id="verde">
+        <label for="rojo">Rojo</label>
+        <input type="checkbox" name="color" value="rojo" id="rojo">
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    <form id="select">
+        <select name="animales">
+            <option value="" selected>--Selecciona un animal--</option>
+            <option value="perro">Perro</option>
+            <option value="gato">Gato</option>
+            <option value="elefante">Elefante</option>
+        </select>
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    
+    <script type="text/javascript">
+        const fo = document.querySelector("#cliente");
+        fo.addEventListener('submit', function(){
+            //let res = "";
+            //for(const e of fo){
+            //    res += e.value + " ";
+            //}
+            let res = "Nombre: "+fo[0].value+ "\nApellido: "+fo.elements['apellido'].value+"\nEdad: "+fo['edad'].value+"\nTexto: "+fo.elements[3].value;
+            alert(res);
+        });
+
+        const fo2 = document.forms[1];
+        fo2.addEventListener('submit', function(e){
+            let radio = fo2['pregunta'];
+            console.log(radio.value);
+            console.log(radio[0].value+" -> "+ radio[0].checked);
+            console.log(radio[1].value+" -> "+ radio[1].checked);
+        });
+
+        const fo3 = document.querySelector("#checkbox");
+        fo3.addEventListener('submit', function(){
+            let checkbox = fo3['color'];
+            console.log(checkbox[0].value+" -> "+checkbox[0].checked);
+            console.log(checkbox[1].value+" -> "+checkbox[1].checked);
+            console.log(checkbox[2].value+" -> "+checkbox[2].checked);
+        });
+
+        const fo4 = document.querySelector("#select");
+        fo4.addEventListener('submit', function(){
+            let lista = fo4['animales'];
+            console.log(lista.selectedIndex);
+            console.log(lista.value);
+            console.log(lista[0].value+" -> "+lista[0].selected);
+            console.log(lista[1].value+" -> "+lista[1].selected);
+            console.log(lista[2].value+" -> "+lista[2].selected);
+            console.log(lista[3].value+" -> "+lista[3].selected);
+        });
+    </script>
+</body>
+</html>
