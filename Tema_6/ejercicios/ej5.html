@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 5</title>
     <style>
-        .divPadre{
+        .divPadre {
             display: flex;
             width: fit-content;
         }
-        button{
+
+        button {
             margin-bottom: 25px;
         }
     </style>
 </head>
+
 <body>
+    <div id="contador"></div>
     <button id="boton">Iniciar</button>
     <script type="text/javascript">
         let boton = document.querySelector("#boton");
+        let contador = document.querySelector("#contador");
         let divPadre = document.createElement("div");
         divPadre.setAttribute("class", "divPadre");
         boton.after(divPadre);
+        let tiempo = 0;
+        let intevalo;
 
-        function iniciar(){
-            for(let i=0;i<10;i++){
+        function iniciar() {
+            for (let i = 0; i < 10; i++) {
                 let div = document.createElement("div");
                 div.setAttribute("draggable", "true");
                 div.style.border = "solid 2px black";
@@ -34,35 +41,69 @@
                 div.style.textAlign = "center";
                 div.style.fontSize = "50px";
                 div.style.fontWeight = "bold";
-                let num = Math.floor(Math.random() * 98) + 1;
+                let num = Math.floor(Math.random() * 99) + 1;
                 div.innerHTML = num;
                 div.setAttribute("id", i);
                 divPadre.append(div);
             }
+
+            //contador
+            intervalo = setInterval(() => {
+                tiempo++;
+                contador.textContent = "Tiempo: " + tiempo + " segundos";
+            }, 1000);
         };
 
-        function enviar(){
-            event.dataTransfer.setData("text", event.target.innerHTML);
+        function enviar() {
+            event.dataTransfer.setData("text", event.target.id);
         }
 
-        function cambiar(){
-            if(event.target.tagName === "DIV"){
-                let enviado = event.dataTransfer.getData("text");
+        function cambiar() {
+            if (event.target.tagName === "DIV") {
+                let idOrigen = event.dataTransfer.getData("text");
+                let origen = document.getElementById(idOrigen);
+
                 let temp = event.target.innerHTML;
-                console.log(enviado);
-                console.log(temp);
+                event.target.innerHTML = origen.innerHTML;
+                origen.innerHTML = temp;
+
+                ordenado();
             }
         }
 
-        boton.addEventListener("click", iniciar,{ once: true });
+        function ordenado() {
+            let valores = Array.from(divPadre.children).map(div => parseInt(div.innerHTML));
+            let estaOrdenado = true;
+
+            for (let i = 0; i < valores.length - 1; i++) {
+                if (valores[i] > valores[i + 1]) {
+                    estaOrdenado = false;
+                    break;
+                }
+            }
+
+            if (estaOrdenado) {
+                clearInterval(intervalo);
+                alert("¡Felicidades! Las cajas están ordenadas.");
+            }
+        }
+
+        function reiniciar() {
+            tiempo = 0;
+            divPadre.innerHTML = "";
+            iniciar();
+        }
+
+        boton.addEventListener("click", reiniciar);
 
         divPadre.addEventListener("dragstart", enviar);
 
         divPadre.addEventListener("drop", cambiar);
 
-        divPadre.addEventListener("dragover", function(e){
+        divPadre.addEventListener("dragover", function (e) {
             e.preventDefault();
         })
     </script>
 </body>
+
 </html>
