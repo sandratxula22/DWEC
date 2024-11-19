@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+</head>
+<body>
+    <form action="#" method="post" id="formulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" minlength="20" required><br>
+        <label for="nif">NIF:</label>
+        <input type="text" name="nif" id="nif" pattern="^\d{7,8}[A-Z]$" required><br>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" min="18" max="65" required><br>
+        <label for="fecha">Fecha de alta:</label>
+        <input type="date" id="fecha" name="fecha" required>
+    </form>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validar forms</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        input:required {
+            background-color: palegreen;
+        }
+
+        input:valid {
+            background-color: aquamarine;
+        }
+
+        input:invalid {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form1" method="post" action="#">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" placeholder="nombre" minlength="5" maxlength="20" required>
+        <label for="pass">Password:</label>
+        <input type="password" name="pass" id="pass" placeholder="Contraseña" minlength="10" required>
+        <label for="NIF">NIF:</label>
+        <input type="text" name="nif" id="NIF" placeholder="NIF" pattern="^\d{7,8}[a-zA-Z]$" required>
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    <script type="text/javascript">
+        function validarNif(nif) {
+            if (/^0{7,8}[a-zA-Z]$/.test(nif)) {
+                return false;
+            }
+            return true;
+        }
+        const form = document.querySelector("#form1");
+        const inputNif = document.querySelector("#NIF");
+        inputNif.addEventListener('input', function () {
+            if (!validarNif(inputNif.value)) {
+                inputNif.setCustomValidity("NIF no válido!");
+                inputNif.reportValidity(); //sin esto solo se ejecuta al enviar
+                return;
+            } else {
+                inputNif.setCustomValidity("");
+            }
+        });
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!validarNif(form['nif'].value)) {
+                Swal.fire("NIF incorrecto");
+            }
+        });
+    </script>
+</body>
+
+</html>
