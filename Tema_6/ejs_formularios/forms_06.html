@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+</head>
+
+<body>
+    <h1>Ejercicio 6 formularios - Insertar un país nuevo o eliminar último o seleccionado</h1>
+    <hr>
+    <form action="#" method="post">
+        <label>Nacionalidad</label><br>
+        <select name="nacionalidad" id="select">
+            <option value="es" selected>Española</option>
+            <option value="it">Italiana</option>
+            <option value="ch">China</option>
+            <option value="ca">Canadiense</option>
+            <option value="jp">Japonesa</option>
+            <option value="pt">Portuguesa</option>
+        </select>
+        <br>
+        <input type="text" name="texto" id="texto"><br>
+        <input type="submit" name="submit" value="Insertar nacionalidad">
+    </form>
+    <hr>
+    <form action="#" method="post">
+        <input type="radio" name="eliminar" value="ultima" id="ultima">
+        <label for="ultima">Última</label><br>
+        <input type="radio" name="eliminar" value="seleccionada" id="seleccionada">
+        <label for="seleccionada">Seleccionada</label><br>
+        <input type="submit" name="submit" value="Eliminar">
+    </form>
+    <hr>
+    <script type="text/javascript">
+        const form1 = document.forms[0];
+        const select = document.querySelector("#select");
+        const insert = document.getElementById("texto");
+        let lista = form1['nacionalidad'];
+        form1.addEventListener('submit', function (e) {
+            e.preventDefault();
+            console.log("Valor seleccionado: "+lista.value + " -> " + lista.selectedIndex); //la seleccionada
+            console.log("Longitud antes: " + lista.length); //longitud antes
+            console.log(insert.value);
+            if (insert.value.length !== 0) {
+                let option = document.createElement("option");
+                option.textContent = insert.value;
+                option.value = insert.value.substr(0, 2);
+                select.append(option);
+            }
+            console.log("Longitud después: " + lista.length); //longitud antes
+        });
+
+        const form2 = document.forms[1];
+        form2.addEventListener('submit', function(e){
+            e.preventDefault();
+            let opcion = form2['eliminar'];
+            console.log(opcion.value); //opción elegida
+            let opciones = document.getElementsByTagName("option");
+            if(opcion[0].checked){
+                opciones[lista.length - 1].remove();
+            }else if(opcion[1].checked){
+                opciones[lista.selectedIndex].remove();
+            }
+        });
+    </script>
+</body>
+
+</html>

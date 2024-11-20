@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 12</title>
+</head>
+
+<body>
+    <h1>Ejercicio 12 formularios - Que no coincidan dos elecciones de select</h1>
+    <hr>
+    <form>
+        <h3>Selecciona por orden de preferencia</h3>
+    </form>
+    <script type="text/javascript">
+        //Crear desplegables
+        const ciudades = ['Madrid', 'Roma', 'Londres', 'París', 'Dublín'];
+        const orden = [1, 2, 3, 4, 5];
+        const form1 = document.forms[0];
+        for (let j = 0; j < 5; j++) {
+            let select = document.createElement("select");
+            select.setAttribute("name", "posicion");
+            form1.append(select);
+            let label = document.createElement("label");
+            label.textContent = ciudades[j];
+            select.after(label);
+            label.after(document.createElement("br"));
+            for (let i = 0; i < 5; i++) {
+                let option = document.createElement("option");
+                option.textContent = orden[i];
+                option.setAttribute("value", orden[i]);
+                select.append(option);
+            }
+        }
+
+        form1.addEventListener('change', function(e){
+
+        });
+    </script>
+</body>
+
+</html>
