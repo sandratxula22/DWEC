@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .shinchan {
+            display: flex;
+            gap: 30px;
+        }
+
+        .vertical {
+            position: relative;
+            animation: vertical 5s infinite;
+        }
+
+        img {
+            width: 300px;
+        }
+
+        @keyframes vertical {
+            0% {
+                top: 0px;
+            }
+
+            25% {
+                top: 200px;
+            }
+
+            75% {
+                top: 50px
+            }
+
+            100% {
+                top: 100px;
+            }
+        }
+
+        .rotar {
+            -webkit-animation: rotate 5s normal linear infinite;
+            animation: rotar 5s normal linear infinite;
+        }
+
+        @keyframes rotar {
+            0% {
+                -webkit-transform: rotate3d(0, 0, 1, 0deg);
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+
+            25% {
+                -webkit-transform: rotate3d(0, 0, 1, 90deg);
+                transform: rotate3d(0, 0, 1, 90deg);
+            }
+
+            50% {
+                -webkit-transform: rotate3d(0, 0, 1, 180deg);
+                transform: rotate3d(0, 0, 1, 180deg);
+            }
+
+            75% {
+                -webkit-transform: rotate3d(0, 0, 1, 270deg);
+                transform: rotate3d(0, 0, 1, 270deg);
+            }
+
+            100% {
+                -webkit-transform: rotate3d(0, 0, 1, 360deg);
+                transform: rotate3d(0, 0, 1, 360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Movimientos CSS keyframes</h1>
+    <div class="shinchan">
+        <div class="vertical">
+            <img src="shinchan.gif">
+        </div>
+        <div class="rotar">
+            <img src="shinchan2.png">
+        </div>
+    </div>
+</body>
+
+</html>
