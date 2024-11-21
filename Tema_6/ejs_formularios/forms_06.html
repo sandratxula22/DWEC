@@ -33,6 +33,21 @@
         <input type="submit" name="submit" value="Eliminar">
     </form>
     <hr>
+    <form action="#" method="post">
+        <label for="nacionalidad">Nacionalidad</label><br>
+        <input list="nacionalidades" name="nacionalidad" id="nacionalidad">
+        <datalist id="nacionalidades">
+            <option value="Española">
+            <option value="Italiana">
+            <option value="China">
+            <option value="Canadiense">
+            <option value="Japonesa">
+            <option value="Portuguesa">
+        </datalist>
+        <br>
+        <input type="submit" name="submit" value="Insertar nacionalidad">
+    </form>
+    <hr>
     <script type="text/javascript">
         const form1 = document.forms[0];
         const select = document.querySelector("#select");

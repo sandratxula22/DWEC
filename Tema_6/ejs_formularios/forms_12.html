@@ -5,37 +5,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 12</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <h1>Ejercicio 12 formularios - Que no coincidan dos elecciones de select</h1>
     <hr>
     <form>
-        <h3>Selecciona por orden de preferencia</h3>
+        <h3>Selecciona ciudad por orden de preferencia</h3>
+    </form>
+    <hr>
+    <form>
+        <h3>Selecciona color por orden de preferencia</h3>
     </form>
     <script type="text/javascript">
-        //Crear desplegables
+        //Crear desplegable ciudades
         const ciudades = ['Madrid', 'Roma', 'Londres', 'París', 'Dublín'];
-        const orden = [1, 2, 3, 4, 5];
+        const orden = ["", 1, 2, 3, 4, 5];
         const form1 = document.forms[0];
-        for (let j = 0; j < 5; j++) {
+        for (let i = 0; i < 5; i++) {
             let select = document.createElement("select");
             select.setAttribute("name", "posicion");
             form1.append(select);
             let label = document.createElement("label");
-            label.textContent = ciudades[j];
+            label.textContent = ciudades[i];
             select.after(label);
             label.after(document.createElement("br"));
-            for (let i = 0; i < 5; i++) {
+            for (let j = 0; j <= 5; j++) {
                 let option = document.createElement("option");
-                option.textContent = orden[i];
-                option.setAttribute("value", orden[i]);
+                option.textContent = orden[j];
+                option.setAttribute("value", orden[j]);
                 select.append(option);
             }
         }
 
-        form1.addEventListener('change', function(e){
+        //Crear desplegable colores
+        const colores = ['Azul', 'Morado', 'Rojo'];
+        const orden2 = ["", 1, 2, 3];
+        const form2 = document.forms[1];
+        for (let i = 0; i < 3; i++) {
+            let select2 = document.createElement("select");
+            select2.setAttribute("name", "posicion2");
+            form2.append(select2);
+            let label2 = document.createElement("label");
+            label2.textContent = colores[i];
+            select2.after(label2);
+            label2.after(document.createElement("br"));
+            for (let j = 0; j <= 3; j++) {
+                let option2 = document.createElement("option");
+                option2.textContent = orden2[j];
+                option2.setAttribute("value", orden2[j]);
+                select2.append(option2);
+            }
+        }
 
+        //event para form de ciudades
+        form1.addEventListener('change', function (e) {
+            let selects = form1.getElementsByTagName("select");
+            let selectedValues = [];
+            for (let i = 0; i < selects.length; i++) {
+                let value = selects[i].value;
+                //no vacío y no tenemos en cuenta el select actual
+                if (value !== "" && selects[i] !== e.target) {
+                    selectedValues.push(value);
+                }
+            }
+            console.log(selectedValues);
+            console.log(e.target.value);
+            let value = e.target.value;
+            if (value !== "") {
+                if (selectedValues.includes(value)) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Ese valor ya está seleccionado.",
+                    });
+                    e.target.value = "";
+                }
+            }
+        });
+
+        //event para form colores
+        form2.addEventListener('change', function (event) {
+            const selects = form2.querySelectorAll('select[name="posicion2"]');
+            const selectedValues = [];
+            selects.forEach(select => {
+                if (select.value !== "") {
+                    selectedValues.add(select.value);
+                }
+            });
+            selects.forEach(select => {
+                const options = select.querySelectorAll('option');
+
+                options.forEach(option => {
+                    if (selectedValues.includes(option.value) && option.value !== "") {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
+                    }
+                });
+            });
         });
     </script>
 </body>
