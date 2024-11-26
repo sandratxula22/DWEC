@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xml:lang="es">
+    <head>
+        <title>Parking</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="author" content="María Rodríguez Fernández">
+        <link rel="stylesheet" type="text/css" href="style/estilos.css" />
+        <script src="js/utils.js"> </script>
+		<script src="js/coche.js"> </script>
+        <script src="js/parking.js"> </script>
+		<script src="js/principal.js"></script>
+    </head>
+
+    <body>
+        <h1>Parking IES Julián Marías</h1>  
+        
+        <div id="datosParking" style="margin: 20px 0; text-align: center;">
+			<p><b>Fecha actual:</b> <span id="horaActual"></span></p>
+			<p><b>Importe por minuto:</b> <span id="importeMinuto">0 €/min</span></p>
+		</div>
+
+        <form id="formulario"> 
+        
+            <!-- div informacion -->
+            <div id="informacion" class="linea_formulario"></div>
+            
+            <!--campo RADIO BUTTON marca -->
+            <div class="linea_formulario">
+                <label for="marca">Marca</label>
+                <div class="botones">
+                  <input type= "radio" name="marca" id="seat" value="seat" checked="checked" /><span>Seat</span>
+                  <input type= "radio" name="marca" id="renault" value="renault" /><span>Renault</span>
+                  <input type= "radio" name="marca" id="citroen" value="citroen" /><span>Citroen</span>              
+                </div>
+                <div class="limpia"> </div>
+            </div>
+            
+            <!-- campo texto Modelo -->
+            <div class="linea_formulario">            
+                <label for="nombre">Modelo</label>
+                <input type="text" name="modelo" id="modelo"  />
+                <div class="limpia"> </div>
+            </div> 
+            
+            <!-- campo texto Matricula-->
+            <div class="linea_formulario">
+                <label for="matricula">Matrícula</label>
+    			<input type="text" name="matricula" id="matricula"/>
+                <div class="limpia"> </div>
+            </div>  		
+            
+            <!-- campo SELECT color-->
+            <div class="linea_formulario">
+                <label for="color">Color</label>
+                <select name="color" id="color">
+                    <option selected value="none">Elige uno...</option>            
+                    <option value="rojo">Rojo</option>
+                    <option value="amarillo">Amarillo</option>
+                    <option value="verde">Verde</option>
+                    <option value="blanco">Blanco</option>
+                    <option value="gris">Gris</option>                
+                </select>  
+                <div class="limpia"> </div>
+            </div>  		
+                        
+            <!-- botones -->
+            <div class="linea_formulario">  
+                <div class="botones">
+					<input type="reset" id="limpiar" value="Limpiar" /> 
+                    <input type="button" id="guardar" value="Guardar coche" />          
+                    <input type="button" id="modificar" value="Modificar coche" />       
+                </div>
+                <div class="limpia"> </div>
+            </div>
+            
+            <!-- div listado -->
+            <div id="listado" class="linea_formulario">
+                <p>No hay coches en el parking </p> 
+            </div>
+
+            <div id="zonaSalida" class="salida">
+                <p>Zona de SALIDA (Arrastra aquí para eliminar)</p>
+            </div>
+
+        </form>
+    </body>
+</html>
+

@@ -1,0 +1,196 @@
+/* Aplicamos una fuente agradable */
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    color: #00793D;
+    margin: 20px 0;
+}
+
+/* Formulario */
+#formulario {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #00793D;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+}
+
+.linea_formulario {
+    margin: 15px 0;
+}
+
+.linea_formulario label {
+    float: left;
+    width: 25%;
+    font-weight: bold;
+    color: #333;
+}
+
+.linea_formulario input[type="text"],
+.linea_formulario select {
+    float: left;
+    width: 60%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.linea_formulario input:focus {
+    border: 2px solid #00793D;
+    outline: 0px;
+    background-color: #e8f8e0;
+}
+
+.linea_formulario .botones {
+    text-align: center;
+    margin: 15px 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Añadir espacio entre los botones */
+}
+
+.linea_formulario input[type="button"] {
+    background-color: #00793D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.linea_formulario input[type="button"]:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.linea_formulario input[type="button"]:hover:not(:disabled) {
+    background-color: #004d26;
+}
+
+
+.linea_formulario input[type="reset"] {
+    background-color: #00793D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.linea_formulario input[type="reset"]:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.linea_formulario input[type="reset"]:hover:not(:disabled) {
+    background-color: #004d26;
+}
+
+/* Limpiar elementos flotantes */
+.limpia {
+    clear: both;
+}
+
+/* Listado del parking */
+#listado {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(0, 150, 0, 0.2);
+    border: 2px solid #00793D;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Cajas de coches */
+.coche {
+    border: 2px solid #00793D;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.coche:hover {
+    transform: scale(1.05);
+    cursor: grab;
+}
+
+.coche p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Zona de salida */
+.salida {
+    border: 2px dashed #00793D;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    background-color: rgba(0, 150, 0, 0.4);
+    border-radius: 8px;
+    width: 80%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.salida p {
+    font-size: 18px;
+    color: #004d26;
+}
+/* Clase base para los mensajes */
+#informacion {
+    display: none; /* Ocultar por defecto */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Estilo para los mensajes de éxito */
+.mensaje-success {
+    color: #28a745;
+    background-color: #e8f5e9;
+    border: 2px solid #28a745;
+}
+
+/* Estilo para los mensajes de error */
+.mensaje-error {
+    color: red;
+    background-color: #fdd;
+    border: 2px solid red;
+}
+
+/* Estilo para los mensajes de información (por defecto) */
+.mensaje-info {
+    color: #333;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+}
