@@ -38,9 +38,11 @@
                     }
                     break;
                 case '3':
+                    let datos = "";
                     for (let [key, value] of mapa) {
-                        let datos = "Usuario: " + key + "\nContraseña: " + value + "\n";
+                        datos += "Usuario: " + key + "\nContraseña: " + value + "\n";
                     }
+                    alert(datos);
                     break;
                 default:
                     alert("Opción no contemplada, elige '1', '2' o '3'.");

@@ -65,4 +65,3 @@ console.log(/^h[a-c]{2,3}x$/.test("habx"));//true
 console.log(/(abc){2}(.\d)/.test("--abcabcx4-"));//true
 
 const result = '--abcabccx4--'.match(/(abc){2}.\d/);
-console.log()

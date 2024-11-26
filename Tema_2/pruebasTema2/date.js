@@ -4,7 +4,7 @@ console.log('Fecha del sistema: ' + fecha);
 
 //creamos una fecha desde 01/01/1970 + los ms
 let fechams = new Date(1000);
-console.log('Fecha más milisegunds: ' + fechams);
+console.log('Fecha más milisegundos: ' + fechams);
 
 //creamos una fecha a partir de un string (yyyy-mm-dd)
 let fecha2 = new Date("2000-11-22");
@@ -84,6 +84,7 @@ console.log(fecha7.toLocaleDateString('es-ES', options));
 //    timeZoneName: 'long' | 'short' |'shortOffset'|'longOffset'|'shortGeneric'| 'longGeneric'
 //}
 
+//reloj
 function capturaReloj(){
     let ms = new Date();
     return (ms.getHours() +":"+ ms.getMinutes() +":"+ ms.getSeconds());

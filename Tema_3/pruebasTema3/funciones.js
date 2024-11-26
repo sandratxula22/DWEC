@@ -72,3 +72,46 @@ funcion3(1, 2);
 
 let mult = new Function('x', 'y', 'z', 'return x*y*z');
 console.log(mult(2,3,4));
+
+console.log("REDUCE:")
+let numeros = [1, 2, 3, 4, 5];
+let suma = numeros.reduce(function(acumulador, valorActual) {
+    return acumulador + valorActual;
+}, 0);  // Empezamos con un valor inicial de 0
+
+console.log(suma);  // Resultado: 15 (1+2+3+4+5)
+
+let palabras = ['Hola', 'mundo', 'en', 'JavaScript'];
+
+let frase2 = palabras.reduce(function(acumulador, valorActual) {
+    return acumulador + ' ' + valorActual;
+});
+
+console.log(frase2);  // Resultado: "Hola mundo en JavaScript"
+
+let numeros2 = [10, 25, 33, 14, 4];
+
+let maximo = numeros2.reduce(function(acumulador, valorActual) {
+    return (valorActual > acumulador) ? valorActual : acumulador;
+}, numeros2[0]);  // Empezamos con el primer número del array
+
+console.log(maximo);  // Resultado: 33
+
+
+console.log("REDUCE RIGHT:");
+let palabras3 = ['Hola', 'mundo', 'en', 'JavaScript'];
+
+let frase3 = palabras3.reduceRight(function(acumulador, valorActual) {
+    return acumulador + ' ' + valorActual;
+});
+
+console.log(frase3);  // Resultado: "JavaScript en mundo Hola"
+
+//invertir cadena
+let numeros3 = [1, 2, 3, 4, 5];
+let invertido = numeros3.reduceRight(function(acumulador, valorActual) {
+    acumulador.push(valorActual);
+    return acumulador;
+}, []);  // Empezamos con un array vacío
+
+console.log(invertido);  // Resultado: [5, 4, 3, 2, 1]

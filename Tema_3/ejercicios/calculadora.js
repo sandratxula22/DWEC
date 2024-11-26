@@ -8,6 +8,7 @@ function calcular(signo,...numeros){
                 res += signo;
             }
         }
+        //funcion que calcula
         return eval(res);
     }else{
         return "Debes introducir más de un número para hacer un cálculo.";
