@@ -37,6 +37,7 @@ function nuevaPalabra(){
     resultado.innerHTML = "";
     resultado.removeAttribute("class");
     solucion.disabled = false;
+    intentos++;
 }
 
 function verSolucion(){
@@ -49,7 +50,6 @@ function verSolucion(){
 function comprobarInput(){
     resultado.removeAttribute("class");
     palabraInput.value = palabraInput.value.toUpperCase();
-    intentos++;
     if(palabraInput.value.toLowerCase() == palabraActual){
         resultado.textContent = "¡CORRECTO! Has acertado la palabra "+ palabraActual.toUpperCase();
         nueva.disabled = false;
@@ -67,6 +67,8 @@ function finalizarJuego(){
     let porcentaje = (aciertos/intentos) * 100;
     resultado.textContent = "PORCENTAJE DE ACIERTOS: "+porcentaje+"%";
     resultado.setAttribute("class", "error");
+    nueva.disabled = true;
+    solucion.disabled = true;
 }
 
 //generar palabra la primera vez
