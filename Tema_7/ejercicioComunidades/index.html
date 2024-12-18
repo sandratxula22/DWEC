@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provincias</title>
+</head>
+<body>
+    <form>
+        <select name="comunidades" id="comunidades">
+            <option>-Selecciona una comunidad-</option>
+        </select>
+        <select name="provincias" id="provincias">
+            <option>-Selecciona una provincia-</option>
+        </select>
+    </form>
+    <script>
+        let form = document.forms[0]
+        let comunidades = form["comunidades"];
+        let provincias = form["provincias"];
+
+        let xhr2 = new XMLHttpRequest();
+        xhr2.addEventListener("load", function(e){
+            if(xhr2.status === 200){
+                let res = xhr2.responseText;
+                res.forEach(() => {
+                    console.log(res[i]);
+                    console.log(i);
+                });
+
+                //let res = JSON.parse(xhr2.responseText);
+                //console.log(typeof(res));
+                //console.log(Array.isArray(res));
+
+                for(let i in res){
+                    let option = document.createElement("option");
+                    option.value = i;
+                    option.textContent = res[i];
+                    comunidades.append(option);
+                }
+            }
+        });
+        xhr2.open("POST", "cargaComunidades.php");
+        xhr2.send();
+
+        comunidades.addEventListener("change", function(e){
+            let comunidad = comunidades.value;
+            let xhr = new XMLHttpRequest();
+        
+            xhr.addEventListener("load", function(e){
+                if(xhr.status === 200){
+                    let res = JSON.parse(xhr.responseText);
+                    provincias.innerHTML = "<option>-Selecciona una provincia-</option>";
+                    for(let i in res){
+                        console.log(res[i] + " "+i);
+                        let option = document.createElement("option");
+                        option.value = i;
+                        option.textContent = res[i];
+                        provincias.append(option);
+                         
+                    }
+                    
+                }
+            });
+            xhr.open("POST", "cargaProvincias.php");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("comunidad="+comunidad);
+        });
+    </script>
+</body>
+</html>
