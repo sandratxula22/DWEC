@@ -19,11 +19,9 @@ $comunidades["17"] = "Valencia";
 $comunidades["18"] = "Ceuta";
 $comunidades["19"] = "Melilla";
 
-var_dump($comunidades);
+foreach($comunidades as $codigo => $nombre){
+    $elementos_json[] = "\"$codigo\": \"$nombre\"";
+}
 
-//foreach($comunidades as $codigo => $nombre){
-//    $elementos_json[] = "\"$codigo\": \"$nombre\"";
-//}
-//
-//echo "{".implode(",", $elementos_json)."}";
+echo "{".implode(",", $elementos_json)."}";
 ?>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+
+<body>
+    <h1>Pruebas con fetch</h1>
+    <button id="mostrarTexto">Muestra el archivo de texto</button>
+    <div id="contenido"></div>
+
+    <button id="mostrarTabla">Muestra el archivo de JSON en forma de tabla</button>
+    <table id="tabla">
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Club</th>
+        </tr>
+    </table>
+    <script>
+        document.getElementById("mostrarTexto").addEventListener("click", function (e) {
+            let contenido = document.querySelector("#contenido");
+            fetch("hola.txt")
+                .then(data => data.text())
+                .then(data2 => {
+                    console.log(data2);
+                    contenido.append(data2);
+                })
+        });
+
+        document.getElementById("mostrarTabla").addEventListener("click", function(e){
+            let tabla = document.querySelector("#tabla");
+            fetch("tabla.json")
+            .then(response => response.json())
+            .then(response2 => {
+                console.table(response2);
+                for(let valor of response2){
+                    let tr = document.createElement("tr");
+                    let tds = `<th>${valor.codigo}</th><td>${valor.nombre}</td><td>${valor.edad}</td><td>${valor.club ? "Miembro del club" : "No es miembro del club"}</td>`;
+                    tr.innerHTML = tds;
+                    tabla.append(tr);
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
