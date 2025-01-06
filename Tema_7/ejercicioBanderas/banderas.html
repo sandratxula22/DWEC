@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banderas</title>
+    <style>
+        #contenido{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenido"></div>
+    <script>
+        fetch("https://restcountries.com/v3.1/all?fields=name,flags")
+        .then(response => response.json())
+        .then(paises => {
+            let contenido = document.querySelector("#contenido");
+            console.log(paises);
+            paises.forEach(pais => {
+                let div = document.createElement("div");
+                let nombre = document.createElement("p");
+                let img = document.createElement("img");
+
+                nombre.textContent = pais.name.common;
+                img.setAttribute("src", pais.flags.png);
+                img.style.width = "100%";
+                div.style.border = "1px solid black";
+                div.style.padding = "10px";
+                div.style.width = "200px";
+                div.append(nombre);
+                div.append(img);
+                contenido.append(div);
+            });
+        })
+    </script>
+</body>
+</html>

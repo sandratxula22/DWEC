@@ -1,0 +1,32 @@
+[
+    {
+        "codigo": 1,
+        "nombre": "Laura",
+        "edad": 10,
+        "club": true
+    },
+    {
+        "codigo": 2,
+        "nombre": "Samuel",
+        "edad": 20,
+        "club": false
+    },
+    {
+        "codigo": 3,
+        "nombre": "Sara",
+        "edad": 30,
+        "club": false
+    },
+    {
+        "codigo": 4,
+        "nombre": "June",
+        "edad": 40,
+        "club": true
+    },
+    {
+        "codigo": 5,
+        "nombre": "Eva",
+        "edad": 50,
+        "club": false
+    }
+]
