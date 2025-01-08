@@ -57,7 +57,7 @@
 
 .error{
 	clear:both;
-	background-image: url("img/error.png");
+	/*background-image: url("img/error.png");*/
 	padding-left:20px;
 	background-repeat:no-repeat;
 	background-position: 5px center;
