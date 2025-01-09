@@ -11,6 +11,7 @@ let errorPassword = document.getElementById("error_password");
 let errorPassword2 = document.getElementById("error_password2");
 let selectFavorito = document.getElementById("favorito");
 let errorFavorito = document.getElementById("error_favorito");
+let intentos = document.querySelector(".intentos");
 
 const maxIntentos = 3;
 
@@ -40,7 +41,7 @@ if ( contador === null) {
 } else {
     contador = parseInt(contador);
 }
-
+intentos.innerHTML = "Número de intentos: "+contador;
 function validarNombre(nombre) {
     return /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre);
 }
@@ -60,7 +61,6 @@ function contraseñasCoinciden(password1, password2) {
 nombreInput.addEventListener("input", function () {
     if (!validarNombre(nombreInput.value)) {
         nombreInput.setCustomValidity("Introduce un nombre válido.");
-        errorNombre.textContent = "El nombre solo debe contener letras y espacios.";
         nombreInput.reportValidity();
     } else {
         nombreInput.setCustomValidity("");
@@ -71,8 +71,7 @@ nombreInput.addEventListener("input", function () {
 
 emailInput.addEventListener("input", function(){
     if(!validarEmail(emailInput.value)){
-        emailInput.setCustomValidity("Introduce una dirección de correo válida.");
-        errorEmail.textContent = "El email no es válido.";
+        emailInput.setCustomValidity("Introduce una dirección de correo válida. (ej: nombre@email.com)");
         emailInput.reportValidity();
     }else{
         emailInput.setCustomValidity("");
@@ -82,7 +81,6 @@ emailInput.addEventListener("input", function(){
 passwordInput.addEventListener("input", function () {
     if (!validarContraseña(passwordInput.value)) {
         passwordInput.setCustomValidity("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.");
-        errorPassword.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.";
         passwordInput.reportValidity();
     } else {
         passwordInput.setCustomValidity("");
@@ -94,7 +92,6 @@ passwordInput.addEventListener("input", function () {
 password2Input.addEventListener("input", function () {
     if (!contraseñasCoinciden(passwordInput.value, password2Input.value)) {
         password2Input.setCustomValidity("Las contraseñas no coinciden.");
-        errorPassword2.textContent = "Las contraseñas no coinciden.";
         password2Input.reportValidity();
     } else {
         password2Input.setCustomValidity("");
@@ -114,21 +111,21 @@ enviar.addEventListener("click", function (event) {
         event.preventDefault();
         console.log("Formulario válido: ", form.checkValidity());
         if (!validarNombre(nombreInput.value)) {
-            errorNombre.textContent = "El nombre solo debe contener letras y espacios.";
+            errorNombre.textContent = "El nombre es obligatorio.";
             errorNombre.style.display = "block";
         } else {
             errorNombre.style.display = "none";
         }
 
         if (!validarEmail(emailInput.value)) {
-            errorEmail.textContent = "El email no es válido.";
+            errorEmail.textContent = "El email es obligatorios.";
             errorEmail.style.display = "block";
         }else{
             errorEmail.style.display = "none";
         }
 
         if (!validarContraseña(passwordInput.value)) {
-            errorPassword.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.";
+            errorPassword.textContent = "La contraseña es obligatoria.";
             errorPassword.style.display = "block";
         } else {
             errorPassword.style.display = "none";
@@ -150,6 +147,7 @@ enviar.addEventListener("click", function (event) {
         contador++;
         setCookie("contador", contador, 86400000);
         console.log(contador);
+        intentos.innerHTML = "Número de intentos: "+contador;
     }else{
         console.log("Enviando formulario...");
         form.submit();

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <style>
+        #formulario {
+            margin: 0;
+            padding: 20px;
+        }
+
+        label {
+            margin-left: 50px;
+        }
+
+        input {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Introducir datos</h1>
+    <form id="formulario">
+        <fieldset>
+            <legend>Datos para gráfico</legend>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre"><br>
+            <label for="valor">Valor</label>
+            <input type="range" id="valor" name="valor"><br>
+            <label for="color">Color</label>
+            <input type="color" id="color" name="color"><br>
+            <input type="button" id="enviar" name="enviar" value="Añadir valor">
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+        //Local
+        function recuperarDatosLocal(clave) {
+            return localStorage.getItem(clave);
+        }
+        function guardarDatosLocal(clave, valor) {
+            return localStorage.setItem(clave, valor);
+        }
+
+        let anadir = document.getElementById("enviar");
+        anadir.addEventListener("click", function () {
+            
+        })
+    </script>
+</body>
+
+</html>
