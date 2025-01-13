@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras Simplificado</title>
+</head>
+
+<body>
+    <h1>GRÁFICO DE BARRAS CON CANVAS</h1>
+    <canvas id="graficoCanvas" width="800" height="800"></canvas>
+
+    <script>
+        function recuperarDatosLocal(clave) {
+            return localStorage.getItem(clave);
+        }
+
+        function dibujarGrafico() {
+            let datos = JSON.parse(recuperarDatosLocal("datos"));
+            console.log(datos);
+
+            //canvas
+            const canvas = document.getElementById('graficoCanvas');
+            const ctx = canvas.getContext('2d');
+
+            //dimensiones
+            const chartWidth = canvas.width - 150;
+            const barHeight = 40;
+            const scaleFactor = chartWidth / 100;
+
+            //gráfico
+            for (let i = 0; i < datos.length; i++) {
+                const barWidth = datos[i].valor * scaleFactor;
+                const barX = 100;
+                const barY = i * (barHeight + 15);
+
+                //barra
+                ctx.fillStyle = datos[i].color;
+                ctx.fillRect(barX, barY, barWidth, barHeight);
+
+                ctx.fillStyle = 'black';
+                ctx.font = '14px Arial';
+                ctx.fillText(datos[i].nombre, 10, barY + barHeight / 1.5);
+
+                ctx.fillText(datos[i].valor, barX + barWidth + 10, barY + barHeight / 1.5);
+            };
+        }
+
+        dibujarGrafico();
+        
+        window.addEventListener('storage', function (event) {
+            if (event.key === 'datos') {
+                dibujarGrafico();
+            }
+        });
+    </script>
+</body>
+
+</html>

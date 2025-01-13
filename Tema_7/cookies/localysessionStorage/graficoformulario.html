@@ -40,7 +40,15 @@
         function guardarDatosLocal(clave, valor) {
             return localStorage.setItem(clave, valor);
         }
+        function recuperarDatosLocal(clave) {
+            return localStorage.getItem(clave);
+        }
+        
         let arrayGuardar = [];
+        if(JSON.parse(recuperarDatosLocal("datos"))){
+            arrayGuardar = (JSON.parse(recuperarDatosLocal("datos")));
+        }
+
         function guardarDatos(){
             let nombre = document.getElementById("nombre").value;
             let valor = document.getElementById("valor").value;
@@ -53,6 +61,7 @@
             console.log(datos);
             arrayGuardar.push(datos);
             guardarDatosLocal("datos", JSON.stringify(arrayGuardar));
+            document.forms[0].reset();
         }
 
         let anadir = document.getElementById("enviar");
