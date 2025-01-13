@@ -37,18 +37,26 @@
     </form>
 
     <script type="text/javascript">
-        //Local
-        function recuperarDatosLocal(clave) {
-            return localStorage.getItem(clave);
-        }
         function guardarDatosLocal(clave, valor) {
             return localStorage.setItem(clave, valor);
         }
+        let arrayGuardar = [];
+        function guardarDatos(){
+            let nombre = document.getElementById("nombre").value;
+            let valor = document.getElementById("valor").value;
+            let color = document.getElementById("color").value;
+            const datos = {
+                nombre: nombre,
+                valor: valor,
+                color: color
+            }
+            console.log(datos);
+            arrayGuardar.push(datos);
+            guardarDatosLocal("datos", JSON.stringify(arrayGuardar));
+        }
 
         let anadir = document.getElementById("enviar");
-        anadir.addEventListener("click", function () {
-            
-        })
+        anadir.addEventListener("click", guardarDatos);
     </script>
 </body>
 
