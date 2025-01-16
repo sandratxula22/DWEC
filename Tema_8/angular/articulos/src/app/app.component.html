@@ -1,0 +1,31 @@
+<h1>Administración de artículos</h1>
+<table>
+    <tr>
+        <th>Código</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Borrar</th>
+        <th>Seleccionar</th>
+    </tr>
+    @for(articulo of articulos; track articulo.codigo){
+        <tr>
+            <td>{{ articulo.codigo }}</td>
+            <td>{{ articulo.descripcion }}</td>
+            <td>{{ articulo.precio }}</td>
+            <td><button (click)="borrar(articulo.codigo)">Borrar</button></td>
+            <td><button>Seleccionar</button></td>
+        </tr>
+    }
+</table>
+<div>
+    <label for="codigo">Código</label>
+    <input type="number" id="codigo"><br>
+    <label for="descripcion">Descripción</label>
+    <input type="text" id="descripcion"><br>
+    <label for="precio">Precio</label>
+    <input type="number" id="precio"><br>
+    
+    <button>Agregar</button>
+    <button>Modificar</button>
+</div>
+<router-outlet />
