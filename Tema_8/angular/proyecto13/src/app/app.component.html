@@ -1,0 +1,42 @@
+<form [formGroup]="formularioContacto" (ngSubmit)="submit()">
+  <p>Nombre:
+    <input type="text" formControlName="nombre">
+    @if(this.formularioContacto.get('nombre')?.errors?.['required']) {
+    <span>(El nombre no puede quedar vacío)</span>
+    }
+    @if(this.formularioContacto.get('nombre')?.errors?.['minlength']) {
+    <span>(Debe tener como mínimo 10 caracteres)</span>
+    }
+  </p>
+  <p>Mail:
+    <input type="text" formControlName="mail">
+    @if(this.formularioContacto.get('mail')?.errors?.['required']) {
+    <span>(El mail no puede quedar vacío)</span>
+    }
+    @if(this.formularioContacto.get('mail')?.errors?.['email']) {
+    <span>(El mail no es válido)</span>
+    }
+  </p>
+  <p>Mensaje<br>
+    <textarea rows="10" cols="70" formControlName="mensaje"></textarea>
+  </p>
+  @if(this.formularioContacto.get('mensaje')?.errors?.['required']) {
+  <div>(El mensaje no puede quedar vacío)</div>
+  }
+  @if(this.formularioContacto.get('mensaje')?.errors?.['maxlength']) {
+  <div>(Debe tener como máximo 500 caracteres)</div>
+  }
+  <button type="submit">Confirmar</button>
+</form>
+<div>{{resultado}}</div>
+<hr>
+<form [formGroup]="formularioContacto2" (ngSubmit)="submit2()">
+  <p>Ingrese un múltiplo de 5:
+    <input type="number" formControlName="numero">
+    @if(this.formularioContacto.get('numero')?.errors?.['multiplo5']) {
+    <span>(El valor debe ser multiplo de 5)</span>
+    }
+  </p>
+  <button type="submit" [disabled]="formularioContacto2.invalid">Confirmar</button>
+</form>
+<router-outlet />
