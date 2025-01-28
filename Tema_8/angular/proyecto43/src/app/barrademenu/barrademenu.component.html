@@ -1,0 +1,9 @@
+<nav class="navbar navbar-expand-sm navbar-dark {{colorfondo}}">
+    <ul class="navbar-nav">
+        @for(opcion of opciones; track $index) {
+        <li class="nav-item">
+            <a class="nav-link" href="#" (click)="presion($index+1)">{{opcion}}</a>
+        </li>
+        }
+    </ul>
+</nav>

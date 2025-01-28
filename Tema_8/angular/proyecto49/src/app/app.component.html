@@ -1,0 +1,14 @@
+<div>
+  <label for="archivohtml">Seleccione el archivo HTML:</label>
+  <ul>
+    <li>
+      Con Promise:<input type="file" [(ngModel)]="nombreArchivo" (change)="recuperarConPromise($event)">
+    </li>
+    <li>
+      Con Observable:<input type="file" [(ngModel)]="nombreArchivo" (change)="recuperarConObservable($event)">
+    </li>
+  </ul>
+</div>
+<p>Contenido</p>
+<pre>{{resultado}}</pre>
+<router-outlet />
