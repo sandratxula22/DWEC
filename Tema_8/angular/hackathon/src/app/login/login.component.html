@@ -6,18 +6,18 @@
                     <div class="card-body p-5 text-center">
 
                         <h3 class="mb-5">Sign in</h3>
-                        <form>
+                        <form [formGroup]="FormularioLogin" (click)="onSubmit()">
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <label class="form-label" for="typeEmailX-2">Email</label>
-                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" formControlName="email" />
                             </div>
 
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <label class="form-label" for="typePasswordX-2">Password</label>
-                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg"/>
+                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" formControlName="password"/>
                             </div>
 
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" (click)="onSubmit($event)">
+                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" [disabled]="FormularioLogin.invalid">
                                 Login
                             </button>
                         </form>

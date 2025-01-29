@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Login } from './login';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,8 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  comprobar() {
+  comprobar(credentials: Login) {
     const api = 'https://reqres.in/api/login';
-    const datos = { email: "eve.holt@reqres.in" , password: "sdfsdf" };
-
-    return this.http.post(api, datos);
+    return this.http.post(api, credentials);
   }
 }
