@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  title = 'proyecto8';
   art = {
     codigo: 0,
     descripcion: "",

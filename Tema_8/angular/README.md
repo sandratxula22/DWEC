@@ -5,8 +5,39 @@
     * Sintaxis de Template para estructuras condicionales y repetitivas
     * Captura de eventos
     * Enlace de propiedades (Property binding)
+
 - Proyecto 2: Componentes - creación
     * ng generate component dado
+    * Import component
+
+- Proyecto 3: Componentes - pasar datos de la componente padre a la componente hija
+    * Import Input
+    * @Input() valor: string = ""; --> En el componente
+
+- Proyecto 4: Componentes - disparo de eventos de la componente hija a la componente padre
+    * Import Input y Output // EventEmitter
+
+- Proyecto 5: Componentes - llamar a métodos de la componente hija desde el template del padre
+    * <app-selectornumerico [minimo]="1" [maximo]="10" #selector1></app-selectornumerico>
+    * <button (click)="selector1.fijar(1)">Fijar en 1</button>
+
+- Proyecto 6: Componentes - llamar a métodos de la componente hija desde la clase padre
+    * export class AppComponent {
+        @ViewChild('selector2') selector2!:     SelectornumericoComponent;
+
+        fijarSelector2(valor:number) {
+          this.selector2.fijar(valor);
+        }
+    }
+    * <button (click)="fijarSelector2(1)">Fijar en 1</button>
+
+- Proyecto 7: Formularios - formulario basado en plantillas
+    * Para usar ngModel -> Importar FormsModule en app.component.ts
+    * Ejemplo [(ngModel)]
+
+- Proyecto 8: Formularios - formulario basado en plantillas
+    * Ejercicio de tabla con agregar, modificar, borrar y seleccionar
+
 - Proyecto 13: Formularios reactivos - validaciones estándar anidadas
     * Uso de ReactiveFormsModule, FormControl, FormGroup, Validators
 - Proyecto 16: Definición de rutas
@@ -32,5 +63,3 @@
     * ng generate service login
 
 HACER 13,14,15,16,17 (FORMGROUP)
-
-DEBERES: | ?? !
