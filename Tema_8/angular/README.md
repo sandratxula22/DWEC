@@ -56,10 +56,3 @@
       ]
     * ng generate component barrademenu --prefix boot
 - Proyecto 49: Promise u observable
-- Hackathlon: Ejercicio completo
-    * Instalar bootstrap
-    * FormGroup y FormControl para el login
-    * Petición a la API para iniciar sesión con HttpClient (app.config.ts) <--- IMPORTANTE
-    * ng generate service login
-
-HACER 13,14,15,16,17 (FORMGROUP)

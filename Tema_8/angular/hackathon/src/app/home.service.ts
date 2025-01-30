@@ -12,4 +12,8 @@ export class HomeService {
   getUsuarios(): Observable<any>{
     return this.http.get<any>("https://reqres.in/api/users?page=2");
   }
+
+  getUsuariosById(id: string): Observable<any>{
+    return this.http.get<any>("https://reqres.in/api/users/"+id);
+  }
 }
