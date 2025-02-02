@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Herramienta Angular CLI - comando: ng new</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>32 - Herramienta Angular CLI - comando: ng new</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos visto que con el comando 'new' de la herramienta Angular CLI se crea un esqueleto de una aplicación Angular:</p>
+<pre>
+ng new proyecto025
+</pre>
+<p>Durante la generación del proyecto se nos consulta como queremos administrar las hojas de estilo (por defecto archivos CSS):</p>
+<img src="imagentema/foto056z.jpg" alt="Angular.CLI ng new hoja de estilo" border="0"><br>
+<p>Seguidamente se nos cuestiona si queremos activar el renderizado en el servidor (por defecto si presionamos la tecla enter se selecciona que NO queremos):</p>
+<img src="imagentema/foto056y.jpg" alt="Angular.CLI ng new hoja de estilo" border="0"><br>
+
+
+
+<p>El comando new podemos pasar otros parámetros para adaptar la aplicación generada.</p>
+<ul>
+
+<li>
+<p>Podemos especificar el prefijo a los selectores generados mediante el parámetro --prefix:</p>
+<pre>
+ng new proyecto025 --prefix ele
+</pre>
+<p>Luego se crea con prefijo 'ele' en lugar del valor por defecto 'app':</p>
+<p>Si abrimos la componente creada por defecto podemos ver que el prefijo es 'ele':</p>
+<pre>
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'ele-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'proyecto025';
+}
+</pre>
+<p>En lugar de 'app':</p>
+<pre>
+  selector: <strong>'app-root'</strong>
+</pre>
+<p>Luego si creamos una componente dentro del proyecto también se respetará el prefijo definido en la creación del proyecto:</p>
+<pre>
+ng generate component dado
+</pre>
+<p>El selector de la componente dado queda con el siguiente nombre:</p>
+<pre>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ele-dado',
+  imports: [],
+  templateUrl: './dado.component.html',
+  styleUrl: './dado.component.css'
+})
+export class DadoComponent {
+
+}
+</pre>
+<p>La definición de prefijos en las componentes de Angular permiten diferenciar las etiquetas nativas del navegador (ej. 'button') con las etiquetas propias de Angular (ej. ele-button)</p>
+<p>Al crearse  un proyecto uno de los archivos fundamentales que almacenan datos de configuración del mismo es 'angular.json' (se encuentra en la carpeta raíz del proyecto)</p>
+<p>En el archivo 'angular.json' se encuentra almacenado el prefijo definido al crearse el proyecto:</p>
+<img src="imagentema/foto054.jpg" alt="Angular.CLI ng new --prefix" border="0"><br>
+<p>Si queremos escribir menos con Angular CLI al crear el proyecto podemos utilizar el alias -p en lugar de --prefix:</p>
+<pre>
+ng new proyecto025 -p ele
+</pre>
+</li>
+
+<li><p>Mediante el parámetro --inline-style (alias: -s) podemos evitar que se cree el archivo *.css y la definición de los estilos se deba hacer directamente en el archivo *.ts:</p>
+<pre>
+ng new proyecto025 --inline-style
+</pre>
+<p>Con esto no se crearán los archivos *.css para las componentes. El archivo *.ts de la componente tienen un lugar donde definir los estilos:</p>
+<img src="imagentema/foto055.jpg" alt="Angular.CLI ng new --inline-style" border="0"><br>
+<p>Puede tener sentido si la componente es bastante sencilla y no requiere la definición de una hoja de estilo compleja.</p>
+<p>Probar modificar los archivos *.ts y *.html de la componente del proyecto.</p>
+<p>app.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styles: ['.titulo { color:red; font-size:2rem }',
+    '.parrafo {color:black; font-size:1.1rem }'],
+})
+export class AppComponent {
+  tit = 'Prueba de inline-style';
+}
+</pre>
+
+<p>app.component.html</p>
+<pre class="recuadro">
+&lt;div style="text-align:center"&gt;
+  &lt;h1 class="titulo"&gt;{{tit}}&lt;/h1&gt;
+  &lt;p class="parrafo"&gt;Esto es un párrafo.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;router-outlet /&gt;
+</pre>
+<p>Si ejecutamos el proyecto podemos ver que los estilos se están recuperando del archivo *.ts:</p>
+<img src="imagentema/foto056.jpg" alt="Angular.CLI ng new --inline-style" border="0"><br>
+</li>
+
+
+<li><p>Mediante el parámetro --inline-template (alias: -s) podemos evitar que se cree el archivo *.html y la definición del HTML se hace directamente en el archivo *.ts (borre primero el proyecto025 antes de crearlo nuevamente con esta nueva configuración):</p>
+<pre>
+ng new proyecto025 --inline-template
+</pre>
+<p>Con este parámetro estamos indicando que no se cree el archivo *.html para la componente y la definición del HTML se haga en el mismo archivo *.js</p>
+<p>Luego de creado el proyecto solo se han creado los archivos *.css y *.ts:</p>
+<img src="imagentema/foto057.jpg" alt="Angular.CLI ng new --inline-template" border="0"><br>
+<p>Nuevamente decimos que esto tiene sentido si la complejidad de la componente Angular no es grande.</p>
+<p>Podemos inclusive evitar que se creen tanto el archivo *.css y *.html indicando ambos parámetros al crear la componente:</p>
+<pre>
+ng new proyecto025 --inline-style --inline-template
+</pre>
+</li>
+
+<li>
+<p>Si tratamos de crear un proyecto y ya existe uno en la carpeta actual se produce un error al ejecutar:</p>
+<pre>
+ng new proyecto025
+</pre>
+<p>Si queremos forzar la creación del proyecto y sobreescribir los archivos actuales debemos añadir el parámetro --force (alias -f):</p>
+<pre>
+ng new proyecto025 --force
+</pre>
+</li>
+
+<li>
+<p>Si por algún motivo no queremos que Angular.CLI nos genere el archivo de test debemos pasar el parámetro --skip-tests (alias -s):</p>
+<pre>
+ng new proyecto025 --skip-tests
+</pre>
+<img src="imagentema/foto058.jpg" alt="Angular.CLI ng new --skip-tests" border="0"><br>
+<p>Como podemos comprobar no se ha generado el archivo 'app.component.spec.ts'.</p>
+</li>
+
+<li>
+<p>Otro parámetro más que podemos utilizar cuando vamos a crear un proyecto es --dry-run (alias: -d)</p>
+<p>Mediante esta opción Angular CLI nos informa que archivos se crearán (no los crea) y a partir de estos datos poder tomar la decisión de crear o no el proyecto:</p>
+<pre>
+ng new proyecto025 --dry-run
+</pre>
+<img src="imagentema/foto059.jpg" alt="Angular.CLI ng new --dry-run" border="0"><br>
+
+</li>
+
+
+</ul> <div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

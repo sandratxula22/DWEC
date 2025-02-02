@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Directivas de atributo - creación de directivas personalizadas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>48 - Directivas de atributo - creación de directivas personalizadas</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos dicho que una directiva de atributo cambia la apariencia o el comportamiento de un elemento HTML. Hay varias directivas que trae Angular por defecto. Ahora veremos que podemos crear nuestras propias directivas de atributo personalizadas y definir el algoritmo que se debe aplicar al elemento HTML que se le asigna.</p>
+<p>La herramienta de Angular CLI provee lo necesario para crear un esqueleto básico de una directiva de atributo. Debemos utilizar la siguiente sintaxis:</p>
+<pre>
+ng generate directive [nombre de la directiva]
+</pre>
+<p>Confeccionaremos un problema elemental para conocer los pasos en la creación, codificación y uso de una directiva de atributo personalizada.</p>
+<h3>Problema</h3>
+<p>Crear una directiva personalizada que se pueda asociar a cualquier elemento HTML y cuyo objetivo sea resaltar el texto que muestra, cambiando el color de fondo por amarillo.</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto033
+</pre>
+</li>
+
+<li><p>Procedemos a crear la directiva de atributo personalizada llamando a la misma 'resaltado':</p>
+<pre>
+ng generate directive resaltado
+</pre>
+<p>Se crean dos archivos:</p>
+<img src="imagentema/foto134.jpg" alt="creación de directiva Angular" border="0"><br>
+
+<p>Se crea propiamente el archivo que contendrá la lógica de la directiva y tiene como nombre 'resaltado.directive.ts':</p>
+<pre class="recuadro">
+import { Directive } from '@angular/core';
+
+@Directive({
+  selector: '[appResaltado]'
+})
+export class ResaltadoDirective {
+
+  constructor() { }
+
+}
+</pre>
+
+
+<p>También se crea el archivo 'resaltado.directive.spec.ts' para especificar pruebas unitarias (por el momento no hemos trabajado con este tipo de archivos, no lo modificaremos ni analizaremos):</p>
+<pre class="recuadro">
+import { ResaltadoDirective } from './resaltado.directive';
+
+describe('ResaltadoDirective', () =&gt; {
+  it('should create an instance', () =&gt; {
+    const directive = new ResaltadoDirective();
+    expect(directive).toBeTruthy();
+  });
+});
+</pre>
+</li>
+
+<li>
+<p>Procedemos a modificar el archivo 'resaltado.directive.ts' implementando la lógica de nuestra directiva:</p>
+<pre class="recuadro">
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appResaltado]'
+})
+export class ResaltadoDirective {
+
+  constructor(private elemento: ElementRef) {
+    elemento.nativeElement.style.backgroundColor = 'yellow';
+  }
+
+}
+</pre>
+<p>Se inyecta al constructor un objeto de la clase 'ElementRef':</p>
+<pre>
+  constructor(private elemento: ElementRef) {
+</pre>
+<p>Previamente debemos importar la clase 'ElementRef', que se almacena en '@angular/core':</p>
+<pre>
+import { Directive, ElementRef } from '@angular/core';
+</pre>
+<p>La lógica de nuestra directiva es muy simple, solo debe manipular el color de fondo del elemento HTML al que se le aplicó.</p>
+<p>El parámetro 'elemento' tiene la referencia al elemento HTML que se le aplicó la directiva, mediante el método 'nativeElement' podemos acceder a los atributos y métodos del DOM.</p>
+</li>
+
+<li>
+<p>Solo nos falta importar la directiva en nuestra componente para luego poder consumir la directiva de atributo en la interfaz visual de una componente. Pasemos a modificar el archivo 'app.component.ts' por:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ResaltadoDirective } from './resaltado.directive';
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ResaltadoDirective],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'proyecto033';
+}
+</pre>
+
+<p>Luego el archivo 'app.component.html' consumimos la directiva de atributo:</p>
+<pre class="recuadro">
+&lt;h3&gt;Datos generales.&lt;/h3&gt;
+&lt;p&gt;Chile es un país de América ubicado en el extremo sudoeste de América del Sur.
+  Su nombre oficial es &lt;span appResaltado&gt;República de Chile&lt;/span&gt;
+  y su &lt;span appResaltado&gt;capital es la ciudad de Santiago&lt;/span&gt;.
+  Primer país sudamericano en ingresar a la Organización para la Cooperación y el
+  Desarrollo Económicos, Chile es una de las economías de América Latina que más ha
+  crecido desde mediados de la década de 1980.&lt;/p&gt;
+&lt;p&gt;Antes del descubrimiento de América, las tierras situadas al sur del desierto de Atacama ya
+  se llamaban &lt;span appResaltado&gt;Chili&lt;/span&gt; en la tradición indígena.
+  Una vez instalados en Nueva Castilla y
+  Nueva Toledo, los conquistadores españoles siguieron llamando de esa forma a la
+  región del sur, a veces también conocida como «valle de Chile», nombre que se extendió
+  posteriormente a todo el actual país.&lt;/p&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Cuando queremos resaltar un texto, podemos utilizar el elemento 'span' y asignar la directiva 'appResaltado'.</p>
+<p>Tenemos como resultado en el navegador:</p>
+<img src="imagentema/foto135.jpg" alt="creación de directiva Angular" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto033/" target="_blank">aquí</a>.</p>
+</li>
+
+</ul>
+<h3>Acotaciones</h3>
+<ul>
+<li>
+<p>Podemos aplicar la directiva creada a cualquier otro elemento HTML:</p>
+<pre>
+&lt;h1 appResaltado&gt;Estado de resultados&lt;/h1&gt;
+&lt;p appResaltado&gt;Esto es una prueba.&lt;/p&gt;
+</pre>
+</li>
+
+<li><p>Si queremos que la directiva tenga un prefijo distinto a 'app' cuando se crea, debemos utilizar la sintaxis:</p>
+<pre>
+ng generate directive resaltado --prefix lib
+</pre>
+</li>
+
+<li><p>Si queremos que la directiva no tenga prefijo cuando se crea, debemos utilizar la sintaxis:</p>
+<pre>
+ng generate directive resaltado --prefix
+</pre>
+</li>
+
+
+</ul>
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

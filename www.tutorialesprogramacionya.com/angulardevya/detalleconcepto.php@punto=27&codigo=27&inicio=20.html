@@ -1,0 +1,816 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Comunicación entre Angular y PHP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>27 - Comunicación entre Angular y PHP</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos dicho que Angular es un framework para el desarrollo de aplicaciones web de una sola página. Una situación muy común es tener que almacenar en un servidor de internet los datos que se ingresan en la aplicación Angular.</p>
+<p>Existen muchas tecnologías para procesar los datos que envía y recibe la aplicación Angular, una de la más extendidas en el lenguaje PHP y mediante este acceder a una base de datos MySql.</p>
+<p>En este concepto dejaremos en forma muy clara todos los pasos que debemos desarrollar tanto en el cliente (aplicación angular) como en el servidor (aplicación PHP y MySql)</p>
+<h3>Problema</h3>
+<p>Confeccionar una aplicación que permita administrar una lista de artículos, cada artículo almacena el código, descripción y precio . Se debe poder agregar, borrar y modificar los datos de un artículo almacenados en una base de datos MySQL y accedida con una programa en PHP.</p>
+<ol>
+<li>
+<p>Desde la línea de comandos de Node.js procedemos a crear el proyecto022:</p>
+<pre>
+f:\angulardevya&gt; ng new proyecto022
+</pre>
+</li>
+
+<li>
+<p>Recordemos que la propuesta del framework de Angular es delegar todas las responsabilidades de acceso a datos (peticiones y envío de datos) y lógica de negocios en otras clases que colaboran con las componentes. Estas clases en Angular se las llama servicios.</p>
+<p>Crearemos el servicio 'articulos' para ello utilizamos Angular CLI:</p>
+<pre>
+f:\angulardevya\proyecto022\&gt; ng generate service articulos
+</pre>
+Con el comando anterior estamos creando la clase 'ArticulosService'</p>
+<p>El código que debemos guardar en el archivo 'articulos.service.ts' es:</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ArticulosService {
+
+  url='https://ejerciciostutorialesya.com/angular/proyecto016/'; // disponer url de su servidor que tiene las páginas PHP
+
+  constructor(private http: HttpClient) { }
+
+  recuperarTodos() {
+    return this.http.get(`${this.url}recuperartodos.php`);
+  }
+
+  alta(articulo:any) {
+    return this.http.post(`${this.url}alta.php`, JSON.stringify(articulo));    
+  }
+
+  baja(codigo:number) {
+    return this.http.get(`${this.url}baja.php?codigo=${codigo}`);
+  }
+  
+  seleccionar(codigo:number) {
+    return this.http.get(`${this.url}seleccionar.php?codigo=${codigo}`);
+  }
+
+  modificacion(articulo:any) {
+    return this.http.post(`${this.url}modificacion.php`, JSON.stringify(articulo));    
+  } 
+}
+</pre>
+
+<p>Presentaremos primero todos los archivos y luego explicaremos como se relacionan.</p>
+</li>
+
+<li>
+<p>Debemos ahora modificar el archivo 'app.config.ts' para poder utilizar la función provideHttpClient:</p>
+<pre class="recuadro">
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { withFetch } from '@angular/common/http';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(withFetch())]
+};
+</pre>
+</li>
+
+<li>
+<p>Nuestra única componente debe implementar el siguiente código en el archivo 'app.component.ts':</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ArticulosService } from './articulos.service';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  articulos:any;
+
+  art={
+    codigo:0,
+    descripcion:"",
+    precio:0
+  }
+
+  constructor(private articulosServicio: ArticulosService) {
+    this.recuperarTodos();
+  }
+
+
+  recuperarTodos() {
+    this.articulosServicio.recuperarTodos().subscribe((result:any) =&gt; this.articulos = result);
+  }
+
+  alta() {
+    this.articulosServicio.alta(this.art).subscribe((datos:any) =&gt; {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }
+
+  baja(codigo:number) {
+    this.articulosServicio.baja(codigo).subscribe((datos:any) =&gt; {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }
+
+  modificacion() {
+    this.articulosServicio.modificacion(this.art).subscribe((datos:any) =&gt; {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }
+
+  seleccionar(codigo:number) {
+    this.articulosServicio.seleccionar(codigo).subscribe((result:any) =&gt; this.art = result[0]);
+  }
+
+}
+</pre>
+</li>
+
+<li>
+<p>Y el archivo 'app.component.html' con:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;h1&gt;Administración de artículos&lt;/h1&gt;
+    &lt;table border="1"&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Codigo&lt;/td&gt;&lt;td&gt;Descripcion&lt;/td&gt;&lt;td&gt;Precio&lt;/td&gt;&lt;td&gt;Borrar&lt;/td&gt;&lt;td&gt;Seleccionar&lt;/td&gt;
+      &lt;/tr&gt;
+      @for(art of articulos;track art.codigo) {
+      &lt;tr&gt;
+        &lt;td&gt;{{art.codigo}}&lt;/td&gt;
+        &lt;td&gt;{{art.descripcion}}&lt;/td&gt;
+        &lt;td&gt;{{art.precio}}&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="baja(art.codigo)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="seleccionar(art.codigo)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    }
+    &lt;/table&gt;
+    &lt;div&gt;
+      &lt;p&gt;
+        descripcion:&lt;input type="text" [(ngModel)]="art.descripcion" /&gt;
+      &lt;/p&gt;
+      &lt;p&gt;
+        precio:&lt;input type="number" [(ngModel)]="art.precio" /&gt;
+      &lt;/p&gt;
+      &lt;p&gt;&lt;button (click)="alta()"&gt;Agregar&lt;/button&gt;
+      &lt;button (click)="modificacion()"&gt;Modificar&lt;/button&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Todos los archivos presentados son los necesarios en Angular 19, veamos ahora que tenemos en PHP y MySQL.</p>
+</li>
+
+<li>
+<p>Primero debemos crear una base de datos en MySQL llamada 'bd1' y crear la siguiente tabla:</p>
+<pre>
+CREATE TABLE articulos (
+  codigo int AUTO_INCREMENT,
+  descripcion varchar(50),
+  precio float,
+  PRIMARY KEY (codigo)
+)
+</pre>
+</li>
+
+<li>
+<p>Tenemos una serie de archivos PHP que reciben datos en formato JSON y retornan también un JSON.</p>
+<p>El archivo 'recuperartodos.php' retorna en formato JSON todos los artículos:</p>
+<pre class="recuadro">
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  require("conexion.php");
+  $con=retornarConexion();
+
+  $registros=mysqli_query($con,"select codigo, descripcion, precio from articulos");
+  $vec=[];  
+  while ($reg=mysqli_fetch_array($registros))  
+  {
+    $vec[]=$reg;
+  }
+  
+  $cad=json_encode($vec);
+  echo $cad;
+  header('Content-Type: application/json');
+?&gt;
+</pre>
+</li>
+
+<li>
+<p>El archivo 'alta.php' recibe los datos en formato JSON y los almacena en la tabla:</p>
+<pre class="recuadro">
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  $json = file_get_contents('php://input');
+ 
+  $params = json_decode($json);
+  
+  require("conexion.php");
+  $con=retornarConexion();
+  
+
+  mysqli_query($con,"insert into articulos(descripcion,precio) values
+                  ('$params-&gt;descripcion',$params-&gt;precio)");
+    
+  
+  class Result {}
+
+  $response = new Result();
+  $response-&gt;resultado = 'OK';
+  $response-&gt;mensaje = 'datos grabados';
+
+  header('Content-Type: application/json');
+  echo json_encode($response);  
+?&gt;
+</pre>
+</li>
+
+<li>
+<p>El archivo 'baja.php':</p>
+<pre class="recuadro">
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  require("conexion.php");
+  $con=retornarConexion();
+  
+  mysqli_query($con,"delete from articulos where codigo=$_GET[codigo]");
+    
+  
+  class Result {}
+
+  $response = new Result();
+  $response-&gt;resultado = 'OK';
+  $response-&gt;mensaje = 'articulo borrado';
+
+  header('Content-Type: application/json');
+  echo json_encode($response);  
+?&gt;
+</pre>
+</li>
+
+<li>
+<p>El archivo 'modificacion.php':</p>
+<pre class="recuadro">
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  $json = file_get_contents('php://input');
+ 
+  $params = json_decode($json);
+  
+  require("conexion.php");
+  $con=retornarConexion();
+  
+
+  mysqli_query($con,"update articulos set descripcion='$params-&gt;descripcion',
+                                          precio=$params-&gt;precio
+                                          where codigo=$params-&gt;codigo");
+    
+  
+  class Result {}
+
+  $response = new Result();
+  $response-&gt;resultado = 'OK';
+  $response-&gt;mensaje = 'datos modificados';
+
+  header('Content-Type: application/json');
+  echo json_encode($response);  
+?&gt;
+</pre>
+</li>
+
+<li>
+<p>El archivo 'seleccionar.php':</p>
+<pre class="recuadro">
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  require("conexion.php");
+  $con=retornarConexion();
+
+  $registros=mysqli_query($con,"select codigo, descripcion, precio from articulos where codigo=$_GET[codigo]");
+    
+  if ($reg=mysqli_fetch_array($registros))  
+  {
+    $vec[]=$reg;
+  }
+  
+  $cad=json_encode($vec);
+  echo $cad;
+  header('Content-Type: application/json');
+?&gt;
+</pre>
+</li>
+
+<li>
+<p>El archivo 'conexion.php':</p>
+<pre class="recuadro">
+&lt;?php
+function retornarConexion() {
+  $con=mysqli_connect("localhost","root","","bd1");
+  return $con;
+}
+?&gt;
+</pre>
+</li>
+
+</ol>
+
+<p>El resultado de ejecutar esta aplicación en el navegador, teniendo en funcionamiento el servidor con PHP y MySQL es:</p>
+<img src="imagentema/foto047.jpg" alt="Comunicación entre Angular y PHP" border="0"><br>
+
+<h3>Explicación</h3>
+<p>Ahora veremos como funciona esta aplicación cliente/servidor implementada con Angular en el cliente y PHP en el servidor.</p>
+<ul>
+<li><h4>Recuperación de todos los registros</h4>
+<p>Inmediatamente se inicia la aplicación Angular se crea el objeto de la clase 'AppComponent' (nuestra única componente), en esta clase debe llegar al constructor el objeto de la clase 'ArticulosService' y procedemos a llamar al método 'recuperarTodos':</p>
+<pre>
+  constructor(private articulosServicio: ArticulosService) {
+    this.recuperarTodos();
+  }
+</pre>
+<p>La clase ArticulosService está creada en el archivo 'articulos.service.ts':</p>
+<pre>
+export class ArticulosService {
+  ...  
+}
+</pre>
+<p>recuperarTodos tiene por objetivo utilizar el 'servicio' que llega al constructor para llamar al método 'recuperarTodos' del servicio propiamente dicho:</p>
+<pre>
+  recuperarTodos() {
+    this.articulosServicio.recuperarTodos().subscribe((result:any) => this.articulos = result);
+  }
+</pre>
+<p>Si vemos ahora el método 'recuperarTodos' de la clase 'ArticulosService', es el que tiene la responsabilidad de hacer una petición al servidor:</p>
+<pre>
+  recuperarTodos() {
+    return this.http.get(`${this.url}recuperartodos.php`);
+  }
+</pre>
+
+<p>El método 'recuperarTodos' de la clase 'ArticulosService' retorna un objeto de la clase 'HttpClient'.</p>
+<p>Ahora debemos entender porque podemos llamar al método 'suscribe':</p>
+<pre>
+  recuperarTodos() {
+    this.articulosServicio.recuperarTodos().subscribe((result:any) => this.articulos = result);
+  }
+</pre>
+<p>El método 'suscribe' recibe los resultados y procedemos a asignar a la propiedad 'articulos', con esto, Angular se encarga de actualizar la página con todos los artículos recuperados. El proceso de actualizar la página sucede en el archivo 'app.component.html':</p>
+<pre>
+&lt;div&gt;
+  &lt;h1&gt;Administración de artículos&lt;/h1&gt;
+    &lt;table border="1"&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Codigo&lt;/td&gt;&lt;td&gt;Descripcion&lt;/td&gt;&lt;td&gt;Precio&lt;/td&gt;&lt;td&gt;Borrar&lt;/td&gt;&lt;td&gt;Seleccionar&lt;/td&gt;
+      &lt;/tr&gt;
+      @for(art of articulos;track art.codigo) {
+      &lt;tr&gt;
+        &lt;td&gt;{{art.codigo}}&lt;/td&gt;
+        &lt;td&gt;{{art.descripcion}}&lt;/td&gt;
+        &lt;td&gt;{{art.precio}}&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="baja(art.codigo)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="seleccionar(art.codigo)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    }
+    &lt;/table&gt;
+    &lt;div&gt;
+      &lt;p&gt;
+        descripcion:&lt;input type="text" [(ngModel)]="art.descripcion" /&gt;
+      &lt;/p&gt;
+      &lt;p&gt;
+        precio:&lt;input type="number" [(ngModel)]="art.precio" /&gt;
+      &lt;/p&gt;
+      &lt;p&gt;&lt;button (click)="alta()"&gt;Agregar&lt;/button&gt;
+      &lt;button (click)="modificacion()"&gt;Modificar&lt;/button&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+<p>El flujo de la información lo podemos representar con el siguiente esquema:</p>
+<img src="imagentema/foto048.jpg" alt="Comunicación entre Angular y PHP" border="0"><br>
+</li>
+
+<li><h4>Alta</h4>
+<p>Veamos ahora los pasos cuando se agrega una fila en la tabla 'articulos'.</br>
+Todo comienza cuando el operador presiona el botón de 'Agregar':</p>
+<img src="imagentema/foto049.jpg" alt="Comunicación entre Angular y PHP" border="0"><br>
+
+<p>La etiqueta button tiene enlazado la llamada al método 'alta':</p>
+<pre>
+      &lt;p&gt;&lt;button (click)="alta()"&gt;Agregar&lt;/button&gt;
+</pre>
+<p>El método 'alta' se encuentra codificado en el archivo 'app.component.ts' dentro de la clase 'AppComponent':</p>
+<pre>
+  alta() {
+    this.articulosServicio.alta(this.art).subscribe((datos:any) => {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }</pre>
+<p>En este método procedemos a llamar al método 'alta' de la clase 'ArticulosService' y se le pasa como parámetro la propiedad 'art' que almacena la descripción y precio del artículo que el operador acaba de ingresar por teclado.</p>
+<p>El método 'alta' de la clase 'ArticulosService' hace la llamada al servidor mediante el objeto 'http' de la clase 'HttpClient'. Se utiliza el método 'post' ya que se enviarán datos al servidor:</p>
+<pre>
+ alta(articulo:any) {
+    return this.http.post(`${this.url}alta.php`, JSON.stringify(articulo));    
+ }
+</pre>
+<p>Ahora se ejecuta el programa PHP definido en el archivo 'alta.php' donde procedemos a efectuar el insert en la tabla de MySQL:</p>
+<pre>
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  $json = file_get_contents('php://input');
+ 
+  $params = json_decode($json);
+  
+  require("conexion.php");
+  $con=retornarConexion();
+  
+
+  mysqli_query($con,"insert into articulos(descripcion,precio) values
+                  ('$params-&gt;descripcion',$params-&gt;precio)");
+    
+  
+  class Result {}
+
+  $response = new Result();
+  $response-&gt;resultado = 'OK';
+  $response-&gt;mensaje = 'datos grabados';
+
+  header('Content-Type: application/json');
+  echo json_encode($response);  
+?&gt;
+</pre>
+<p>También dentro del programa PHP procedemos a retornar en formato JSON que la operación se efectuó en forma correcta.</p>
+<p>En el método 'alta' de la clase 'AppComponent' que ya vimos, recibe los datos de la respuesta JSon, mostrando un mensaje si la carga se efectuó correctamente:</p>
+<pre>
+  alta() {
+    this.articulosServicio.alta(this.art).subscribe((datos:any) => {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }
+</pre>
+<p>También llamamos al método 'recuperarTodos' con el objetivo que se actualice la pantalla con los datos actuales de la tabla 'articulos'.</p>
+<p>El flujo de la información para efectuar el 'alta' de un articulo en la base de datos es::</p>
+<img src="imagentema/foto050.jpg" alt="Comunicación entre Angular y PHP" border="0"><br>
+<p>La actualización de la página HTML la logramos llamando al método 'recuperarTodos'.</p>
+</li>
+
+<li><h4>Baja</h4>
+<p>El borrado de un artículo se efectúa cuando el operador presiona el botón con la etiqueta 'Borra?':</p>
+<pre>
+        &lt;td&gt;&lt;button (click)="baja(art.codigo)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+</pre>
+<p>Se llama al método 'baja' de la clase 'AppComponent' y se le pasa como parámetro el código de artículo a borrar.</p>
+<p>El método baja:</p>
+<pre>
+  baja(codigo:number) {
+    this.articulosServicio.baja(codigo).subscribe((datos:any) => {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }
+</pre>
+<p>Llmamos al método 'baja' de la clase 'ArticulosService' y le pasamos como parámetro el código de artículo que queremos borrar.</p>
+<p>El método 'baja' de la clase 'ArticulosService' procede a llamar al archivo baja.php y le pasa como parámetro el código de artículo que se debe borrar:</p>
+<pre>
+  baja(codigo:number) {
+    return this.http.get(`${this.url}baja.php?codigo=${codigo}`);
+  }
+</pre>
+<p>Ahora en el servidor se ejecuta la aplicación PHP baja.php:</p>
+<pre>
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  require("conexion.php");
+  $con=retornarConexion();
+  
+  mysqli_query($con,"delete from articulos where codigo=$_GET[codigo]");
+    
+  
+  class Result {}
+
+  $response = new Result();
+  $response-&gt;resultado = 'OK';
+  $response-&gt;mensaje = 'articulo borrado';
+
+  header('Content-Type: application/json');
+  echo json_encode($response);  
+?&gt;
+</pre>
+
+<p>Luego en el método 'baja' de la clase 'AppComponent' podemos mostrar un mensaje si la baja se ejecutó con éxito:</p>
+<pre>
+  baja(codigo:number) {
+    this.articulosServicio.baja(codigo).subscribe((datos:any) => {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });
+  }</pre>
+<p>Como podemos ver para actualizar la pantalla procedemos a llamar al método 'recuperarTodos'.</p>
+</li>
+
+
+<li><h4>Consulta</h4>
+<p>La consulta o selección se dispara cuando el operador presiona el botón que tiene la etiqueta 'Seleccionar' y tiene por objetivo mostrar en los dos controles 'text' la descripción y precio del artículo:</p>
+<pre>
+        &lt;td&gt;&lt;button (click)="seleccionar(art.codigo)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;        
+</pre>
+<p>Al presionar el botón se llama el método 'seleccionar' de la clase 'AppComponent':</p>
+<pre>
+  seleccionar(codigo:number) {
+    this.articulosServicio.seleccionar(codigo).subscribe((result:any) => this.art = result[0]);
+  }
+</pre>
+<p>Ahora llamamos al método 'seleccionar' de la clase 'ArticulosService':</p>
+<pre>
+  seleccionar(codigo:number) {
+    return this.http.get(`${this.url}seleccionar.php?codigo=${codigo}`);
+  }
+</pre>
+<p>Recuperamos del servidor llamando a la página 'seleccionar.php' los datos del artículo cuyo código pasamos como parámetro :</p>
+<pre>
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  require("conexion.php");
+  $con=retornarConexion();
+
+  $registros=mysqli_query($con,"select codigo, descripcion, precio from articulos where codigo=$_GET[codigo]");
+    
+  if ($reg=mysqli_fetch_array($registros))  
+  {
+    $vec[]=$reg;
+  }
+  
+  $cad=json_encode($vec);
+  echo $cad;
+  header('Content-Type: application/json');
+?&gt;
+</pre>
+
+<p>La ejecución del programa en PHP procede a recuperar la fila de la tabla que coincide con el código enviado y lo retorna con formato JSON.</p>
+<p>En el método 'seleccionar' de la clase AppComponent al ejecutarse el método subscribe almacena en la propiedad 'art' el resultado devuelto por el servidor (con esta asignación se actualizan los dos controles 'input' del HTML):</p>
+<pre>
+  seleccionar(codigo:number) {
+    this.articulosServicio.seleccionar(codigo).subscribe((result:any) => this.art = result[0]);
+  }</pre>
+</li>
+
+<li><h4>Modificación</h4>
+<p>El último algoritmo que implementa nuestra aplicación es la modificación de la descripción y precio de un artículo que seleccionemos primeramente.</p>
+<p>Cuando presionamos el botón que tiene la etiqueta 'Modificar' se ejecuta el método 'modificación':</p>
+<pre>
+      &lt;button (click)="modificacion()"&gt;Modificar&lt;/button&gt;&lt;/p&gt;
+</pre>
+<p>El método 'modificación' se implementa en la clase 'AppComponent':</p>
+<pre>
+  modificacion() {
+    this.articulosServicio.modificacion(this.art).subscribe((datos:any) => {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });    
+  }
+</pre>
+<p>Lo primero que hacemos en este método es llamar al método 'modificación' de la clase 'ArticulosService' y pasar como dato todos los datos del artículo seleccionado y las posibles modificaciones efectuadas.</p>
+<p>El método 'modificacion' de la clase 'ArticulosService':</p>
+<pre>
+  modificacion(articulo:any) {
+    return this.http.post(`${this.url}modificacion.php`, JSON.stringify(articulo));    
+  }
+</pre>
+<p>Accede al servidor pidiendo el archivo 'modificacion.php' y pasando todos los datos del artículo mediante un 'post'.</p>
+<p>El archivo 'modificacion.php' procede a cambiar la descripción y precio del artículo:</p>
+<pre>
+&lt;?php 
+  header('Access-Control-Allow-Origin: *'); 
+  header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+  
+  $json = file_get_contents('php://input');
+ 
+  $params = json_decode($json);
+  
+  require("conexion.php");
+  $con=retornarConexion();
+  
+
+  mysqli_query($con,"update articulos set descripcion='$params-&gt;descripcion',
+                                          precio=$params-&gt;precio
+                                          where codigo=$params-&gt;codigo");
+    
+  
+  class Result {}
+
+  $response = new Result();
+  $response-&gt;resultado = 'OK';
+  $response-&gt;mensaje = 'datos modificados';
+
+  header('Content-Type: application/json');
+  echo json_encode($response);  
+?&gt;
+</pre>
+
+<p>En la clase 'AppComponent' podemos comprobar si el resultado fue 'OK' y actualizar nuevamente la página:</p>
+<pre>
+  modificacion() {
+    this.articulosServicio.modificacion(this.art).subscribe((datos:any) => {
+      if (datos['resultado']=='OK') {
+        alert(datos['mensaje']);
+        this.recuperarTodos();
+      }
+    });    
+  }
+</pre>
+</ul>
+
+<p>Hemos explicado con este problema todos los pasos esenciales para implementar una aplicación en Angular que se comunica con un servidor web con PHP y acceder a una base de datos MySQL.</p>
+<p>Puede probar funcionando esta aplicación de Angular desde <a href="https://ejerciciostutorialesya.com/angulardev/proyecto022/" target="_blank">aquí</a></p>
+
+
+<div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

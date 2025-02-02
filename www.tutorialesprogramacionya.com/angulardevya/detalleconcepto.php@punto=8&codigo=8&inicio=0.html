@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Componentes: creación</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>8 - Componentes: creación</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hasta ahora hemos desarrollado toda la lógica en la componente que se crea por defecto al crear un proyecto con Angular CLI.</p>
+<p>La realidad es que en proyectos de mediano y gran tamaño no podemos disponer toda la lógica en una única componente.</p>
+<p>Las componentes son una de las características fundamentales de Angular. Ayudan a extender las características básicas de las etiquetas HTML y encapsular código.</p>
+<p>Para crear otras componentes la herramienta Angular CLI nos provee la posibilidad de crearlas desde la línea de comandos de Node.js</p>
+<h3>Problema</h3>
+<p>Implementar una aplicación que muestre tres dados. Crear una componente 'dado' además de la componente que crea por defecto Angular CLI</p>
+<p>Seguir los siguientes pasos para implementar el proyecto002:</p>
+
+<ol>
+<li>
+<p>Desde la línea de comandos de Node.js o terminal de VS Code procedemos a crear el segundo proyecto (cuidado de crearlo desde la carpeta c:\angujardevya\):</p>
+<img src="imagentema/foto023x1.jpg" border="0" alt="creación de un proyecto Angular"><br>
+<pre>
+c:\angujardevya&gt;ng new proyecto002
+</pre>
+</li>
+
+<li>
+<p>Primero descendemos a la carpeta proyecto002 y nuevamente desde la línea de comandos procedemos a crear la componente 'dado' escribiendo:</p>
+<pre>
+c:\angularya&gt; cd proyecto002
+c:\angularya\proyecto002&gt; ng generate component dado
+</pre>
+<p>Al ejecutar este comando se crean 4 archivos:</p>
+<img src="imagentema/foto023.jpg" border="0" alt="creación de una componente en Angular"><br>
+
+<p>Ahora desde el VSCode ya podemos activar la carpeta donde se encuentra creado el segundo proyecto:</p>
+<img src="imagentema/foto023x2.jpg" border="0" alt="Seleccionar carpeta VSCode"><br>
+
+<p>Ahora podemos comprobar que dentro de la carpeta 'app' se crea una carpeta llamada 'dado' y dentro de ella se localizan los cuatro archivos creados:</p>
+<img src="imagentema/foto024.jpg" border="0" alt="creación de una componente en Angular"><br>
+</li>
+
+<li>
+<p>En nuestro tercer paso vamos a implementar la vista de la componente 'dado' y su modelo. Abrimos el archivo 'dado.component.ts' y codificamos:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dado',
+  imports: [],
+  templateUrl: './dado.component.html',
+  styleUrl: './dado.component.css'
+})
+export class DadoComponent {
+  valor: number = Math.floor(Math.random() * 6) + 1;
+}
+</pre>
+<p>La propiedad valor se inicializa con un valor aleatorio comprendido entre 1 y 6.</p>
+</li>
+
+<li>
+<p>Codificamos ahora el archivo 'dado.component.html':</p>
+<pre class="recuadro">
+&lt;div class="forma"&gt;
+  {{valor}}
+&lt;/div&gt;
+</pre>
+<p>Como podemos ver solo mostramos el valor almacenado en la propiedad 'valor' definido en el modelo.</p>
+</li>
+
+<li>
+<p>Para definir la hoja de estilo del 'dado' abrimos el archivo 'dado.component.css' y codificamos:</p>
+<pre class="recuadro">
+.forma {
+  width: 5rem;  
+  height: 5rem;
+  font-size: 3rem;
+  color:white;
+  background-color: black;
+  border-radius: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin:10px;
+}
+</pre>
+</li>
+
+<li>
+<p>Finamente nos falta definir tres objetos de nuestra clase 'DadoComponent', si volvemos a ver el archivo 'dado.component.ts' podemos identificar en la llamada a @Component que tiene una propiedad llamada 'selector' con el valor 'app-dado':</p>
+
+<pre>
+@Component({
+  selector: 'app-dado',
+  imports: [],
+  templateUrl: './dado.component.html',
+  styleUrl: './dado.component.css'
+})
+</pre>
+<p>Este es el selector que debemos utilizar para definir objetos de la clase DadoComponent en las vistas.</p>
+<p>Abrimos ahora el archivo 'app.component.html' y remplazamos su contenido con la definición de tres dados:</p>
+<pre class="recuadro">
+&lt;div style="text-align:center"&gt;
+  &lt;app-dado&gt;&lt;/app-dado&gt;
+  &lt;app-dado&gt;&lt;/app-dado&gt;
+  &lt;app-dado&gt;&lt;/app-dado&gt;  
+&lt;/div&gt;
+
+&lt;router-outlet /&gt;
+</pre>
+
+
+<p>Todavía podemos ver que nos muestra un error como que no existe la etiqueta 'app-dado', esto debido que la debemos importar a la clase en el archivo 'app.component.ts'.</p>
+Debemos importar la clase e indicar que la utilizaremos:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+<strong>import { DadoComponent } from './dado/dado.component';</strong>
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, <strong>DadoComponent</strong>],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'proyecto002';
+}
+</pre>
+<p>Es decir que importamos la componente del dado:</p>
+<pre>
+import { DadoComponent } from './dado/dado.component';
+</strong>
+</pre>
+<p>Y también indicamos el nombre de la clase en la propiedad 'imports':</p>
+<pre>
+imports: [RouterOutlet, DadoComponent]
+</pre>
+
+
+<p>Si ejecutamos ahora el proyecto:</p>
+<pre>
+ng serve -o
+</pre>
+<p>Podemos ver que tenemos los tres dados en pantalla:</p>
+<img src="imagentema/foto025.jpg" border="0" alt="aplicación con componentes en Angular"><br>
+</li>
+</ol>
+<p>Es importante notar la relación de colaboración entre la clase 'DadoComponent' y la clase 'AppComponent':</p>
+<img src="imagentema/foto025b.jpg" border="0" alt="aplicación con componentes en Angular"><br>
+<p>La clase AppComponent se crea en forma automática cuando creamos un proyecto en Angular utilizando la herramienta 'Angular CLI'.</p>
+
+
+
+<h3>Acotaciones</h3>
+<p>La división de un proyecto en componentes en Angular nos permite crear piezas independientes y reutilizables.</p>
+<p>Siempre debe haber una primer componente donde arranca la aplicación, si utilizamos la herramienta Angular CLI se llama 'AppComponent'. Luego podemos crear otras componentes como en nuestro caso de 'DadoComponent'.</p>
+<p>Tenemos que toda componente tiene un nombre de clase, por ejemplo 'DadoComponent' y luego un nombre de selector definida para dicha componente 'app-dado'. En las vistas para definir objetos de una determinada componente debemos hacer referencia al nombre del selector:</p>
+<pre>
+  &lt;app-dado&gt;&lt;/app-dado&gt;
+</pre>
+<p>La componente 'AppComponent' si vemos su nombre de selector es 'app-root', luego si queremos ver donde se crea un objeto de este tipo de selector debemos abrir el archivo 'index.html' que lo generó automáticamente Angular CLI:</p>
+<pre class="recuadro">
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Proyecto002&lt;/title&gt;
+  &lt;base href="/"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Como podemos ver en el 'body' se define una etiqueta de tipo 'app-root':</p>
+<pre>
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;/body&gt;
+</pre>
+<p>Gracias a esto siempre se crea un objeto de la clase AppComponent. Si borramos ésta etiqueta y corremos la aplicación luego tendremos una página web vacía.</p>
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

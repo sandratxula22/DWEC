@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: clases</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>53 - TypeScript: clases</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>TypeScript incorpora muchas características de la programación orientada a objetos disponibles en lenguajes como Java y C#.</p>
+<p>La sintaxis básica de una clase puede ser:</p>
+<pre>
+class Persona {
+  nombre: string;
+  edad: number;
+
+  constructor(nombre:string, edad:number) {
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+
+  imprimir() {
+    console.log(`Nombre: ${this.nombre} y edad:${this.edad}`);
+  }
+}
+
+let persona1: Persona;
+persona1 = new Persona('Juan', 45);
+persona1.imprimir();
+</pre>
+<p>Los atributos se definen fuera de los métodos. Para acceder a los mismos dentro de los métodos debemos anteceder la palabra clave 'this':</p>
+<pre>
+  imprimir() {
+    console.log(`Nombre: ${this.nombre} y edad:${this.edad}`);
+  }
+</pre>
+<p>El constructor es el primer método que se ejecuta en forma automática al crear un objeto de la clase 'Persona':</p>
+<pre>
+  constructor(nombre:string, edad:number) {
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+</pre>
+
+<p>Podemos probar este código agregándolo previo a la componente y luego ver la consola del navegador:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+class Persona {
+  nombre: string;
+  edad: number;
+
+  constructor(nombre: string, edad: number) {
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+
+  imprimir() {
+    console.log(`Nombre: ${this.nombre} y edad:${this.edad}`);
+  }
+}
+
+let persona1: Persona;
+persona1 = new Persona('Juan', 45);
+persona1.imprimir();
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = "Prueba TypeScript";
+}
+</pre>
+<p>En la consola comprobamos los valores:</p>
+<img src="imagentema/foto044x.jpg" alt="typescript class" border="0"><br>
+
+<h3>Modificadores de acceso a propiedades y métodos.</h3>
+<p>Podemos definir propiedades y métodos privados y públicos antecediendo las palabras claves 'private' y 'public'.</p>
+<p>Veamos un ejemplo:</p>
+<pre>
+class Dado {
+  private valor: number = 1;
+
+  public tirar() {
+    this.generar();
+  }
+
+  private generar() {
+    this.valor = Math.floor(Math.random() * 6) + 1;
+  }
+
+  public imprimir() {
+    console.log(`Salió el valor ${this.valor}`);
+  }
+}
+
+let dado1 = new Dado();
+dado1.tirar();
+dado1.imprimir();
+</pre>
+<p>El objeto 'dado1' tiene acceso a todos los atributos y métodos que tienen el modificador 'public' por eso podemos llamar a los métodos 'tirar' e 'imprimir':</p>
+<pre>
+dado1.tirar();
+dado1.imprimir();
+</pre>
+<p>Se generará un error si queremos acceder al atributo 'valor' o al método 'generar':</p>
+
+<img src="imagentema/foto045.jpg" alt="modificadores private y public en TypeScript" border="0"><br>
+
+<p>Si no agregamos modificador de acceso por defecto es 'public', luego tendremos el mismo resultado si utilizamos la siguiente sintaxis para declarar la clase:</p>
+<pre>
+class Dado {
+  private valor: number = 1;
+
+  tirar() {
+    this.generar();
+  }
+
+  private generar() {
+    this.valor = Math.floor(Math.random() * 6) + 1;
+  }
+
+  imprimir() {
+    console.log(`Salió el valor ${this.valor}`);
+  }
+}
+
+let dado1=new Dado();
+dado1.tirar();
+dado1.imprimir();
+</pre>
+<p>Es decir nos ahorramos de escribir 'public' antes de las propiedades y métodos que queremos definir con esta característica.</p>
+
+<p>Todo atributo de una clase debe inicializarse cuando se lo define o en el constructor, sino se genera un error.</p>
+<p>Si por algún motivo no queremos inicializar el atributo, debemos utilizar el modificador "!" (Non-null assertion operator)</p>
+<p>Podemos indicar a TypeScript que confíe en que la propiedad no será nula utilizando el operador de afirmación de no nulo (!). Sin embargo, debes estar seguro de que nunca intentarás acceder a la propiedad antes de que se le haya asignado un valor:</p>
+<pre>
+class Dado {
+  private valor!: number;
+
+  public tirar() {
+    this.generar();
+  }
+
+  private generar() {
+    this.valor = Math.floor(Math.random() * 6) + 1;
+  }
+
+  public imprimir() {
+    console.log(`Salió el valor ${this.valor}`);
+  }
+}
+
+let dado1 = new Dado();
+dado1.tirar()
+dado1.imprimir()
+</pre>
+<p>Luego si nos olvidamos de llamar al método 'tirar' y llamamos al método imprimir, se mostrará el valor 'undefined' que es el contenido en el atributo 'valor'.</p>
+
+<h3>Definición e inicialización de propiedades en los parámetros del constructor.</h3>
+<p>Esta característica no es común en otros lenguajes orientados a objetos y tiene por objetivo crear clases más breves.</p>
+<p>En TypeScript podemos definir algunas propiedades de la clase en la zona de parámetros del constructor, con esto nos evitamos de su declaración fuera de los métodos.</p>
+<p>Por ejemplo la clase Persona la podemos codificar con ésta otra sintaxis:</p>
+<pre>
+class Persona {
+
+  constructor(public nombre:string, public edad:number) { }
+
+  imprimir() {
+    console.log(`Nombre: ${this.nombre} y edad:${this.edad}`);
+  }
+}
+
+let persona1: Persona;
+persona1 = new Persona('Juan', 45);
+persona1.imprimir();
+</pre>
+
+<p>Como vemos el constructor tiene un bloque de llaves vacías ya que no tenemos que implementar ningún código en su interior, pero al anteceder el modificador de acceso en la zona de parámetros los mismos pasan a ser propiedades de la clase y no parámetros:</p>
+<pre>
+  constructor(public nombre:string, public edad:number) { }
+</pre>
+<p>Podemos sin problemas definir propiedades tanto 'public' como 'private'.</p>
+<p>La definición de propiedades en la zona de parámetros solo se puede hacer en el constructor de la clase y no está permitido en cualquier otro método.</p>
+
+<h3>Modificador readonly</h3>
+<p>Disponemos además de los modificadores 'private' y 'public' uno llamado 'readonly'. Mediante este modificador el valor de la propiedad solo puede ser cargado en el constructor o al momento de definirlo y luego no puede ser modificado ni desde un método de la clase  o fuera de la clase.</p>
+<p>Veamos un ejemplo con una propiedad 'readonly':</p>
+<pre>
+class Articulo {
+  readonly codigo: number;
+  descripcion: string;
+  precio: number;
+
+  constructor(codigo:number, descripcion:string, precio:number) {
+    this.codigo=codigo;
+    this.descripcion=descripcion;
+    this.precio=precio;
+  }
+
+  imprimir() {
+    console.log(`Código:${this.codigo} Descripción:${this.descripcion} Precio:${this.precio}`);
+  }
+}
+
+let articulo1: Articulo;
+articulo1 = new Articulo(1,'papas',12.5);
+articulo1.imprimir();
+</pre>
+
+<p>Una vez que se inicia la propiedad 'codigo' en el constructor su valor no puede cambiar:</p>
+<pre>
+  imprimir() {
+    this.codigo=7; //Error
+    console.log(`Código:${this.codigo} Descripción:${this.descripcion} Precio:${this.precio}`);
+  }
+</pre>
+<p>El mismo error se produce si tratamos de cambiar su valor desde fuera de la clase:</p>
+<pre>
+let articulo1: Articulo;
+articulo1 = new Articulo(1,'papas',12.5);
+articulo1.codigo=7; //Error
+articulo1.imprimir();
+</pre>
+
+<p>Podemos utilizar también la sintaxis abreviada de propiedades:</p>
+<pre>
+class Articulo {
+
+  constructor(readonly codigo:number, public descripcion:string, public precio:number) { }
+
+  imprimir() {
+    console.log(`Código:${this.codigo} Descripción:${this.descripcion} Precio:${this.precio}`);
+  }
+}
+</pre>
+
+
+<h3>Propiedades estáticas</h3>
+<p>Las propiedades estáticas pertenecen a la clase y no a las instancias de la clase. Se las define antecediendo el modificador 'static'.</p>
+<p>Con un ejemplo quedará claro este tipo de propiedades:</p>
+<pre>
+class Dado {
+  private valor: number = 1;
+  static tiradas:number=0;
+  tirar() {
+    this.generar();
+  }
+
+  private generar() {
+    this.valor = Math.floor(Math.random() * 6) + 1 ;
+    Dado.tiradas++;
+  }
+
+  imprimir() {
+    console.log(`Salió el valor ${this.valor}`);
+  }
+}
+
+let dado1=new Dado();
+dado1.tirar();
+dado1.imprimir();
+let dado2=new Dado();
+dado2.tirar();
+dado2.imprimir();
+console.log(`Cantidad de tiradas de dados:${Dado.tiradas}`); // 2
+</pre>
+<p>Una propiedad estática requiere el modificador 'static' previo a su nombre:</p>
+<pre>
+  static tiradas:number=0;
+</pre>
+<p>Para acceder a dichas propiedades debemos anteceder el nombre de la clase y no la palabra clave 'this':</p>
+<pre>
+    Dado.tiradas++;
+</pre>
+<p>No importan cuantos objetos de la clase se definan luego todos esos objetos comparten la misma variable estática:</p>
+<pre>
+let dado1=new Dado();
+dado1.tirar();
+dado1.imprimir();
+let dado2=new Dado();
+dado2.tirar();
+dado2.imprimir();
+console.log(`Cantidad de tiradas de dados:${Dado.tiradas}`); // 2
+</pre>
+<p>Es por eso que la propiedad 'tiradas' almacena un 2 luego de tirar el primer y segundo dado.</p>
+<p>La propiedad 'valor' es independiente en cada dado pero la propiedad 'tiradas' es compartida por los dos objetos.</p>
+
+
+<h3>Métodos estáticas</h3>
+<p>Igual que las propiedades estáticas los métodos estáticos se los accede por el nombre de la clase. Este tipo de métodos solo pueden acceder a propiedades estáticas.</p>
+<pre>
+class Matematica {
+  static mayor(v1:number, v2: number): number {
+    if (v1&gt;v2)
+      return v1;
+    else
+      return v2;
+  }
+
+  static menor(v1:number, v2: number): number {
+    if (v1&lt;v2)
+      return v1;
+    else
+      return v2;
+  }
+
+  static aleatorio(inicio: number, fin: number): number {
+    return Math.floor((Math.random()*(fin+1-inicio))+inicio);
+  }
+}
+
+let x1=Matematica.aleatorio(1,10);
+let x2=Matematica.aleatorio(1,10);
+console.log(`El mayor entre ${x1} y ${x2} es ${Matematica.mayor(x1,x2)} <br>`);
+console.log(`El menor entre ${x1} y ${x2} es ${Matematica.menor(x1,x2)}`);
+</pre>
+<p>Debemos anteceder la palabra clave static al nombre del método.</p>
+<p>Cuando llamamos a un método debemos anteceder también el nombre de la clase, no hace falta definir una instancia u objeto de la clase:</p>
+<pre>
+let x1=Matematica.aleatorio(1,10);
+</pre><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: funciones y métodos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>54 - TypeScript: funciones y métodos</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>TypeScript aporta varias características que JavaScript no dispone hasta el momento cuando tenemos que plantear funciones y métodos.</p>
+<h3>Parámetros tipados y funciones que retornan un valor.</h3>
+<p>Podemos indicar a cada parámetro el tipo de dato que puede recibir y también el tipo de dato que retorna la función o método en caso que estemos en una clase:</p>
+<pre>
+function sumar(valor1:number, valor2:number): number {
+  return valor1+valor2;
+}
+
+console.log(sumar(10, 5));
+</pre>
+<p>La función sumar recibe dos parámetros de tipo number y retorna un valor de tipo number. Luego si llamamos a esta función enviando un valor distinto a number el compilador nos avisará del error:</p>
+<pre>
+console.log(sumar('juan', 'carlos'));
+</pre>
+<p>Se genera un error: Argument of type 'string' is not assignable to parameter of type 'number'.</p>
+<p>Inclusive editores de texto moderno como Visual Studio Code pueden antes de compilarse avisar del error.</p>
+<p>El tipado estático favorece a identificar este tipo de errores antes de ejecutar la aplicación. Lo mismo cuando una función retorna un dato debemos indicar al final de la misma dicho tipo:</p>
+<pre>
+function sumar(valor1:number, valor2:number): <strong>number</strong> {
+</pre>
+<p>La función sumar retorna un valor de tipo number.</p>
+<p>Luego si la función retorna un tipo distinto a number se genera un error:</p>
+<pre>
+function sumar(valor1:number, valor2:number): number {
+  return 'Hola mundo';
+}
+</pre>
+<p>Como estamos retornando un string se genera el error:  Type 'string' is not assignable to type 'number'</p>
+
+<h3>Funciones anónimas.</h3>
+<p>Una función anónima no especifica un nombre. Son semejantes a JavaScript con la salvedad de la definición de tipos para los parámetros:</p>
+<pre>
+const funcSumar = function (valor1:number, valor2:number): number {
+  return valor1 + valor2;
+}
+
+console.log(funcSumar(4, 9));
+</pre>
+
+<h3>Parámetros opcionales.</h3>
+<p>En TypeScript debemos agregar el caracter '?' al nombre del parámetro para indicar que el mismo puede o no llegar un dato:</p>
+<pre>
+function sumar(valor1: number, valor2: number, valor3?: number): number {
+  if (valor3)
+    return valor1 + valor2 + valor3;
+  else
+    return valor1 + valor2;
+}
+
+console.log(sumar(5, 4));
+console.log(sumar(5, 4, 3));
+</pre>
+<p>El tercer parámetro es opcional:</p>
+<pre>
+function sumar(valor1: number, valor2: number, <strong>valor3?: number</strong>): number {
+</pre>
+<p>Luego a la función 'sumar' la podemos llamar pasando 2 o 3 valores numéricos:</p>
+<pre>
+console.log(sumar(5,4));
+console.log(sumar(5,4,3));
+</pre>
+<p>Si pasamos una cantidad de parámetros distinta a 2 o 3 se genera un error en tiempo de compilación: ' error TS2554: Expected 2-3 arguments, but got 4.'</p>
+
+<p>Los parámetros opcionales deben ser los últimos parámetros definidos en la función. Puede tener tantos parámetros opcionales como se necesiten.</p>
+
+
+<h3>Parámetros por defecto.</h3>
+<p>Esta característica de TypeScript nos permite asignar un valor por defecto a un parámetro para los casos en que la llamada a la misma no se le envíe.</p>
+<pre>
+function sumar(valor1: number, valor2: number, valor3: number = 0): number {
+  return valor1 + valor2 + valor3;
+}
+
+console.log(sumar(5, 4));
+console.log(sumar(5, 4, 3));
+</pre>
+<p>El tercer parámetro almacena un cero si no se lo pasamos en la llamada:</p>
+<pre>
+console.log(sumar(5, 4));
+</pre>
+<p>Puede haber varios valores por defecto, pero deben ser los últimos. Es decir primero indicamos los parámetros que reciben datos en forma obligatoria cuando los llamamos y finalmente indicamos aquellos que tienen valores por defecto.</p>
+
+<h3>parámetros Rest.</h3>
+<p>Otra característica de TypeScript es la posibilidad de pasar una lista indefinida de valores y que los reciba un vector.</p>
+<p>El concepto de parámetro Rest se logra antecediendo tres puntos al nombre del parámetro:</p>
+<pre>
+function sumar(...valores: number[]) {
+  let suma = 0;
+  for (let x = 0; x &lt; valores.length; x++)
+    suma += valores[x];
+  return suma;
+}
+
+console.log(sumar(10, 2, 44, 3));
+console.log(sumar(1, 2));
+console.log(sumar());
+</pre>
+<p>El parámetro 'valores' se le anteceden los tres puntos seguidos e indicamos que se trata de un vector de tipo 'number'. Cuando llamamos a la función le pasamos una lista de valores enteros que luego la función los empaqueta en el vector:</p>
+<pre>
+console.log(sumar(10, 2, 44, 3));
+console.log(sumar(1, 2));
+console.log(sumar());
+</pre>
+<p>La función con un parámetro Rest puede tener otros parámetros pero se deben declarar antes.</p>
+<p>Los parámetros Rest no pueden tener valores por defecto.</p>
+
+<h3>operador Spread.</h3>
+<p>El operador Spread permite descomponer una estructura de datos en elementos individuales. Es la operación inversa de los parámetros Rest.
+La sintaxis se aplica anteponiendo al nombre de la variable tres puntos:</p>
+<pre>
+function sumar(valor1: number, valor2: number, valor3: number): number {
+  return valor1 + valor2 + valor3;
+}
+
+const vec: [number, number, number] = [10, 20, 30];
+const s = sumar(...vec);
+console.log(s);
+</pre>
+<p>Otra cosa importante es hacer notar  que el arreglo indicamos el tipo para cada elemento.</p>
+
+<h3>Funciones callbacks</h3>
+<p>Una función callback es una función que se pasa a otra función como parámetro y dentro de la misma es llamada.</p>
+<pre>
+function operar(valor1: number, valor2: number, func: (x: number, y:number)=&gt;number): number {
+  return func(valor1, valor2);
+}
+
+console.log(operar(3, 7, (x: number,y: number): number =&gt; {
+  return x+y;
+}))
+
+console.log(operar(3, 7, (x: number,y: number): number =&gt; {
+  return x-y;
+}))
+
+console.log(operar(3, 7, (x: number,y: number): number =&gt; {
+  return x*y;
+}))
+</pre>
+<p>La función operar recibe tres parámetros, los dos primeros son de tipo 'number' y el tercero es de tipo función:</p>
+<pre>
+function operar(valor1: number, valor2: number, func: (x: number, y:number)=>number): number {
+</pre>
+<p>La función que debe recibir debe tener como parámetros dos 'number' y retornar un 'number'.</p>
+<p>Cuando llamamos a la función además de los dos enteros le debemos pasar una función que reciba dos 'number' y retorne un 'number':</p>
+<pre>
+console.log(operar(3, 7, (x: number,y: number): number =&gt; {
+  return x+y;
+}))
+</pre>
+<p>Como podemos observar llamamos a la función 'operar' tres veces y le pasamos funciones que procesan los dos enteros para obtener su suma, resta y multiplicación.</p>
+<p>Podemos llamar a la función 'operar' con una sintaxis más concisa como en JavaScript:</p>
+<pre>
+console.log(operar(3, 7, (x: number,y: number): number =&gt; x+y))
+console.log(operar(3, 7, (x: number,y: number): number =&gt; x-y))
+console.log(operar(3, 7, (x: number,y: number): number =&gt; x*y))
+</pre>
+
+<p>Para hacer más claro nuestro código TypeScript mediante la palabra clave type permite crear nuevos tipos y luego reutilizarlos:</p>
+<pre>
+type Operacion = (x: number, y: number) =&gt; number;
+
+function operar(valor1: number, valor2: number, func: Operacion): number {
+  return func(valor1, valor2);
+}
+
+console.log(operar(3, 7, (x: number, y: number): number =&gt; x + y))
+console.log(operar(3, 7, (x: number, y: number): number =&gt; x - y))
+console.log(operar(3, 7, (x: number, y: number): number =&gt; x * y))
+</pre>
+<p>El tipo Operacion tiene la firma de una función con dos parámetros de tipo 'number' y el retorno de un 'number'. Luego cuando declaramos la función operar definimos el tercer parámetro llamado 'func' de tipo 'Operacion':</p>
+<pre>
+function operar(valor1: number, valor2: number, func: Operacion): number {
+</pre>
+
+
+
+<h3>Parámetros de tipo unión.</h3>
+<p>Vimos en otro concepto que podemos definir variables que pueden almacenar más de un tipo de dato indicando los mismos el operador '|':</p>
+<pre>
+let edad: number | string;
+edad=34;
+console.log(edad);
+edad='20 años';
+console.log(edad);
+</pre>
+<p>Con parámetros podemos utilizar la misma sintaxis:</p>
+<pre>
+function sumar(valor1: number | string, valor2: number | string ): number | string  {
+  if (typeof valor1 ==='number' && typeof valor2 ==='number')
+    return valor1+valor2;
+  else 
+    return valor1.toString() + valor2.toString();
+}
+
+console.log(sumar(4, 5));
+console.log(sumar('Hola ', 2));
+console.log(sumar('Hola ', 'Mundo'));
+</pre>
+<p>En este tipo de caso deberemos identificar que operación realizar según los tipos de datos de los parámetros. En el ejemplo si los dos parámetros se reciben tipos de datos 'number' procedemos a sumarlos como enteros:</p>
+<pre>
+  if (typeof valor1 ==='number' && typeof valor2 ==='number')
+    return valor1+valor2;
+</pre>
+<p>En el caso contrario con que uno de los dos valores sea de tipo 'string' procedemos a concatenarlos, previamente los convertimos a string:</p>
+<pre>
+  else 
+    return valor1.toString() + valor2.toString();
+</pre>
+
+<h3>Acotaciones</h3>
+<p>Hemos hecho siempre ejemplos con funciones, pero todos estos conceptos se aplican si planteamos métodos dentro de una clase:</p>
+<pre>
+class Operacion {
+  sumar(...valores:number[]) {
+    let suma=0;
+    for(let x=0;x&lt;valores.length;x++)
+      suma+=valores[x];
+    return suma;
+  }
+}
+
+let op: Operacion;
+op=new Operacion();
+console.log(op.sumar(1,2,3));
+</pre>
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

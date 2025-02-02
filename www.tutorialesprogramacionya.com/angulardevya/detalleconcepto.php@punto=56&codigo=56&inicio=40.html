@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: interfaces</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>56 - TypeScript: interfaces</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Una interface declara una serie de métodos y propiedades que deben ser implementados luego por una o más clases.</p>
+<p>Las interfaces vienen a suplir la imposibilidad de herencia múltiple.</p>
+
+<p>Por ejemplo podemos tener dos clases que representen un avión y un helicóptero. Luego plantear una interface con un método llamado volar. Las dos clases pueden implementar dicha interface y codificar el método volar (los algoritmos seguramente sean distintos pero el comportamiento de volar es común tanto a un avión como un helicóptero)</p>
+<p>La sintaxis en TypeScript para declarar una interface es:</p>
+<pre>
+interface [nombre de la interface] {
+    [declaración de propiedades]
+    [declaración de métodos]
+}
+</pre>
+
+
+<h3>Problema</h3>
+<p>Definir una interface llamada Punto que declare un método llamado imprimir. Luego declarar dos clases que la implementen.</p>
+<pre class="recuadro">
+interface Punto {
+  imprimir(): void;
+}
+
+class PuntoPlano implements Punto {
+  constructor(private x: number, private y: number) { }
+
+  imprimir() {
+    console.log(`Punto en el plano: (${this.x},${this.y})`);
+  }
+}
+
+class PuntoEspacio implements Punto {
+  constructor(private x: number, private y: number, private z: number) { }
+
+  imprimir() {
+    console.log(`Punto en el espacio: (${this.x},${this.y},${this.z})`);
+  }
+}
+
+
+let puntoPlano1: PuntoPlano;
+puntoPlano1 = new PuntoPlano(10, 4);
+puntoPlano1.imprimir();
+
+let puntoEspacio1: PuntoEspacio;
+puntoEspacio1 = new PuntoEspacio(20, 50, 60);
+puntoEspacio1.imprimir();
+</pre>
+
+<p>Para declarar una interface en TypeScript utilizamos la palabra clave interface y seguidamente su nombre. Luego entre llaves indicamos todas las cabeceras de métodos y propiedades. En nuestro ejemplo declaramos la interface Punto e indicamos que quien la implemente debe definir un método llamado imprimir sin parámetros y que no retorna nada:</p>
+<pre>
+interface Punto {
+  imprimir(): void;
+}
+</pre>
+
+<p>Por otro lado declaramos dos clases llamados PuntoPlano con dos propiedades y PuntoEspacio con tres propiedades, además indicamos que dichas clases implementarán la interface Punto:</p>
+<pre>
+class PuntoPlano implements Punto {
+  constructor(private x: number, private y: number) { }
+
+  imprimir() {
+    console.log(`Punto en el plano: (${this.x},${this.y})`);
+  }
+}
+
+class PuntoEspacio implements Punto {
+  constructor(private x: number, private y: number, private z: number) { }
+
+  imprimir() {
+    console.log(`Punto en el espacio: (${this.x},${this.y},${this.z})`);
+  }
+}
+</pre>
+<p>La sintaxis para indicar que una clase implementa una interface requiere disponer la palabra clave implements y en forma seguida el o los nombres de interfaces a implementar. Si una clase hereda de otra también puede implementar una o más interfaces.</p>
+<p>El método imprimir en cada clase se implementa en forma distinta, en uno se imprimen 3 propiedades y en la otra se imprimen 2 propiedades.</p>
+<p>Luego definimos un objeto de la clase PuntoPlano y otro de tipo PuntoEspacio:</p>
+<pre>
+let puntoPlano1: PuntoPlano;
+puntoPlano1 = new PuntoPlano(10, 4);
+puntoPlano1.imprimir();
+
+let puntoEspacio1: PuntoEspacio;
+puntoEspacio1 = new  PuntoEspacio(20, 50, 60);
+puntoEspacio1.imprimir();
+</pre>
+
+<p>Si una clase indica que implementa una interfaz y luego no se la codifica, se genera un error en tiempo de compilación informándonos de tal situación (inclusive el editor Visual Studio Code detecta dicho error antes de compilar):</p>
+<pre>
+prueba.ts(5,7): error TS2420: Class 'PuntoPlano' incorrectly implements interface 'Punto'.
+  Property 'imprimir' is missing in type 'PuntoPlano'.
+prueba.ts(20,13): error TS2339: Property 'imprimir' does not exist on type 'PuntoPlano'.
+</pre>
+<p>Este error se produce si codificamos la clase sin implementar el método imprimir:</p>
+<pre>
+class PuntoPlano implements Punto{
+  constructor(private x:number, private y:number) {}
+}
+</pre>
+
+<h3>Problema</h3>
+<p>Se tiene la siguiente interface:</p>
+<pre>
+interface Figura {
+  superficie: number;
+  perimetro: number;
+  calcularSuperficie(): number;
+  calcularPerimetro(): number;
+}
+</pre>
+<p>Declar dos clases que representen un Cuadrado y un Rectángulo. Implementar la interface Figura en ambas clases.</p>
+
+<pre class="recuadro">
+interface Figura {
+  superficie: number;
+  perimetro: number;
+  calcularSuperficie(): number;
+  calcularPerimetro(): number;
+}
+
+
+class Cuadrado implements Figura {
+  superficie: number;
+  perimetro: number;
+  constructor(private lado:number) {
+    this.superficie = this.calcularSuperficie();
+    this.perimetro = this.calcularPerimetro();
+  }
+
+  calcularSuperficie(): number {
+    return this.lado * this.lado;
+  }
+
+  calcularPerimetro(): number {
+    return this.lado * 4;
+  }  
+}
+
+
+class Rectangulo implements Figura {
+  superficie: number;
+  perimetro: number;
+  constructor(private ladoMayor:number, private ladoMenor:number) {
+    this.superficie = this.calcularSuperficie();
+    this.perimetro = this.calcularPerimetro();
+  }
+
+  calcularSuperficie(): number {
+    return this.ladoMayor * this.ladoMenor;
+  }
+
+  calcularPerimetro(): number {
+    return (this.ladoMayor * 2) + (this.ladoMenor * 2);
+  }  
+}
+
+
+let cuadrado1: Cuadrado;
+cuadrado1 = new Cuadrado(10);
+console.log(`Perimetro del cuadrado : ${cuadrado1.calcularPerimetro()}`);
+console.log(`Superficie del cuadrado : ${cuadrado1.calcularSuperficie()}`);
+let rectangulo1: Rectangulo;
+rectangulo1 = new Rectangulo(10, 5);
+console.log(`Perimetro del rectangulo : ${rectangulo1.calcularPerimetro()}`);
+console.log(`Superficie del rectangulo: ${rectangulo1.calcularSuperficie()}`);
+</pre>
+
+<p>En este problema la interface Figura tiene dos métodos que deben ser implementados por las clases y dos propiedades que también deben definirlos:</p>
+<pre>
+interface Figura {
+  superficie: number;
+  perimetro: number;
+  calcularSuperficie(): number;
+  calcularPerimetro(): number;
+}
+</pre>
+
+<p>La clase Cuadrado indica que implementa la interface Figura, esto hace necesario que se implementen los métodos calcularSuperficie y calcularPerimetro, y las dos propiedades:</p>
+<pre>
+class Cuadrado implements Figura {
+  superficie: number;
+  perimetro: number;
+  constructor(private lado:number) {
+    this.superficie = this.calcularSuperficie();
+    this.perimetro = this.calcularPerimetro();
+  }
+
+  calcularSuperficie(): number {
+    return this.lado * this.lado;
+  }
+
+  calcularPerimetro(): number {
+    return this.lado * 4;
+  }  
+}
+</pre>
+<p>La clase Cuadrado tiene una propiedad llamada lado que la recibe el constructor.</p>
+
+<p>De forma similar la clase Rectangulo implementa la interface Figura:</p>
+<pre>
+class Rectangulo implements Figura {
+  superficie: number;
+  perimetro: number;
+  constructor(private ladoMayor:number, private ladoMenor:number) {
+    this.superficie = this.calcularSuperficie();
+    this.perimetro = this.calcularPerimetro();
+  }
+
+  calcularSuperficie(): number {
+    return this.ladoMayor * this.ladoMenor;
+  }
+
+  calcularPerimetro(): number {
+    return (this.ladoMayor * 2) + (this.ladoMenor * 2);
+  }  
+}
+</pre>
+
+<p>Finalmente definimos un objeto de la clase Cuadrado y otro de la clase Rectangulo, luego llamamos a los métodos  calcularPerimetro y calcularSuperficie para cada objeto:</p>
+<pre>
+let cuadrado1: Cuadrado;
+cuadrado1 = new Cuadrado(10);
+console.log(`Perimetro del cuadrado : ${cuadrado1.calcularPerimetro()}`);
+console.log(`Superficie del cuadrado : ${cuadrado1.calcularSuperficie()}`);
+let rectangulo1: Rectangulo;
+rectangulo1 = new Rectangulo(10, 5);
+console.log(`Perimetro del rectangulo : ${rectangulo1.calcularPerimetro()}`);
+console.log(`Superficie del cuadrado : ${rectangulo1.calcularSuperficie()}`);
+</pre>
+
+<p>Las interfaces exige que una clase siga las especificaciones de la misma y se implementen algoritmos más robustos. En nuestro ejemplo tanto la clase Rectangulo como Cuadrado tienen una forma similar de trabajar gracias a que implementan la interfaz Figura.</p>
+
+<h3>Parámetros de tipo interface.</h3>
+<p>Un método o función puede recibir como parámetro una interface. Luego le podemos pasar objetos de distintas clases que implementan dicha interface:</p>
+<pre class="recuadro">
+interface Figura {
+  superficie: number;
+  perimetro: number;
+  calcularSuperficie(): number;
+  calcularPerimetro(): number;
+}
+
+
+class Cuadrado implements Figura {
+  superficie: number;
+  perimetro: number;
+  constructor(private lado:number) {
+    this.superficie = this.calcularSuperficie();
+    this.perimetro = this.calcularPerimetro();
+  }
+
+  calcularSuperficie(): number {
+    return this.lado * this.lado;
+  }
+
+  calcularPerimetro(): number {
+    return this.lado * 4;
+  }  
+}
+
+
+class Rectangulo implements Figura {
+  superficie: number;
+  perimetro: number;
+  constructor(private ladoMayor:number, private ladoMenor:number) {
+    this.superficie = this.calcularSuperficie();
+    this.perimetro = this.calcularPerimetro();
+  }
+
+  calcularSuperficie(): number {
+    return this.ladoMayor * this.ladoMenor;
+  }
+
+  calcularPerimetro(): number {
+    return (this.ladoMayor * 2) + (this.ladoMenor * 2);
+  }  
+}
+
+function imprimir(fig: Figura) {
+  console.log(`Perimetro: ${fig.calcularPerimetro()}`);
+  console.log(`Superficie: ${fig.calcularSuperficie()}`);
+}
+
+let cuadrado1: Cuadrado;
+cuadrado1 = new Cuadrado(10);
+console.log('Datos del cuadrado');
+imprimir(cuadrado1);
+let rectangulo1: Rectangulo;
+rectangulo1 = new Rectangulo(10, 5);
+console.log('Datos del rectángulo');
+imprimir(rectangulo1);
+</pre>
+<p>La función imprimir recibe como parámetro fig que es de tipo Figura:</p>
+<pre>
+function imprimir(fig: Figura) {
+  console.log(`Perimetro: ${fig.calcularPerimetro()}`);
+  console.log(`Superficie: ${fig.calcularSuperficie()}`);
+}
+</pre>
+<p>Podemos luego llamar a la función imprimir pasando tanto objetos de la clase Cuadrado como Rectangulo:</p>
+<pre>
+imprimir(cuadrado1);
+
+imprimir(rectangulo1);
+</pre>
+<p>Es importante notar que solo podemos acceder a los métodos y propiedades definidos en la interfaz y no a propiedades y métodos propios de cada clase.</p>
+
+<h3>Creación de objetos a partir de una interface.</h3>
+<p>TypeScript permite crear objetos a partir de una interfaz. La sintaxis para dicha creación es:</p>
+<pre class="recuadro">
+interface Punto {
+  x: number;
+  y: number;
+}
+
+let punto1: Punto;
+punto1 = {x:10, y:20};
+console.log(punto1);
+</pre>
+<p>No podemos utilizar el operador new para la creación del objeto.</p>
+<p>Podemos definir la variable e inmediatamente iniciarla:</p>
+<pre>
+let punto1: Punto = {x:10, y:20};
+</pre>
+
+
+<h3>Propiedades opcionales.</h3>
+<p>Una interface puede definir propiedades opcionales que luego la clase que la implementa puede o no definirlas. Se utiliza la misma sintaxis de los parámetros opcionales, es decir se le agrega el caracter '?' al final del nombre de la propiedad.</p>
+<pre class="recuadro">
+interface Punto {
+  x: number;
+  y: number;
+  z?: number;
+}
+
+let puntoPlano: Punto = {x:10, y:20};
+console.log(puntoPlano);
+let puntoEspacio: Punto = {x:10, y:20, z:70};
+console.log(puntoEspacio);
+</pre>
+<p>Como vemos el objeto 'puntoPlano' solo implementa las propiedades 'x' e 'y'.</p>
+<p>Se produce un error en tiempo de compilación si no implementamos todas las propiedades obligatorias, por ejemplo:</p>
+<pre>
+let puntoPlano: Punto = {x:10};
+</pre>
+<p>Esta línea genera un error ya que solo se define la propiedad 'x' y falta definir la propiedad 'y'.</p>
+
+<h3>Herencia de interfaces.</h3>
+<p>TypeScript permite que una interface herede de otra:</p>
+<pre class="recuadro">
+interface Punto {
+  x: number;
+  y: number;
+}
+
+interface Punto3D extends Punto {
+  z: number;
+}
+
+let punto1: Punto = {x:10, y:20};
+let punto2: Punto3D = {x:23, y:13, z:12};
+console.log(punto1);
+console.log(punto2);
+</pre><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

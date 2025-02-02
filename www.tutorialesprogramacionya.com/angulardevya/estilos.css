@@ -1,0 +1,92 @@
+#contenedor {
+  box-shadow: 0px 0px 8px #666;
+  border-radius: 20px;
+  margin-top:2em
+}
+
+#fila1{
+  background:#E7E7E7;
+  margin-bottom: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px
+}
+
+#fila2 {
+  background:#C0CDF2;
+  margin-top: 0;
+}
+
+#fila3 {
+  background:#C0CDF2;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.concepto {
+  background:#F2F2F2;
+}
+
+#menu {
+  font-size:1.5em;
+  box-shadow: 0px 0px 4px #666;  
+}
+
+#menu a:hover {
+  background-color: #FEF7B7;
+}
+
+#menu a {
+  color: #0061E4;
+}
+
+.recuadro {
+  background-color:#ffffcc;
+  text-align:left;
+  font-family:courier;
+  font-size:1.2em;
+  border-width:0;
+  padding:5px;
+  border: 1px dotted #ffaa00;
+  overflow:scroll;
+  float:both;
+  overflow-y:hidden;
+}
+
+.recuadrooculto {
+  background-color:#ffffcc;
+  text-align:left;
+  font-family:courier;
+
+  border-width:0;
+  padding:5px;
+
+  border: 1px dotted #ffaa00;
+  display: none;
+}
+
+.titulodetalle {
+  background-color: #AED7A8;
+  border-radius:4px;
+  box-shadow: 0px 0px 8px #aaa;  
+  padding-left:10px;
+  padding-right:10px;  
+  font-size:1.1em;
+  margin-bottom:3em;
+}
+
+.cuerpodetalle {
+  background-color: #AED7A8;
+  border-radius:4px;
+  padding:10px;
+  box-shadow: 0px 0px 8px #aaa;  
+  margin-bottom:2em;
+  font-size:1.20em;  
+}
+
+.botonretorno {
+  font-size:2em;
+}
+
+ul li {
+  margin-bottom:1em;
+}

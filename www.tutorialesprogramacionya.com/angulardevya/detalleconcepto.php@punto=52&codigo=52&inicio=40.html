@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: tipado estático</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>52 - TypeScript: tipado estático</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Los lenguajes con tipado estático permiten detectar errores de asignación en tiempo de desarrollo.</p>
+<p>Por ejemplo si tenemos la definición de una variable 'number' y luego queremos asignarle un 'string' la herramienta de desarrollo la puede detectar (también si lo compilamos nos detecta un error)</p>
+<p>Para probar los conceptos de TypeScript podemos crear un proyecto:</p>
+<pre>
+ng new proyecto036
+</pre>
+
+<p>JavaScript es un lenguaje de programación que usa un tipado dinámico, luego la comprobación de tipificación se realiza durante su ejecución en vez de durante la compilación.</p>
+<p>Para activar en VSCode la verificación de tipos en TypeScript debemos entrar a la opción de "Configuración" y buscar "typescript validate" y proceder a activarlo:</p>
+<img src="imagentema/foto044z.jpg" alt="typescript validate VSCode" border="0"><br>
+<p>Luego podemos probar en nuestro proyecto definir una variable de tipo number y posteriormente tratar de asignarle un string:</p>
+<img src="imagentema/foto044.jpg" alt="typescript tipado estatico" border="0"><br>
+
+
+<h3>Tipo de datos básicos soportados por TypeScript.</h3> 
+<ul>
+<li>
+<h4>number</h4>
+<p>Permite almacenar tanto valores enteros como reales.</p>
+<pre>
+let edad: number = 23;
+let altura: number = 1.92;
+</pre>
+<p>Si inicializamos la variable inmediatamente podemos dejar que TypeScript infiera el tipo de dato, es decir es lo mismo que escribir:</p>
+<pre>
+let edad = 23;
+let altura = 1.92;
+</pre>
+</li>
+
+<li><h4>string</h4>
+<p>Permite almacenar una cadena de caracteres:</p>
+<pre>
+let estudios:string = 'primarios';
+</pre>
+<p>Podemos almacenar entre las comillas cualquier caracter.</p>
+</li>
+
+<li><h4>boolean</h4>
+<p>Podemos almacenar el valor true o false:</p>
+<pre>
+let activo: boolean = true;
+</pre>
+</li>
+
+<li><h4>Arreglos con elementos del mismo tipo</h4>
+<p>Podemos almacenar un conjunto de elementos del mismo tipo mediante vectores o arreglos:</p>
+<pre>
+    let vector: number[] = [1, 4, 2];
+    vector.push(33);
+    for(let elemento of vector)
+      console.log(elemento);
+</pre>
+<p>Indicamos luego del tipo de dato los corchetes abiertos y cerrados:</p>
+<pre>
+    let vector: number[]
+</pre>
+<p>Si queremos definir e inicializar algunas componentes del arreglo luego la sintaxis es:</p>
+<pre>
+    let vector: number[] = [1, 4, 2];
+</pre>
+<p>El compilador de TypeScript nos podrá avisar del error si queremos agregar componentes que no sean de tipo 'number':</p>
+<pre>
+    vector.push('juan'); //error
+</pre>
+<p>Otra sintaxis para definir un arreglo en TypeScript es mediante genéricos utilizando la clase Array:</p>
+<pre>
+    let vector: Array&lt;number&gt; = [1, 4, 2];
+    vector.push(33);
+    for(let elemento of vector)
+      console.log(elemento);
+</pre>
+
+<p>Podemos probar dentro de una aplicación Angular los códigos anteriores implementando el método ngOnInit que pertenece a la interfaz OnInit.</p>
+<p>La interfaz OnInit forma parte del ciclo de vida del componente de Angular. Se ejecuta después de que Angular ha creado el componente y ha configurado sus propiedades de entrada, pero antes de que se presente en la vista.</p>
+<p>Puede utilizar este método para realizar acciones específicas que deben llevarse a cabo justo después de que el componente se haya inicializado.</p>
+<pre class="recuadro">
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = "Prueba TypeScript";
+
+  ngOnInit() {
+    let vector: number[] = [1, 4, 2];
+    vector.push(33);
+    for (let elemento of vector)
+      console.log(elemento);
+  }
+
+}
+</pre>
+<p>Luego si ejecutamos la aplicación y abrimos la consola del navegador podemos ver los valores almacenados en el vector:</p>
+<img src="imagentema/foto044y.jpg" alt="typescript salida consola" border="0"><br>
+
+ 
+</li>
+
+<li><h4>enum</h4>
+<p>El tipo de dato enum permite hacer nuestro código más legible:</p>
+<pre>
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+enum Operacion {Suma, Resta, Multiplicacion, Division};
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = "Prueba TypeScript";
+
+
+  ngOnInit() {
+    let operacion: Operacion = Operacion.Multiplicacion;
+    this.mostrarOperacion(operacion);
+  }
+
+  mostrarOperacion(operacion:Operacion) {
+    switch (operacion) {
+      case Operacion.Suma: {
+        console.log('Operación actual: Suma ');
+        break;
+      }
+      case Operacion.Resta: {
+        console.log('Operación actual: Resta ');
+        break;
+      }
+      case Operacion.Multiplicacion: {
+        console.log('Operación actual: Multiplicacion ');
+        break;
+      }
+      case Operacion.Division: {
+        console.log('Operación actual: Division ');
+        break;
+      }
+    }
+  }
+}
+</pre>
+<p>Estamos declarando un nuevo tipo de dato que puede almacenar alguno de los cuatro valores indicados entre llaves:</p>
+<pre>
+    enum Operacion {Suma, Resta, Multiplicacion, Division};
+</pre>
+<p>Luego podemos definir una variable de este tipo y almacenar uno de esos cuatro valores:</p>
+<pre>
+    let operacion: Operacion = Operacion.Multiplicacion;
+</pre>
+<p>Cuando queremos saber que valor almacena la variable 'operacion' la comparamos por ejemplo con los valores posibles del tipo 'Operacion':</p>
+<pre>
+  mostrarOperacion(operacion:Operacion) {
+    switch (operacion) {
+      case Operacion.Suma: {
+        console.log('Operación actual: Suma ');
+        break;
+      }
+      case Operacion.Resta: {
+        console.log('Operación actual: Resta ');
+        break;
+      }
+      case Operacion.Multiplicacion: {
+        console.log('Operación actual: Multiplicacion ');
+        break;
+      }
+      case Operacion.Division: {
+        console.log('Operación actual: Division ');
+        break;
+      }
+    }
+  }
+</pre>
+
+<p>Es una forma más elegante que tratar de resolver el problema con una variable de tipo 'number':</p>
+<pre>
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = "Prueba TypeScript";
+
+
+  ngOnInit() {
+    let operacion = 2; // significado 0 = suma / 1 = resta / 2 = multiplicacion / 3 = division
+    this.mostrarOperacion(operacion);
+  }
+
+  mostrarOperacion(operacion: number) {
+    switch (operacion) {
+      case 0: {
+        console.log('Operación actual: Suma ');
+        break;
+      }
+      case 1: {
+        console.log('Operación actual: Resta ');
+        break;
+      }
+      case 2: {
+        console.log('Operación actual: Multiplicacion ');
+        break;
+      }
+      case 3: {
+        console.log('Operación actual: Division ');
+        break;
+      }
+    }
+  }
+}
+</pre>
+</li>
+
+<li>
+<h4>any</h4>
+<p>En las situaciones que debemos almacenar un dato en una variable y no sabemos de antemano que tipo se trata, TypeScript incorpora el tipo 'any'.</p>
+<p>Es un tipo de dato que debemos evitarlo en lo posible ya que el compilador no nos puede ayudar y debemos esperar a ejecutar el programa para identificar errores.</p>
+<p>Cuando utilizamos librerías heredadas de JavaScript es muy posible que nos veamos obligados a utilizar este tipo de dato.</p>
+<pre>
+    let dato: any;
+    dato = 10;
+    console.log(dato);
+    dato = 'Hola';
+    console.log(dato);
+    dato = true;
+    console.log(dato);        
+    dato = [1,2,3];
+    console.log(dato);
+</pre>
+<p>La variable dato muta su tipo a lo largo de la ejecución del algoritmo, primero es number, luego string, boolean y finalmente de tipo Array.</p>
+<p>Podemos definir un Array con elementos de distinto tipo:</p>
+<pre>
+    let vec: any[] = [10, 'Inicio', true];
+</pre>
+</li>
+
+</ul>
+
+<h3>Parámetros de métodos.</h3> 
+<p>También cuando definimos funciones o métodos debemos definir el tipo de dato de los mismos:</p>
+<pre>
+
+  mayor(valor1: number, valor2: number): number {
+    if (valor1 &gt; valor2)
+      return valor1;
+    else
+      return valor2;
+  }
+</pre>
+<p>El método mayor recibe dos parámetros de tipo 'number' y retorna un tipo de dato 'number' que lo indicamos luego de los dos puntos.</p>
+<p>Si no retorna dato un método podemos utilizar el tipo 'void':</p>
+<pre>
+export class AppComponent {
+
+  constructor() {
+    this.mostrarMensaje('Hola mundo');
+  }
+
+  mostrarMensaje(mensaje: string): void {
+    alert(mensaje);
+  }
+
+}
+</pre>
+
+<h3>Variable de tipo unión.</h3>
+<p>TypeScript permite definir variables que almacenen dos o más tipos de datos. Puede almacenar un único valor en un determinado momento, pero dicho valor puede variar entre los tipos indicados en la definición:</p>
+<pre>
+let edad: number | string;
+edad=34;
+console.log(edad);
+edad='20 años';
+console.log(edad);
+</pre>
+<p>Mediante el caracter | separamos los tipos posibles de datos que puede almacenar la variable. La variable 'edad' puede almacenar un valor de tipo 'number' o 'string':</p>
+<pre>
+let edad: number | string;
+</pre>
+
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

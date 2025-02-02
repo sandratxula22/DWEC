@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Sintaxis de Template para estructuras condicionales y repetitivas: @if / @else - @for - @switch/@case/@default</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>5 - Sintaxis de Template para estructuras condicionales y repetitivas: @if / @else - @for - @switch/@case/@default</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Angular usa @if para expresar visualizaciones condicionales en plantillas.<br>
+La plantilla o template @if nos permiten condicionar si se deben agregar o no bloques de código.</p>
+<p>La plantilla @for nos permite generar muchos elementos HTML repetidos a partir del recorrido de un arreglo de datos.</p>
+<p>Para analizar con un ejemplo estas plantillas procederemos nuevamente a modificar el proyecto001.</p>
+<p>En el archivo 'app.component.ts' procedemos a codificar la clase AppComponent con la definición de:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  nombre = 'Rodriguez Pablo';
+
+  edad = 40;
+
+  articulos = [{
+    codigo: 1,
+    descripcion: 'naranjas',
+    precio: 540
+  }, {
+    codigo: 2,
+    descripcion: 'manzanas',
+    precio: 900
+  }, {
+    codigo: 3,
+    descripcion: 'peras',
+    precio: 490
+  }];
+
+  generarNumero() {
+    return Math.floor(Math.random() * 3) + 1;
+  }
+}
+</pre>
+<p>Hemos definido las propiedades nombre, edad y articulos:</p>
+<pre>
+  nombre = 'Rodriguez Pablo';
+
+  edad = 40;
+
+  articulos = [{
+    codigo: 1,
+    descripcion: 'naranjas',
+    precio: 540
+  },{
+    codigo: 2,
+    descripcion: 'manzanas',
+    precio: 900
+  },{
+    codigo: 3,
+    descripcion: 'peras',
+    precio: 490
+  }];
+</pre>
+<p>Por otro lado un método que retorna un valor aleatorio comprendido entre 1 y 3:</p>
+<pre>
+  generarNumero() {
+    return Math.floor(Math.random() * 3) + 1;
+  }
+</pre>
+
+<p>Ahora procedemos a modificar el archivo app.component.html:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;h1&gt;Empleado&lt;/h1&gt;
+  &lt;p&gt;Nombre del Empleado:{{nombre}}&lt;/p&gt;
+  &lt;p&gt;Edad:{{edad}}&lt;/p&gt;
+  @if (edad&gt;=18) {
+  &lt;p&gt;Es mayor de edad.&lt;/p&gt;
+  } @else {
+  &lt;p&gt;Es menor de edad.&lt;/p&gt;
+  }
+  &lt;h1&gt;Listado de articulos&lt;/h1&gt;
+  &lt;table&gt;
+    @for(articulo of articulos; track articulo.codigo) {
+    &lt;tr&gt;
+      &lt;td&gt;{{articulo.codigo}}&lt;/td&gt;
+      &lt;td&gt;{{articulo.descripcion}}&lt;/td&gt;
+      &lt;td&gt;{{articulo.precio}}&lt;/td&gt;
+    &lt;/tr&gt;
+    }
+  &lt;/table&gt;
+  &lt;h1&gt;Numero aleatorio entre 1 y 3&lt;/h1&gt;
+  @switch (generarNumero()) {
+    @case (1) {
+      &lt;p&gt;Uno&lt;/p&gt;
+    }
+    @case (2) {
+      &lt;p&gt;Dos&lt;/p&gt;
+    }
+    @case (3) {
+      &lt;p&gt;Tres&lt;/p&gt;
+    }
+  }
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+
+<p>Ejecutemos nuestra aplicación desde la línea de comandos de Node.js:</p>
+<img src="imagentema/foto005.jpg" alt="ejecución de proyecto en Angular" border="0"><br>
+<p>En el navegador aparece el siguiente contenido:</p>
+<img src="imagentema/foto016.jpg" border="0" alt="interpolacion de string angular sintaxis de template"><br>
+<p>La instrucción @if verifica la condición, en el caso de verificarse verdadero se inserta el bloque contenido entre las llaves:</p>
+<pre>
+  @if (edad&gt;=18) {
+  &lt;p&gt;Es mayor de edad.&lt;/p&gt;
+  } @else {
+  &lt;p&gt;Es menor de edad.&lt;/p&gt;
+  }
+</pre>
+<p>Luego si la condición se verifica falsa se ejecuta el bloque definido en el @else. Podemos probar cambiando la edad por un valor menor a 18.</p>
+
+<p>La instrucción @for nos genera posiblemente muchos elementos HTML repetidos, en este ejemplo una serie de filas de una tabla HTML:</p>
+<pre>
+    @for(articulo of articulos; track articulo.codigo) {
+    &lt;tr&gt;
+      &lt;td&gt;{{articulo.codigo}}&lt;/td&gt;
+      &lt;td&gt;{{articulo.descripcion}}&lt;/td&gt;
+      &lt;td&gt;{{articulo.precio}}&lt;/td&gt;
+    &lt;/tr&gt;
+    }
+</pre>
+<p>En cada repetición en la variable 'articulo' se almacena un objeto del arreglo 'articulos'. De esta forma podemos mostrar los datos del objeto respectivo.</p>
+<p>Es importante agregar la sentencia track al @for indicando un valor único en cada vuelta del @for (es común utilizar un id o clave)</p>
+
+<p>Por último también disponemos la instrucción @switch donde llamamos al método 'generarNumero' y según el valor retornado entrará en el @case respectivo:</p>
+<pre>
+  @switch (generarNumero()) {
+    @case (1) {
+      &lt;p&gt;Uno&lt;/p&gt;
+    }
+    @case (2) {
+      &lt;p&gt;Dos&lt;/p&gt;
+    }
+    @case (3) {
+      &lt;p&gt;Tres&lt;/p&gt;
+    }
+  }
+</pre><div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

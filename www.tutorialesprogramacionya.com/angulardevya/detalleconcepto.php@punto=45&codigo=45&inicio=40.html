@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Vistas diferidas : @defer {} @placeholder{} @loading{} @error{}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>45 - Vistas diferidas : @defer {} @placeholder{} @loading{} @error{}</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos dicho que cuando definimos una vista diferida, el único bloque obligatorio es el @defer {}.</p>
+<p>A parte del <strong>@defer</strong> podemos agregar:</p>
+<ul>
+<li>
+<p><strong>@placeholder</strong> : Ya dijimos y hemos trabajado con este bloque que aparece mientras la vista no ha sido activada. Este contenido se reemplaza con el contenido principal una vez que se completa la carga.</p> 
+</li>
+
+
+<li>
+<p><strong>@loading</strong> : El bloque @loadinge es un bloque opcional que le permite declarar el contenido que se mostrará durante la carga de del bloque @defer. Por ejemplo, podría mostrar una rueda giratoria de carga mientras el contenido se recupera de un servidor.</p>
+<pre>
+@defer {
+  &lt;componente&gt;&lt;/componente&gt;
+} @loading (after 100ms; minimum 1s) {
+  &lt;img alt="cargando..." src="cargando.gif" /&gt;
+}
+</pre>
+<p>El bloque @loading acepta dos parámetros opcionales para especificar la mínima cantidad de tiempo que se debe mostrar el bloque y la cantidad de tiempo que se debe esperar para que comience la carga antes de mostrar la plantilla de carga. minimum y after los parámetros se especifican en incrementos de tiempo de milisegundos (ms) o segundos (s).</p>
+<p>Al igual que @placeholder, estos parámetros existen para evitar el parpadeo rápido del contenido en el caso de que las dependencias diferidas se recuperen rápidamente. Tanto los temporizadores minimum como after para el bloque @loading comienzan inmediatamente después de que se haya activado la carga del @defer.</p>
+</li>
+
+
+<li>
+<p><strong>@error</strong> : El bloque @error permite declarar contenido que se mostrará si falla la carga diferida.</p>
+<pre>
+@defer {
+  &lt;componente&gt;&lt;/componente&gt;
+} @loading (after 100ms; minimum 1s) {
+  &lt;img alt="cargando..." src="cargando.gif" /&gt;
+} @error {
+  &lt;p&gt;Problemas con el servidor&lt;/p&gt;
+}
+</pre>
+<p>Imaginemos que se corta la conexión con el servidor, cuando se trate de recuperar el archivo que almacena   &lt;componente&gt;&lt;/componente&gt;, se dispara el bloque @error.</p>
+
+
+</li>
+</ul><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript y Angular: decoradores @Input y @Output</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>61 - TypeScript y Angular: decoradores @Input y @Output</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Ya vimos en los primeros conceptos que el decorador @Input nos permite pasar datos de la componente padre a la componente hija. También vimos que el decorador @Output nos permite disparar eventos desde la componente hija a la componente padre.<p>
+<p>Ahora ya tenemos un conocimiento más profundo de los decoradores y como Angular en tiempo de compilación puede generar un código JavaScript y enlazar el pasaje de datos entre componentes.</p>
+<h3>Problema</h3>
+<p>Crear una aplicación que permita registrar tareas que se deben desarrollar y mediante controles checkbox tildar las ya realizadas, informando en la parte inferior cuantas de dichas tareas han sido finalizadas hasta dicho momento.</p>
+<p>Crear dos componentes, una llamada ListaTareas que muestre todas las tareas, permita ingresar nuevas tareas e informe las tareas finalizadas y por otro lado una componente llamada Tarea que tenga por objetivo mostrar una tarea, poder indicar que ya ha sido realizada e informar a la componente padre cada vez que cambia el estado de la tarea.</p>
+<p>La interfaz visual es similar a:</p>
+<img src="imagentema/fotonueva004.jpg" alt="Lista de tareas angular 17 @Input @Output" border="0"><br>
+<p>Podemos probar esta aplicación también en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto039/" target="_blank">aquí</a>.</p>
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto039
+</pre>
+</li>
+
+<li><p>Creamos el modelo de dato que representa una tarea mediante una 'interface':</p>
+<pre>
+ng generate interface tarea
+</pre>
+<p>Se nos crea el archivo 'tarea.ts' donde definimos la interface:</p>
+<pre class="recuadro">
+export interface Tarea {
+  id: number,
+  descripcion: string,
+  finalizada: boolean
+}
+</pre>
+<p>Por cada tarea guardaremos su identificador, descripción y si la tarea fue finalizada.</p>
+</li>
+
+
+<li><p>Pasemos a crear ahora la componente "Tarea":</p>
+<pre>
+ng generate component tarea
+</pre>
+<p>Se nos crea una carpeta con los 4 archivos que representan la componente, procedemos a modificar la clase propiamente dicha y la plantilla HTML.</p>
+<p>tarea.component.ts</p>
+<pre class="recuadro">
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Tarea } from '../tarea';
+@Component({
+  selector: 'app-tarea',
+  imports: [],
+  templateUrl: './tarea.component.html',
+  styleUrl: './tarea.component.css'
+})
+export class TareaComponent {
+  @Input() tarea: Tarea = { id: 0, descripcion: '', finalizada: false };
+  @Output() borrarTarea: EventEmitter&lt;number&gt; = new EventEmitter&lt;number&gt;();
+
+  cambiarEstado() {
+    this.tarea.finalizada = !this.tarea.finalizada;
+  }
+
+  borrar() {
+    this.borrarTarea.emit(this.tarea.id);
+  }
+}
+</pre>
+<pre>
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+</pre>
+<p>Debemos importar primero los 3 decoradores y la interface EventEmitter.</p>
+<pre>
+import { Tarea } from '../tarea';
+</pre>
+<p>También importamos la interface que creamos nosotros.</p>
+<pre>
+  @Input() tarea: Tarea = { id: 0, descripcion: '', finalizada: false };
+</pre>
+<p>Definimos el decorador input que se aplica a la propiedad 'tarea' (es decir es un decorador de propiedad y no de clase como Component), el mismo espera recibir una tarea como entrada, lo inicializamos pero seguramente cuando lo invoquemos cambie con los datos que llegan desde la componente padre.</p>
+<pre>
+  @Output() borrarTarea: EventEmitter&lt;number&gt; = new EventEmitter&lt;number&gt;();
+</pre>
+<p>Es un decorador que indica que borrarTarea es un evento de salida. Cuando se llama al método borrar(), emite un evento con el ID de la tarea que se va a borrar.</p>
+<pre>
+  cambiarEstado() {
+    this.tarea.finalizada = !this.tarea.finalizada;
+  }
+</pre>
+<p>Es un método que cambia el estado de la tarea (marcada o no marcada como finalizada) al ser llamado.</p>
+<pre>
+  borrar() {
+    this.borrarTarea.emit(this.tarea.id);
+  }
+</pre>
+<p>Emite el evento borrarTarea con el ID de la tarea que se va a borrar.</p>
+
+
+<p>La plantilla HTML para 'TareaComponent' es:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;input type="checkbox" [checked]="tarea.finalizada" (change)="cambiarEstado()"&gt;
+  {{ tarea.descripcion }}
+  &lt;button (click)="borrar()"&gt;Borrar&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+</li>
+
+<pre>
+  &lt;input type="checkbox" [checked]="tarea.finalizada" (change)="cambiarEstado()"&gt;
+</pre>
+<p>Se crea un elemento input de tipo checkbox. [checked]="tarea.finalizada" utiliza la propiedad binding para enlazar el estado del checkbox al valor de tarea 'finalizada'. Esto significa que el checkbox estará marcado (checked) si tarea.finalizada es true, y desmarcado si es false.</p>
+<p>(change)="cambiarEstado()": Utiliza un evento de cambio (change) para llamar al método cambiarEstado() cuando el estado del checkbox cambia.</p>
+<pre>
+  &lt;button (click)="borrar()"&gt;Borrar&lt;/button&gt;
+</pre>
+<p>(click)="borrar()": Utiliza un evento de clic (click) para llamar al método borrar()</p>
+
+
+
+<li><p>Pasemos a crear ahora la componente "listatareas":</p>
+<pre>
+ng generate component listatareas
+</pre>
+<p>Se nos crea una carpeta con los 4 archivos que representan la componente, procedemos a modificar la clase propiamente dicha y la plantilla HTML.</p>
+<p>listatareas.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { Tarea } from '../tarea';
+import { TareaComponent } from '../tarea/tarea.component';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-listatareas',
+  imports: [TareaComponent, FormsModule],
+  templateUrl: './listatareas.component.html',
+  styleUrl: './listatareas.component.css'
+})
+export class ListatareasComponent {
+  tareas: Tarea[] = [];
+
+  descripcionTarea: string = '';
+
+  agregarTarea() {
+    const nuevaTarea: Tarea = { id: this.tareas.length + 1, descripcion: this.descripcionTarea, finalizada: false };
+    this.tareas.push(nuevaTarea);
+    this.descripcionTarea = '';
+  }
+
+  borrarTarea(tareaId: number) {
+    this.tareas = this.tareas.filter(tarea =&gt; tarea.id !== tareaId);
+  }
+
+  cantidadTareasCompletadas(): number {
+    return this.tareas.filter(tarea =&gt; tarea.finalizada).length;
+  }
+
+}
+</pre>
+<pre>
+import { Component } from '@angular/core';
+import { Tarea } from '../tarea';
+import { TareaComponent } from '../tarea/tarea.component';
+import { FormsModule } from '@angular/forms';
+</pre>
+<p>Importamos el decorador Component, la interface Tarea, la componente TareaComponent y como vamos a trabajar con formularios basado en plantillas debemos importar  FormsModule.</p>
+<pre>
+@Component({
+  selector: 'app-listatareas',
+  imports: [TareaComponent, FormsModule],
+  templateUrl: './listatareas.component.html',
+  styleUrl: './listatareas.component.css'
+})
+</pre>
+<p>Importamos en el decorador de la componente la componente que creamos nosotros 'TareaComponent' y FormsModule.</p>
+<pre>
+  tareas: Tarea[] = [];
+</pre>
+<p>tareas es un array que almacenará las instancias de la interface Tarea.</p>
+<pre>
+  descripcionTarea: string = '';
+</pre>
+<p>descripcionTarea es una propiedad que se utiliza para almacenar la descripción de la tarea que se va a agregar y esta vinculado al control input de tipo type de la plantilla HTML.</p>
+<pre>
+  agregarTarea() {
+    const nuevaTarea: Tarea = { id: this.tareas.length + 1, descripcion: this.descripcionTarea, finalizada: false };
+    this.tareas.push(nuevaTarea);
+    this.descripcionTarea = '';
+  }
+</pre>
+<p>Es un método que crea una nueva tarea con la descripción ingresada y la agrega al array de tareas. Luego, reinicia la propiedad descripcionTarea para que se borre en el formulario la tarea ingresada.</p>
+<pre>
+  borrarTarea(tareaId: number) {
+    this.tareas = this.tareas.filter(tarea =&gt; tarea.id !== tareaId);
+  }
+</pre>
+<p>Es un método que filtra las tareas para eliminar aquella cuyo id coincide con el tareaId proporcionado desde la plantilla HTML.</p>
+<pre>
+  cantidadTareasCompletadas(): number {
+    return this.tareas.filter(tarea =&gt; tarea.finalizada).length;
+  }
+</pre>
+<p>Devuelve el número de tareas completadas, utilizando el método filter para filtrar las tareas con finalizada establecida como true y luego calcula la longitud del array resultante.</p>
+
+<p>La plantilla HTML para 'ListatareasComponent' es:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;h2&gt;Lista de tareas.&lt;/h2&gt;
+  @for(tarea of tareas; track tarea.id) {
+  &lt;app-tarea [tarea]="tarea" (borrarTarea)="borrarTarea($event)"&gt;&lt;/app-tarea&gt;
+  }
+  &lt;div&gt;
+    &lt;input [(ngModel)]="descripcionTarea" placeholder="Ingrese nueva tarea"&gt;
+    &lt;button (click)="agregarTarea()"&gt;Agregar tarea&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  Cantidad de tareas completadas: {{ cantidadTareasCompletadas() }}
+&lt;/div&gt;
+</pre>
+</li>
+<pre>
+  @for(tarea of tareas; track tarea.id) {
+</pre>
+<p>Utilizamos un bucle para recorrer el arreglo de tareas.</p>
+<pre>
+  &lt;app-tarea [tarea]="tarea" (borrarTarea)="borrarTarea($event)"&gt;&lt;/app-tarea&gt;
+</pre>
+<p>Para cada tarea, se utiliza el componente app-tarea para representarla. Se enlaza la tarea actual mediante [tarea]="tarea", y se escucha el evento borrarTarea para ejecutar el método.</p> 
+<pre>
+    &lt;input [(ngModel)]="descripcionTarea" placeholder="Ingrese nueva tarea"&gt;
+</pre>
+<p>Crea un campo de entrada de texto con enlace bidireccional ([(ngModel)]) a la propiedad descripcionTarea. Esto permite que la variable descripcionTarea en el componente refleje los cambios en este campo de entrada.</p>
+<pre>
+    &lt;button (click)="agregarTarea()"&gt;Agregar tarea&lt;/button&gt;
+</pre>
+<p>Crea un botón que llama al método agregarTarea() cuando se hace clic en él. Este método agrega una nueva tarea a la lista.</p>
+
+
+<li><p>Por último debemos modificar la componente que crea Angular por defecto, donde agregaremos la lista de tareas:</p>
+<p>appcomponent.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ListatareasComponent } from './listatareas/listatareas.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ListatareasComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+}
+</pre>
+<pre>
+import { ListatareasComponent } from './listatareas/listatareas.component';
+</pre>
+<p>Importa la componente ListatareasComponent.</p>
+<pre>
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ListatareasComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+</pre>
+<p>También en el decorador hacemos referencia a la importación del componente 'ListatareasComponent'.</p>
+
+<p>La plantilla HTML para 'AppComponent' es:</p>
+<pre class="recuadro">
+&lt;app-listatareas&gt;&lt;/app-listatareas&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Incluimos la componente ListatareasComponent en la plantilla HTML mediante la etiqueta app-listatareas que se encuentra definida en la propidad select del decorador de la clase 'ListatareasComponent'.</p>
+</li>
+
+<li>
+<p>Ahora podemos ejecutar la aplicación:</p>
+<pre>
+ng serve -o
+</pre>
+<p>Podemos probar esta aplicación también en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto039/" target="_blank">aquí</a>.</p>
+</li>
+
+
+</ul><div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

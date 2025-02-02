@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Creación de un proyecto y prueba de su funcionamiento</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>2 - Creación de un proyecto y prueba de su funcionamiento</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Para crear un proyecto vamos a utilizar la aplicación Angular CLI que acabamos de instalar en el concepto anterior.</p>
+<p>Desde la línea de comandos de Node.js procedemos a ejecutar el siguiente comando:</p>
+<pre>
+ng new proyecto001
+</pre>
+<p>Seleccionaremos que utilizaremos archivos CSS para los estilos (valor seleccionado por defecto), presionamos la tecla "entrada":</p>
+<img src="imagentema/foto004b.jpg" alt="creación de proyecto en Angular 19" border="0"><br>
+<p>Seguidamente nos consulta si queremos generar "Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)", por el momento dejamos por defecto que No (es una característica agregada a Angular a partir de la versión 17):</p>
+<img src="imagentema/foto004c.jpg" alt="creación de proyecto en Angular 19" border="0"><br>
+<p>El comando "ng new" crea la carpeta proyecto001 e instala una gran cantidad de herramientas que nos auxiliarán durante el desarrollo del proyecto (255 MB). Como Angular esta pensado para aplicaciones de complejidad media o alta no hay posibilidad de instalar menos herramientas.</p>
+<p>El proceso de generar el proyecto lleva bastante tiempo ya que deben descargarse de internet muchas herramientas.</p>
+<p>Se genera una aplicación con el esqueleto mínimo, para probarlo podemos abrir el Visual Studio Code y debemos ir a la carpeta que se acaba de crear y lanzar el siguiente comando:</p>
+<pre>
+ng serve -o
+</pre>
+<img src="imagentema/foto005.jpg" alt="ejecución de proyecto en Angular 19" border="0"><br>
+<p>Este comando arranca un servidor web en forma local y abre el navegador para la ejecución de la aplicación.</p>
+<p>En el navegador tenemos como resultado:</p>
+<img src="imagentema/foto006.jpg" alt="ejecución de proyecto en Angular en el navegador" border="0"><br>
+
+<p>En este concepto no me interesa ver todos las carpetas y archivos generados. Solo efectuaremos un cambio para ver como se reflejan en el navegador.</p>
+<p>En la carpeta 'proyecto001' hay una subcarpeta llamada 'src' y dentro de esta una llamada 'app', busquemos el archivo 'app.component.html' y procedamos a borrar todo menos la etiqueta &lt;router-outlet /&gt;.</p>
+<p>Si leemos las primeras líneas nos informa que siempre debemos modificar el archivo con los algoritmos de nuestro proyecto (se genera a modo de ejemplo):</p>
+<img src="imagentema/foto008b.jpg" alt="componente de ejemplo generada por CLI angular" border="0"><br>
+
+<p>Disponemos el siguiente código remplazando al generado en forma automática:</p>
+<pre class="recuadro">
+&lt;h1 style="text-align:center"&gt;
+  Bienvenido a {{ title }}
+&lt;/h1&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Una vez que grabamos los cambios en este archivo podemos ver que automáticamente se ven reflejados en el navegador (recordemos de no cerrar la consola del Visual Studio Code donde ejecutamos el comando "ng serve -o"):</p>
+<img src="imagentema/foto008.jpg" alt="aplicación angular con cambios" border="0"><br>
+<p>A partir del próximo concepto comenzaremos a analizar un proyecto Angular, en este momento me interesa solo recordar los pasos que debemos dar para crear y ejecutar un proyecto.</p><div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

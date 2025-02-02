@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Router : captura de ruta no existente</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>23 - Router : captura de ruta no existente</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Como vimos en el concepto anterior en el archivo 'app.routes.ts' configuramos en el arreglo 'routes' todas las rutas que dispone nuestra aplicación, ahora veremos que cambios debemos hacer en el archivo para capturar una ruta inexistente e informar de tal situación al usuario.</p>
+
+
+
+<h3>Problema</h3>
+<p>Confeccionar una página que muestre una barra de navegación con 4 enlaces: 'Inicio', 'Mapa', 'Contacto' y 'Acerca de..'.</p>
+<p>Definir una ruta para cada sección de la página y en el caso de ingresar el usuario una ruta inexistente mostrar tal situación.</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto018
+</pre>
+
+</li>
+
+<li>
+<p>Creamos 5 componentes, 4 que representan cada una de las secciones del sitio web y una quinta de ruta inexistente (lo que conocemos "404 page not found", tener en cuenta que Angular no hace realmente una petición al servidor, sino que tiene toda la información ya cargada en el navegador)
+<p>Creación de las componentes:</p>
+<pre>
+ng generate component Inicio
+ng generate component Mapa
+ng generate component Contacto
+ng generate component AcercaDe
+ng generate component Pagina404
+</pre>
+</li>
+
+
+<li>
+<p>Modificamos el archivo 'app.routes.ts' especificando las rutas de nuestra aplicación:</p>
+<pre class="recuadro">
+import { Routes } from '@angular/router';
+import { InicioComponent } from './inicio/inicio.component';
+import { MapaComponent } from './mapa/mapa.component';
+import { ContactoComponent } from './contacto/contacto.component';
+import { AcercaDeComponent } from './acerca-de/acerca-de.component';
+import { Pagina404Component } from './pagina404/pagina404.component';
+
+export const routes: Routes = [{
+  path: '',
+  component: InicioComponent
+},
+{
+  path: 'inicio',
+  component: InicioComponent
+},
+{
+  path: 'mapa',
+  component: MapaComponent
+},
+{
+  path: 'contacto',
+  component: ContactoComponent
+},
+{
+  path: 'acercade',
+  component: AcercaDeComponent
+},
+{
+  path: 'pagina404',
+  component: Pagina404Component
+},
+{
+  path: '**',
+  redirectTo: 'pagina404'
+}];
+</pre>
+<p>La última componente del arreglo es la que indicamos en path la cadena '**' y mediante el atributo 'redirectTo' especificamos a que otro path redireccionar:</p>
+<pre>
+  {
+    path: '**',
+    redirectTo: 'pagina404'
+  }
+</pre>
+<p>Es indispensable para el funcionamiento que la captura de ruta inexistente con los "**" sea la última del arreglo.</p>
+<p>Si el usuario no carga ninguna ruta, sino directamente el nombre del dominio, luego tenemos que se muestra la componente 'InicioComponent':</p>
+<pre>
+  {
+    path: '',
+    component: InicioComponent
+  },
+</pre>
+</li>
+
+<li>
+<p>Procedemos a modificar la vista de la componente que crea Angular 'app.component.html' donde creamos la barra de navegación con los enlaces a las distintas rutas de nuestra aplicación:</p>
+<pre class="recuadro">
+&lt;div class="menu"&gt;
+  &lt;a routerLink="inicio"&gt;Inicio&lt;/a&gt;
+  &lt;a routerLink="mapa"&gt;Mapa&lt;/a&gt;
+  &lt;a routerLink="contacto"&gt;Contacto&lt;/a&gt;
+  &lt;a routerLink="acercade"&gt;Acerca de...&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+  &lt;router-outlet /&gt;
+&lt;/div&gt;
+</pre>
+<p>Es importante utilizar la propiedad 'routerLink' para indicar cada una de las rutas.</p>
+<p>Disponemos la etiqueta 'router-outlet', que sabemos que es el espacio que será sustituido por la componente respectiva definida en el arreglo 'router'.</p>
+</li>
+
+<p>El archivo 'app.component.ts' queda con el siguiente código (importamos RouterLink):</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'proyecto018';
+}
+</pre>
+
+<p>La hoja de estilo para la componente la especificamos en el archivo 'app.component.css' :</p>
+<pre class="recuadro">
+.menu {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333;
+  padding: 10px;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.menu a:hover {
+  background-color: #555;
+}
+
+</pre>
+
+</li>
+
+
+
+
+<li>
+<p>Finalmente agregamos algunos datos a cada una de las 5 componentes que representas las secciones de nuestro sitio web:</p>
+<p>inicio.component.html</p>
+<pre class="recuadro">
+&lt;h1&gt;Contenido de página de inicio.&lt;/h1&gt;
+</pre>
+
+<p>mapa.component.html</p>
+<pre class="recuadro">
+&lt;h1&gt;Contenido de página de mapa.&lt;/h1&gt;
+</pre>
+
+<p>contacto.component.html</p>
+<pre class="recuadro">
+&lt;h1&gt;Contenido de página de contacto.&lt;/h1&gt;
+</pre>
+
+<p>acercade.component.html</p>
+<pre class="recuadro">
+&lt;h1&gt;Contenido de página de acerca de.&lt;/h1&gt;
+</pre>
+
+<p>pagina404.component.html</p>
+<pre class="recuadro">
+&lt;h1&gt;Página no encontrada.&lt;/h1&gt;
+</pre>
+</li>
+
+</ul>
+<p>Con los pasos dados ya tenemos nuestro sitio que muestra correctamente cada una de las rutas definidas para nuestro sitio web:</p>
+<img src="imagentema/foto141.jpg" alt="Router rutas inexistentes angular" border="0"><br>
+<p>Si ingresa una ruta no válida, por ejemplo "http://localhost:4200/noticias", se procede a redireccionar y mostrar la componente que hemos estipulado nosotros:</p>
+<img src="imagentema/foto142.jpg" alt="Router rutas inexistentes angular" border="0"><br>
+<p>Es nuestra decisión a que página redireccionar, podemos inclusive no informar nada y redireccionarlo a la página principal del sitio.</p>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto018/" target="_blank">aquí</a>.</p><div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

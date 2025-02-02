@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Que utilizar en Angular: Promise u Observable</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>71 - Que utilizar en Angular: Promise u Observable</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>En Angular, tanto las promesas (Promise) como los observables (Observable) se utilizan para manejar operaciones asíncronas, pero tienen diferencias clave en su implementación y funcionalidad.</p>
+
+<h3>Similitudes entre Promesas y Observables:</h3>
+<ul>
+<li>
+Manejo de operaciones asíncronas: Ambas promesas y observables son utilizados para manejar operaciones asíncronas en Angular, permitiendo que el código no se bloquee mientras espera la finalización de una operación.
+</li>
+<li>
+Manejo de errores: Tanto las promesas como los observables proporcionan mecanismos para manejar errores.
+</li>
+</ul>
+
+
+<h3>Diferencias entre Promesas y Observables:</h3>
+<ul>
+<li>
+Promesas: Representan un único valor que será resuelto o rechazado.<br>
+Observables: Pueden representar una secuencia de valores que se emiten a lo largo del tiempo, permitiendo la transmisión de múltiples valores.
+</li>
+<li>
+Promesas: Una promesa no se puede cancelar.<br>
+Observables: Son cancelables, lo que significa que puedes cancelar una suscripción antes de que se complete la operación asíncrona.
+</li>
+<li>
+Promesas: Son más simples y adecuadas para operaciones asíncronas únicas.<br>
+Observables: Son más potentes y flexibles, especialmente cuando se trata de manejar secuencias de eventos a lo largo del tiempo. Son preferidos en situaciones más complejas y en el desarrollo de aplicaciones reactivas.
+</li>
+
+</ul>
+
+<h3>API Angular</h3>
+<p>
+La mayor parte de las librerías propuestas en angular utilizan por defecto los observables, se utilizan en servicios como HTTP, formularios reactivos, eventos del DOM, etc.</p>
+<p>En resumen, mientras que las promesas son más simples y adecuadas para casos de uso más básicos, los observables proporcionan una funcionalidad más avanzada y son la elección preferida en el ecosistema Angular, especialmente en situaciones más complejas y en el desarrollo de aplicaciones más reactivas.</p>
+
+
+<h2>Problema</h2>
+<p>Vamos a desarrollar una aplicación que resuelva el mismo problema utilizando la clase Promise y la clase Observable.</p>
+<p>Desarrollar una aplicación que permita al usuario seleccionar un archivo con formato HTML de su equipo y posteriormente muestre su contenido en la página. Resolver la actividad de la lectura en una Promise y luego con un Observable, utilizando la clase FileReader para la lectura del archivo. Debe realizar la lectura del archivo con formato HTML y si dicho archivo no tiene extensión HTML debe rechazar su lectura.</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto049
+</pre>
+</li>
+
+<li>
+<p>Crear ahora el servicio donde vamos a hacer la lectura del archivo en forma asíncrona, empleando tanto promesas como observables:</p>
+<pre>
+ng generate service archivo
+</pre>
+<p>El código a implementar en el servicio es:</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ArchivoService {
+
+  constructor() { }
+
+  recuperarConPromesa(file: File) {
+    return new Promise&lt;string&gt;((resolve, reject) =&gt; {
+      if (!file.name.endsWith(".html")) {
+        reject("Extensión de archivo incorrecta")
+      } else {
+        const fileReader1 = new FileReader()
+        fileReader1.readAsText(file)
+        fileReader1.addEventListener("load", () =&gt; {
+          resolve(fileReader1.result!.toString())
+        })
+      }
+    })
+  }
+
+  recuperarConObservable(file: File): Observable&lt;string&gt; {
+    return new Observable((observer: Observer&lt;string&gt;) =&gt; {
+      if (!file.name.endsWith(".html")) {
+        observer.error("Extensión de archivo incorrecta");
+      } else {
+        const fileReader = new FileReader();
+        fileReader.readAsText(file);
+
+        fileReader.addEventListener("load", () =&gt; {
+          observer.next(fileReader.result!.toString());
+          observer.complete();
+        });
+      }
+    });
+  }
+}
+</pre>
+<p>El método 'recuperarConPromesa' recibe un objeto File como parámetro, que se obtiene al seleccionar un archivo a través de un formulario en HTML.</p>
+<p>Verifica si la extensión del archivo es ".html". Si no lo es, rechaza la promesa con un mensaje de error.</p>
+<p>Si la extensión del archivo es correcta, crea un objeto FileReader y utiliza su método readAsText para leer el contenido del archivo como texto.</p>
+<p>Se añade un evento "load" al FileReader, que se dispara cuando la operación de lectura es exitosa. En ese caso, se resuelve la promesa con el resultado.</p>
+
+<p>El método 'recuperarConObservable' también toma un objeto File como parámetro. Al igual que en el método de promesa, verifica si la extensión del archivo es ".html". Si no lo es, emite un error a través del objeto Observer.</p>
+<p>Si la extensión del archivo es correcta, crea un objeto FileReader y utiliza su método readAsText para leer el contenido del archivo como texto. Se añade un evento "load" al FileReader, que se dispara cuando la operación de lectura es exitosa. En ese caso, emite el resultado (el contenido del archivo convertido a cadena) a través de observer.next().</p>
+<p>Finalmente, completa el observable con observer.complete(), indicando que la secuencia ha terminado.</p>
+</li>
+
+<li>
+<p>Modificamos la componente creada por defecto por Angular.</p>
+<p>app.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ArchivoService } from './archivo.service';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  nombreArchivo = '';
+  resultado: any;
+
+  constructor(private archi: ArchivoService) { }
+
+  async recuperarConPromise(event: any) {
+    try {
+      this.resultado = await this.archi.recuperarConPromesa(event.target.files[0]);
+    } catch (error) {
+      this.resultado = error
+    }
+  }
+
+  recuperarConObservable(event: any) {
+    this.archi.recuperarConObservable(event.target.files[0]).subscribe({
+      next: (resultado) =&gt; {
+        this.resultado = resultado;
+      },
+      error: (error) =&gt; {
+        this.resultado = error;
+      }
+    });
+  }
+
+}
+</pre>
+<p>nombreArchivo: Variable que almacena el nombre del archivo seleccionado.</p>
+<p>resultado: Variable que almacena el resultado de la operación de recuperación de archivos.</p>
+<p>El constructor recibe una instancia de ArchivoService a través de la inyección de dependencias.</p>
+
+<p>El método recuperarConPromise: Método asincrónico que utiliza await para esperar a que la promesa retornada por recuperarConPromesa se resuelva. Actualiza this.resultado con el resultado de la operación o un mensaje de error si la promesa es rechazada.<p>
+<p>El método recuperarConObservable: utiliza la función subscribe para suscribirse a un observable retornado por recuperarConObservable.
+El objeto pasado a subscribe define dos funciones de devolución de llamada: next para manejar el próximo valor emitido por el observable y error para manejar el error.</p>
+</li>
+
+
+<li>
+<p>La plantilla HTML de la componente también la modificamos.</p>
+<p>app.component.html</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;label for="archivohtml"&gt;Seleccione el archivo HTML:&lt;/label&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      Con Promise:&lt;input type="file" [(ngModel)]="nombreArchivo" (change)="recuperarConPromise($event)"&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      Con Observable&lt;input type="file" [(ngModel)]="nombreArchivo" (change)="recuperarConObservable($event)"&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;Contenido&lt;/p&gt;
+&lt;pre&gt;{{resultado}}&lt;/pre&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+<p>La salida por pantalla luego de seleccionar un archivo HTML debe ser similar a:</p>
+<img src="imagentema/fotonueva008.jpg" alt="Promise Observable" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto049/" target="_blank">aquí</a>.</p>
+
+</li>
+
+
+</ul>
+
+
+
+<div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

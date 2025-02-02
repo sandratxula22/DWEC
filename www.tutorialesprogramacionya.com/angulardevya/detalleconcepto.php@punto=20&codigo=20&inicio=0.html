@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Formularios reactivos : FormBuilder</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>20 - Formularios reactivos : FormBuilder</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>La clase FormBuilder nos permite crear objetos de la clase FormGroup y FormControl con una sintaxis más corta. Es decir que el resultado final será el mismo al que obtenemos con la sintaxis vista anteriormente.<br>
+Queda en decisión del desarrollador utilizar una u otra sintaxis.</p>
+<p>Resolveremos un ejercicio de conceptos anteriores pero ahora con la sintaxis propuesta con la clase FormBuilder.</p>
+
+
+
+
+<h3>Problema</h3>
+<p>Confeccionar un formulario de contacto que permita cargar el nombre, mail y un mensaje. Implementar las siguientes validaciones a los controles del formulario:</p>
+<ul>
+<li>Los tres controles no pueden quedar vacíos.</li>
+<li>El nombre debe tener como mínimo 10 caracteres.</li>
+<li>El email ingresado debe ser correcto.</li>
+<li>El mensaje no puede superar los 500 caracteres.</li>
+</ul>
+<p>Cuando se presione un botón mostrar un mensaje indicando si todos los controles se encuentran correctamente cargados.</p>
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto015
+</pre>
+</li>
+
+
+<li><p>Modificamos la vista de la componente que muestra el formulario reactivo  y eventualmente los mensajes de error de entrada de datos (app.component.html):</p>
+<pre class="recuadro">
+&lt;form [formGroup]="formularioContacto" (ngSubmit)="submit()"&gt;
+  &lt;p&gt;Nombre:
+    &lt;input type="text" formControlName="nombre" required&gt;
+    @if(this.formularioContacto.get('nombre')?.errors?.['required']) {
+    &lt;span&gt;(El nombre no puede quedar vacío)&lt;/span&gt;
+    }
+    @if(this.formularioContacto.get('nombre')?.errors?.['minlength']) {
+    &lt;span&gt;(Debe tener como mínimo 10 caracteres)&lt;/span&gt;
+    }
+  &lt;/p&gt;
+  &lt;p&gt;Mail:
+    &lt;input type="text" formControlName="mail"&gt;
+    @if(this.formularioContacto.get('mail')?.errors?.['required']) {
+    &lt;span&gt;(El mail no puede quedar vacío)&lt;/span&gt;
+    }
+    @if(this.formularioContacto.get('mail')?.errors?.['email']) {
+    &lt;span&gt;(El mail no es válido)&lt;/span&gt;
+    }
+  &lt;/p&gt;
+  &lt;p&gt;Mensaje&lt;br&gt;
+    &lt;textarea rows="10" cols="70" formControlName="mensaje"&gt;&lt;/textarea&gt;
+  &lt;/p&gt;
+  @if(this.formularioContacto.get('mensaje')?.errors?.['required']) {
+  &lt;div&gt;(El mensaje no puede quedar vacío)&lt;/div&gt;
+  }
+  @if(this.formularioContacto.get('mensaje')?.errors?.['maxlength']) {
+  &lt;div&gt;(Debe tener como máximo 500 caracteres)&lt;/div&gt;
+  }
+  &lt;button type="submit"&gt;Confirmar&lt;/button&gt;
+&lt;/form&gt;
+&lt;div&gt;{{resultado}}&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Analizaremos este archivo en conjunto luego de presentar 'app.component.ts'</p>
+</li>
+
+
+<li><p>La clase asociada a la vista es (app.component.ts):</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ReactiveFormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  resultado!: string;
+  formularioContacto: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.formularioContacto = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(10)]],
+      mail: ['', [Validators.required, Validators.email]],
+      mensaje: ['', [Validators.required, Validators.maxLength(500)]]
+    });
+  }
+
+  submit() {
+    if (this.formularioContacto.valid)
+      this.resultado = "Todos los datos son válidos";
+    else
+      this.resultado = "Hay datos inválidos en el formulario";
+  }
+
+}
+</pre>
+
+<p>Lo primero que debemos hacer es importar la clase FormBuilder (ya no requerimos importar las clases FormGroup y FormControl):</p>
+<pre>
+import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
+</pre>
+<p>Se inyecta al constructor un objeto de la clase FormBuilder:</p>
+<pre>
+  constructor(private fb: FormBuilder) {
+  }
+</pre>
+
+<p>Llamamos al método 'group' de la clase FormBuilder y le pasamos un objeto literal indicando como atributos los nombres de los controles visuales definidos en HTML y como valor se le pasa un arreglo, cuyo primer elemento es el valor inicial del control y en el segundo elemento del arreglo pasamos otro arreglo con las funciones de validación que se le aplican a dicho campo:</p>
+<pre>
+    this.formularioContacto = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(10)]],
+      mail: ['', [Validators.required, Validators.email]],
+      mensaje: ['', [Validators.required, Validators.maxLength(500)]]
+    });
+</pre>
+<p>Tener que el resultado es exactamente el mismo si utilizamos la sintaxis vista anteriormente (debemos importar la clase FormControl en dicho caso):</p>
+<pre>
+  this.formularioContacto = new FormGroup({
+    nombre: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    mail: new FormControl('', [Validators.required, Validators.email]),
+    mensaje: new FormControl('', [Validators.required, Validators.maxLength(500)])
+  });
+</pre>
+
+</ul>
+
+<p>Si ejecutamos la aplicación tenemos una interfaz similar a:</p>
+<img src="imagentema/foto155.jpg" alt="Formularios reactivos angular ReactiveFormsModule FormControl FormGroup validaciones Validators" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto015/" target="_blank">aquí</a>.</p>
+
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

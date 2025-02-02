@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: herencia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>55 - TypeScript: herencia</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>La herencia es otra característica fundamental de la programación orientada a objetos y TypeScript lo implementa.</p>
+<p>La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos y los métodos de su 'superclase' o 'clase padre' y además se le podrán añadir otros atributos y métodos propios.</p>
+<p>Veamos con un ejemplo la sintaxis que plantea TypeScript para implementar la herencia:</p>
+<pre class="recuadro">
+class Persona {
+  protected nombre: string;
+  protected edad: number;
+  constructor(nombre: string, edad: number) {
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+
+  imprimir() {
+    console.log(`Nombre: ${this.nombre}`);
+    console.log(`Edad: ${this.edad}`);
+  }
+}
+
+class Empleado extends Persona {
+  private sueldo: number;
+  constructor(nombre: string, edad: number, sueldo: number) {
+    super(nombre, edad);
+    this.sueldo = sueldo;
+  }
+
+  override imprimir() {
+    super.imprimir();
+    console.log(`Sueldo: ${this.sueldo}`);
+  }
+
+  pagaImpuestos() {
+    if (this.sueldo &gt; 5000)
+      console.log(`${this.nombre} debe pagar impuestos`);
+    else
+      console.log(`${this.nombre} no debe pagar impuestos`);
+  }
+}
+</pre>
+
+<p>El resultado de ejecutar en la consola del navegador es (recordar que la consola la podemos abrir desde el navegador presionando la tecla F12 ):</p>
+<img src="imagentema/foto046.jpg" alt="Herencia TypeScript" border="0"><br>
+<p>Mediante la palabra clave extends indicamos el nombre de la clase padre. Una clase puede heredar de una sola clase (en este ejemplo 'Persona'):</p>
+<pre>
+class Empleado extends Persona {
+  private sueldo: number;
+  constructor(nombre: string, edad: number, sueldo: number) {
+    super(nombre, edad);
+    this.sueldo = sueldo;
+  }
+</pre>
+<p>La subclase Empleado puede acceder a las propiedades de la clase padre si los mismos se definieron en forma public o protected, debemos agregar la palabra clave 'override' para sobreescribir un método de la clase padre:</p>
+<pre>
+  override imprimir() {
+    super.imprimir();
+    console.log(`Sueldo: ${this.sueldo}`);
+  }
+</pre>
+<p>Con el modificador protected permitimos que la subclase pueda acceder a los atributos de la clase padre pero luego donde definamos un objeto de esta clase no los pueda acceder y permanezcan encapsulados:</p>
+<pre>
+const empleado1=new Empleado('Ana', 22, 7000);
+empleado1.nombre='facundo'; //error
+</pre>
+
+<h3>Clases abstractas</h3>
+<p>En algunas situaciones tenemos métodos y propiedades comunes a un conjunto de clases, podemos agrupar dichos métodos y propiedades en una clase abstracta.</p>
+<p>Hay una sintaxis especial en TypeScript para indicar que una clase es abstracta.</p>
+<p>No se pueden definir objetos de una clase abstracta y seguramente será heredada por otras clases de las que si podremos definir objetos.</p>
+<p>Problema: Declarar una clase abstracta que represente una Operación. Definir en la misma tres propiedades valor1, valor2 y resultado, y tres métodos: constructor, imprimir y operar (éste último hacerlo abstracto). Plantear dos clases llamadas Suma y Resta que hereden de la clase Operación e implementen el método abstracto operar.</p>
+<pre class="recuadro">
+abstract class Operacion {
+  public valor1: number;
+  public valor2: number;
+  public resultado: number = 0;
+
+  constructor(v1: number, v2: number) {
+    this.valor1 = v1;
+    this.valor2 = v2;
+  }
+
+  abstract operar(): void;
+
+  imprimir() {
+    console.log(`Resultado: ${this.resultado}`);
+  }
+}
+
+class Suma extends Operacion {
+  constructor(v1: number, v2: number) {
+    super(v1, v2);
+  }
+
+  operar() {
+    this.resultado = this.valor1 + this.valor2;
+  }
+}
+
+class Resta extends Operacion {
+  constructor(v1: number, v2: number) {
+    super(v1, v2);
+  }
+
+  operar() {
+    this.resultado = this.valor1 - this.valor2;
+  }
+}
+
+let suma1: Suma;
+suma1 = new Suma(10, 4);
+suma1.operar();
+suma1.imprimir();
+
+let resta1: Resta;
+resta1 = new Resta(10, 4);
+resta1.operar();
+resta1.imprimir();
+</pre>
+<p>Mediante la palabra clave abstract indicamos que la clase debe definirse como abstracta, luego no se pueden definir objetos de la clase Operacion:</p>
+<pre>
+abstract class Operacion {
+  public valor1: number;
+  public valor2: number;
+  public resultado: number = 0;
+
+  constructor(v1: number, v2: number) {
+    this.valor1 = v1;
+    this.valor2 = v2;
+  }
+
+  abstract operar(): void;
+
+  imprimir() {
+    console.log(`Resultado: ${this.resultado}`);
+  }
+}
+</pre>
+<p>Dentro de la clase abstracta definimos un método abstracto llamado operar, esto obliga a todas las clases que heredan de 'Operacion' implementar el algoritmo de dicho método, sino se genera un error en tiempo de compilación.</p>
+
+<p>La subclase Suma al heredar de Operación implementa el método operar:</p>
+<pre>
+class Suma extends Operacion {
+  constructor(v1: number, v2: number) {
+    super(v1, v2);
+  }
+
+  operar() {
+    this.resultado = this.valor1 + this.valor2;
+  }
+}
+</pre>
+<p>Solo podemos definir objetos de las clases Suma y Resta. Se genera un error si tratamos de crear un objeto de la clase Operacion:</p>
+<pre>
+let suma1: Suma;
+suma1=new Suma(10, 4);
+suma1.operar();
+suma1.imprimir();
+</pre><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

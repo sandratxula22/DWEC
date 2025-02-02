@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Angular y Bootstrap - creación de una componente: tabla</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>68 - Angular y Bootstrap - creación de una componente: tabla</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<h3>Creación de una componente de tabla de datos.</h3>
+<p>Crear una componente llamada TablaComponent y cuyo selector debe llamarse 'boot-tabla'.<br>
+<p>Mediante una propiedad de tipo matriz de string poder pasar los datos que se deben mostrar en una tabla HTML. La primer fila de la matriz representa los títulos.<p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto046
+</pre>
+</li>
+
+
+<li><p>Instalamos el Bootstrap original con alguna de las tres formas vistas en conceptos anteriores, mediante CDN o localizándolo en la capeta 'public' o mediante npm.</p>
+</li>
+
+
+<li>
+<p>Crearemos la componente de tabla e indicamos como prefijo para la nueva etiqueta la cadena 'boot' (la idea es recordarnos que esta componente utiliza la librería de Bootstrap):</p>
+<pre>
+ng generate component tabla --prefix boot
+</pre>
+</li>
+
+
+<li>
+<p>Modificamos el archivo 'tabla.component.ts':</p>
+<pre class="recuadro">
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'boot-tabla',
+  imports: [],
+  templateUrl: './tabla.component.html',
+  styleUrl: './tabla.component.css'
+})
+export class TablaComponent {
+  @Input() datos: String[][]=[];
+}
+</pre>
+
+</li>
+
+
+<li>
+<p>Modificamos el archivo 'tabla.component.html':</p>
+<pre class="recuadro">
+&lt;table class="table table-striped table-bordered"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      @for(titulo of datos[0]; track $index) {
+      &lt;th&gt; {{ titulo }} &lt;/th&gt;
+      }
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    @for(fila of datos.slice(1); track fila) {
+    &lt;tr&gt;
+      @for(celda of fila;track celda) {
+      &lt;td&gt;{{ celda }}&lt;/td&gt;
+      }
+    &lt;/tr&gt;
+    }
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</li>
+
+
+<li>
+<p>Ahora nos queda consumir la componente 'boot-tabla', esto lo haremos desde la componente principal de nuestra aplicación Angular.</p>
+<p>Modificamos el archivo 'app.component.ts':</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { TablaComponent } from './tabla/tabla.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, TablaComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  da: string[][] = [
+    ["Artículo", "Descripción", "Precio","Stock"],
+    ["Artículo 1", "Descripción 1", "$10.00","30"],
+    ["Artículo 2", "Descripción 2", "$20.00","33"],
+    ["Artículo 3", "Descripción 3", "$15.00","72"],
+    ["Artículo 4", "Descripción 4", "$25.00","91"],
+    ["Artículo 5", "Descripción 5", "$30.00","172"]
+  ];
+}
+</pre>
+</li>
+
+
+<li>
+<p>Modificamos el archivo 'app.component.html':</p>
+<pre class="recuadro">
+&lt;boot-tabla [datos]="da"&gt;&lt;/boot-tabla&gt;
+&lt;router-outlet /&gt;
+</pre>
+</li>
+
+<li>
+<p>Ahora ejecutemos la aplicación:</p>
+<pre>
+ng serve -o
+</pre>
+<p>Tenemos como resultado:</p>
+<img src="imagentema/foto125.jpg" alt="Angular Bootstrap componente tabla" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto046/" target="_blank">aquí</a>.</p><div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

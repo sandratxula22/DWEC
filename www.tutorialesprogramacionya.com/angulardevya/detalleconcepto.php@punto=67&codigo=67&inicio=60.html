@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Angular y Bootstrap - creación de una componente: alerta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>67 - Angular y Bootstrap - creación de una componente: alerta</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<h3>Creación de una componente de cuadro de alerta.</h3>
+<p>Crear una componente llamada AlertaComponent y cuyo selector debe llamarse 'boot-alerta'.<br>
+Mediante dos propiedades se deben poder cargar el color y el mensaje que muestra el cuadro de alerta.<p>Los colores pueden ser alguno de los valores clásicos propuestos por Bootstrap (alert-primary, alert-secondary, alert-success, alert-danger, alert-warning, alert-info, alert-light, alert-dark, alert-white)</p>
+<p>Probar la componente creada desde la componente principal de la aplicación.</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto045
+</pre>
+</li>
+
+
+<li><p>Instalamos el Bootstrap original con alguna de las tres formas vistas en conceptos anteriores, mediante CDN o localizándolo en la capeta 'public' o mediante npm.</p>
+</li>
+
+
+
+<li>
+<p>Crearemos la componente de alerta e indicamos como prefijo para la nueva etiqueta la cadena 'boot' (la idea es recordarnos que esta componente utiliza la librería de Bootstrap):</p>
+<pre>
+ng generate component alerta --prefix boot
+</pre>
+</li>
+
+
+<li>
+<p>Modificamos el archivo 'alerta.component.ts':</p>
+<pre class="recuadro">
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'boot-alerta',
+  imports: [],
+  templateUrl: './alerta.component.html',
+  styleUrl: './alerta.component.css'
+})
+export class AlertaComponent {
+  @Input() color!: string;
+  @Input() mensaje!: string;
+}
+</pre>
+
+<p>Definimos las dos propiedades que se inicializan con el color y el mensaje que debe mostrar la componente:</p>
+<pre>
+  @Input() color!: string;
+  @Input() mensaje!: string;
+</pre>
+</li>
+
+
+<li>
+<p>Modificamos el archivo 'alerta.component.html':</p>
+<pre class="recuadro">
+&lt;div class="alert {{color}} alert-dismissible fade show" role="alert"&gt;
+  {{mensaje}}
+  &lt;button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+</pre>
+<p>Utilizamos clases propias de Bootstrap para definir el color</p>
+<pre>
+&lt;div class="alert {{color}} alert-dismissible fade show" role="alert"&gt;
+</pre>
+<p>Por otro lado mediante interpolación se muestra el contenido de la propiedad 'mensaje'.</p>
+</li>
+
+<li>
+<p>Ahora nos queda consumir la componente 'boot-alerta', esto lo haremos desde la componente principal de nuestra aplicación Angular.</p>
+<p>Modificamos el archivo 'app.component.html':</p>
+<pre class="recuadro">
+&lt;div class="container"&gt;
+  &lt;boot-alerta mensaje="Recuerde que las facturas vencen el 10 de cada mes" color="alert-warning"&gt;&lt;/boot-alerta&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+</li>
+
+<li>
+<p>En el archivo 'app.component.ts' importamos la componente:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { AlertaComponent } from './alerta/alerta.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, AlertaComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'proyecto045';
+}
+</li>
+
+</ul>
+
+<p>Ahora ejecutemos la aplicación:</p>
+<pre>
+ng serve -o
+</pre>
+<p>Tenemos como resultado:</p>
+<img src="imagentema/foto124.jpg" alt="Angular Bootstrap componente alerta" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto045/" target="_blank">aquí</a>.</p><div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

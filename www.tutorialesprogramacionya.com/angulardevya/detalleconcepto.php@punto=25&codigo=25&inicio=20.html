@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Servicios : concepto y pasos para crearlos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>25 - Servicios : concepto y pasos para crearlos</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>El pilar fundamental cuando creamos una aplicación en Angular es la correcta definición de sus componentes y relaciones entre ellas.</p>
+<p>La propuesta del framework de Angular es delegar todas las responsabilidades de acceso a datos (peticiones y envío de datos) y lógica de negocios en otras clases que colaboran con las componentes. Estas clases en Angular se las llama servicios.</p>
+<p>Tal es la importancia de los servicios en Angular que la herramienta Angular CLI nos provee la capacidad de crearlos.</p>
+<p>Veremos con un ejemplo los pasos que debemos dar para crear un servicio y luego consumirlo desde una componente.</p>
+<h3>Problema</h2>
+<p>Confeccionar una aplicación Angular que muestre una lista de artículos. Los artículos almacenarlos en un vector localizado en un servicio. Desde la componente acceder al servicio para pedir los artículos a ser mostrados.</p>
+
+
+<ol>
+<li>
+<p>Desde la línea de comandos de Node.js procedemos a crear el proyecto020:</p>
+<pre>
+ng new proyecto020
+</pre>
+</li>
+
+<li>
+<p>Crearemos el servicio que contiene en memoria la lista de artículos (en muchos casos como veremos más adelante el servicio tiene la responsabilidad de recuperar los datos de un servidor web):</p>
+<pre>
+ng generate service articulos
+</pre>
+<p>Con el comando anterior estamos creando la clase 'ArticulosService'.</p>
+<p>Se crean dos archivos:</p>
+<img src="imagentema/foto040.jpg" alt="creación servicios" border="0"><br>
+
+<p>El código generado de la clase 'ArticulosService' es:</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ArticulosService {
+
+  constructor() { }
+}
+</pre>
+
+<p>Lo modificamos por el siguiente código que permita recuperar desde la componente el vector de artículos:</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ArticulosService {
+
+  constructor() { }
+
+  retornar() {
+    return [
+      {
+        codigo: 1,
+        descripcion: "papas",
+        precio: 12.33
+      },
+      {
+        codigo: 2,
+        descripcion: "manzanas",
+        precio: 54
+      },
+      {
+        codigo: 3,
+        descripcion: "sandía",
+        precio: 14
+      }
+    ];
+  }
+}
+</pre>
+
+<p>El decorador @Injectable() será de suma importancia para poder acceder a esta clase desde la componente.</p>
+</li>
+
+<li>
+<p>Ahora veremos como consumimos el servicio desde nuestra componente. Procedemos a modificar la componente que se crea por defecto 'AppComponent' que tiene por responsabilidad mostrar en la página el listado de artículos:</p>
+
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ArticulosService } from './articulos.service';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  articulos :any;
+
+  constructor(private articulosServicio: ArticulosService) {
+    this.articulos=this.articulosServicio.retornar();
+  }
+
+}
+</pre>
+
+<p>Primero importamos el servicio llamado ArticulosService que se almacena en el archivo 'articulos.service.ts':</p>
+<pre>
+import { ArticulosService } from './articulos.service';
+</pre>
+
+<p>Para inyectar el objeto de la clase 'ArticulosService' que crea Angular en forma automática lo hacemos en el parámetro del constructor::</p>
+<pre>
+  constructor(private articulosServicio: ArticulosService) {
+    this.articulos=this.articulosServicio.retornar();
+  }
+</pre>
+<p>Esta asignación dispara la actualización de la página HTML.</p>
+</li>
+
+<li>
+<p>Falta que codifiquemos la vista con los datos  recuperados:</p>
+<p>app.component.html</p>
+<pre class="recuadro">
+&lt;table&gt;
+  @for(articulo of articulos;track $index) {
+  &lt;tr&gt;
+    &lt;td&gt;{{articulo.codigo}}&lt;/td&gt;
+    &lt;td&gt;{{articulo.descripcion}}&lt;/td&gt;
+    &lt;td&gt;{{articulo.precio}}&lt;/td&gt;
+  &lt;/tr&gt;
+  }
+&lt;/table&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+</li>
+
+<li>
+<p>Por último la hoja de estilo de la componente:</p>
+<p>app.component.css</p>
+<pre class="recuadro">
+/* Estilo para la tabla */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Estilo para las celdas de la tabla */
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/* Estilo para las filas impares  */
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/* Estilo para las filas al pasar el ratón sobre ellas */
+tr:hover {
+  background-color: #e6e6e6;
+}
+</pre>
+
+</li>
+
+
+
+<li>
+<p>Si ejecutamos ahora el proyecto020 veremos en el navegador el listado de artículos:</p>
+<pre>
+ng server -o
+</pre>
+<img src="imagentema/foto040b.jpg" alt="creación servicios" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto020/" target="_blank">aquí</a>.</p>
+</li>
+
+</ol>
+
+<p>Al principio y con problemas muy sencillos parece que solo agregamos complejidad a nuestra aplicación.</p>
+<p>Veremos que esta forma de desacoplar el acceso a datos de las componentes y delegarla en otras clases llamadas servicios facilita el mantenimiento de nuestras aplicaciones.</p>
+<p>También hay que hacer notar que la forma de consumir dichas clases se hace por medio del patrón de inyección de dependencias.</p>
+
+<div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

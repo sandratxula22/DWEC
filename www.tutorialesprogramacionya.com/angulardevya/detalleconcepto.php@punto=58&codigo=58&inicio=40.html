@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript y Angular: definición de una interfaz para controlar los tipos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>58 - TypeScript y Angular: definición de una interfaz para controlar los tipos</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>En Angular los modelos de datos se los representa generalmente con una interfaz, veamos un ejemplo utilizando una interfaz para definir el modelo de datos.</p>
+<h3>Problema</h3>
+<p>Implementar una aplicación que permita almacenar en un arreglo los sitios favoritos de internet y una descripción del sitio.</p>
+<p>Para resolver el problema vamos a definir la siguiente interfaz:</p>
+<pre>
+export interface Sitio {
+  url: string;
+  descripcion: string
+}
+</pre>
+<p>La aplicación debe almacenar en el localStorage del navegador todos los datos para evitar que se pierdan cuando cerremos la aplicación.</p>
+
+<p>Si ejecutamos la aplicación tenemos una pantalla similar a:</p>
+<img src="imagentema/fotonueva001.jpg" alt="interface angular aplicacion sitios favoritos" border="0"><br>
+<p>Podemos probar la aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto037/" target="_blank">aquí</a>.</p>
+
+
+<p>Como primer paso pasemos a crear nuestro proyecto:</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto037
+</pre>
+</li>
+
+<li>
+<p>El segundo paso es crear un archivo en la carpeta 'app' con el nombre 'sitio.ts' y en su interior codificamos la interfaz 'Sitio', la idea de separarla en un archivo independiente es porque la vamos a utilizar a la interfaz 'Sitio' en más de un archivo:</p>
+<p>sitio.ts</p>
+<pre class="recuadro">
+export interface Sitio {
+  url: string;
+  descripcion: string
+}
+</pre>
+<p>Disponemos la palabra clave 'export' para poder importarla en otros archivos.</p>
+</li>
+
+
+<li>
+<p>Crearemos el servicio que se va a encargar de almacenar y recuperar los datos del localStorage.</p>
+<p>Para crear el servicio desde Angular CLI ejecutamos:</p>
+<pre>
+ng generate service sitios
+</pre>
+<p>Se nos generan 2 archivos y el que debemos modificar es el archivo sitios.service.ts.</p>
+<p>sitios.service.ts</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+import { Sitio } from './sitio';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SitioService {
+  private localStorageNombre = 'sitios';
+
+  obtenerSitios(): Sitio[] {
+    const sitiosStr = localStorage.getItem(this.localStorageNombre);
+    return sitiosStr ? JSON.parse(sitiosStr) : [];
+  }
+
+  agregarSitio(sitio: Sitio): void {
+    const sitios = this.obtenerSitios();
+    sitios.push(sitio);
+    localStorage.setItem(this.localStorageNombre, JSON.stringify(sitios));
+  }
+
+  borrarSitio(url: string): void {
+    const sitios = this.obtenerSitios();
+    const index = sitios.findIndex((s) =&gt; s.url === url);
+    if (index !== -1) {
+      sitios.splice(index, 1);
+      localStorage.setItem(this.localStorageNombre, JSON.stringify(sitios));
+    }
+  }
+
+  modificarSitio(sitio: Sitio, urlBuscar:string): void {
+    const sitios = this.obtenerSitios();
+    const index = sitios.findIndex((s) =&gt; s.url === urlBuscar);
+    if (index !== -1) {
+      sitios[index] = sitio;
+      localStorage.setItem(this.localStorageNombre, JSON.stringify(sitios));
+    }
+  }
+}
+</pre>
+<pre>
+  obtenerSitios(): Sitio[] {
+    const sitiosStr = localStorage.getItem(this.localStorageNombre);
+    return sitiosStr ? JSON.parse(sitiosStr) : [];
+  }
+</pre>
+<p>El método 'obtenerSitios' retorna un arreglo de la interfaz 'Sitio'. Lo primero que hacemos es con el método getItem recuperamos los datos del localStorage o nos retorna null si todavía no hay nada almacenado.</p>
+<p>Finalmente retornamos un arreglo vacío [] si la variable 'sitioStr' almacena null o retornamos un objeto JSON a partir del string almacenado en el localStorage.</p>
+<pre>
+  agregarSitio(sitio: Sitio): void {
+    const sitios = this.obtenerSitios();
+    sitios.push(sitio);
+    localStorage.setItem(this.localStorageNombre, JSON.stringify(sitios));
+  }
+</pre>
+<p>El método agregarSitio recibe como parámetro un objeto de tipo 'Sitio'. Lo primero llama al método obtenerSitios que retorna como vimos un arreglo vacío [] o un arreglo con todos los sitios almacenados actualmente en el localStorage.</p>
+<p>Agregamos al arreglo 'sitios' el sitio que llega como parámetro y finalmente volvemos a almacenar el arreglo en el localStorage. Recordar que en el localStorage debemos convertir el arreglo 'sitios' a string mediante el método JSON.stringify.</p>
+<pre>
+  borrarSitio(url: string): void {
+    const sitios = this.obtenerSitios();
+    const index = sitios.findIndex((s) =&gt; s.url === url);
+    if (index !== -1) {
+      sitios.splice(index, 1);
+      localStorage.setItem(this.localStorageNombre, JSON.stringify(sitios));
+    }
+  }
+</pre>
+<p>Primero recuperamos todos los sitios almacenados en el localStorage, buscamos la 'url' del sitio que queremos borrar llamando al método 'findIndex' de la clase Array. Si lo encontramos procedemos a eliminar un elemento del arreglo llamando al método 'splice' y finalmente volvemos a guardar los datos del arreglo en el localStorage.</p>
+<pre>
+  modificarSitio(sitio: Sitio, urlBuscar:string): void {
+    const sitios = this.obtenerSitios();
+    const index = sitios.findIndex((s) =&gt; s.url === urlBuscar);
+    if (index !== -1) {
+      sitios[index] = sitio;
+      localStorage.setItem(this.localStorageNombre, JSON.stringify(sitios));
+    }
+  }
+</pre>
+<p>Buscamos la url del sitio que queremos modificar, y en caso de encontrarlo procedemos a asignar a dicha componente los datos modificados que llegan en el parámetro 'sitio'.</p>
+</li>
+
+<li>
+<p>Pasemos a codificar la lógica de la componente, la cual se apoya en el servicio para recuperar, agregar y modificar datos.</p>
+<p>app.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Sitio } from './sitio';
+import { SitioService } from './sitios.service';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  sitio: Sitio = { url: '', descripcion: '' }; // datos cargados en el formulario
+  sitios: Sitio[] = []; // arreglo con todos los sitios
+  sitioSeleccionado: string = ''; // se almacena el sitio seleccionado con el boton "seleccionar"
+
+  constructor(private sitioService: SitioService) {
+    this.sitios = sitioService.obtenerSitios();
+  }
+
+  borrar(url: string): void {
+    this.sitioService.borrarSitio(url);
+    this.sitios = this.sitioService.obtenerSitios();
+  }
+
+  agregar(): void {
+    if (this.sitio.url.trim() === '') {
+      alert('Debe ingresar una URL de sitio');
+      return;
+    }
+
+    if (this.sitios.some((s) =&gt; s.url === this.sitio.url)) {
+      alert('Ya existe un sitio con dicha URL');
+      return;
+    }
+
+    this.sitioService.agregarSitio(this.sitio);
+    this.sitio = { url: '', descripcion: '' };
+    this.sitios = this.sitioService.obtenerSitios();
+  }
+
+  seleccionar(sitio: Sitio): void {
+    this.sitioSeleccionado = sitio.url; // Guardar la URL seleccionada
+    this.sitio.url = sitio.url;
+    this.sitio.descripcion = sitio.descripcion;
+  }
+
+  modificar(): void {
+    if (this.sitio.url.trim() === '') {
+      alert('Debe ingresar una URL de sitio');
+      return;
+    }
+
+    const sitioExistente = this.sitios.find((s) =&gt; s.url === this.sitio.url && s.url !== this.sitioSeleccionado);
+    if (sitioExistente) {
+      alert('Ya existe un sitio con dicha URL');
+      return;
+    }
+
+    if (this.sitioSeleccionado) {
+
+      const index = this.sitios.findIndex((s) =&gt; s.url === this.sitioSeleccionado);
+      if (index !== -1) {
+        this.sitios[index] = { ...this.sitio };
+        this.sitioService.modificarSitio(this.sitio,this.sitioSeleccionado);
+        this.sitio = { url: '', descripcion: '' };
+        this.sitios = this.sitioService.obtenerSitios();
+        this.sitioSeleccionado = '';
+      }
+    }
+  }
+}
+</pre>
+<pre>
+  sitio: Sitio = { url: '', descripcion: '' }; // datos cargados en el formulario
+</pre>
+<p>La propiedad 'sitio' es de la interfaz 'Sitio' y lo inicializamos con string vacíos tanto para la url como la descripción. Estos dos atributos están asociados a los controles input del formulario.</p>
+<pre>
+  sitios: Sitio[] = []; // arreglo con todos los sitios
+</pre>
+<p>Corresponde al arreglo con todos los sitios. En el constructor se inicializa con los sitios almacenados hasta este momento en el localStorage.</p>
+<pre>
+  sitioSeleccionado: string = ''; // se almacena el sitio seleccionado con el boton "seleccionar"
+</pre>
+<p>Esta propiedad se requiere para el proceso de modificación de datos.</p>
+<pre>
+  constructor(private sitioService: SitioService) {
+    this.sitios = sitioService.obtenerSitios();
+  }
+</pre>
+<p>El constructor se le inyecta el servicio y se crea en el mismo parámetro la propiedad 'sitioService'. Además llamamos al método obtenerSitios para recuperar todos los datos almacenados en el localStorage. Como sabemos el método retorna un arreglo de tipo Sitio.</p>
+<pre>
+  borrar(url: string): void {
+    this.sitioService.borrarSitio(url);
+    this.sitios = this.sitioService.obtenerSitios();
+  }
+</pre>
+<p>El método borrar se lo llama desde la plantilla cuando se presiona el botón 'borrar' y llega como dato la 'url' del sitio a borrar. Llamamos al método borrarSitio del servicio sitioService que actualiza el localStorage eliminando dicho sitio. Además volvemos a llamar al método obtenerSitios del servicio para que nos retorne actualizado todos los sitios almacenados en el localStorage.</p>
+<pre>
+  agregar(): void {
+    if (this.sitio.url.trim() === '') {
+      alert('Debe ingresar una URL de sitio');
+      return;
+    }
+
+    if (this.sitios.some((s) =&gt; s.url === this.sitio.url)) {
+      alert('Ya existe un sitio con dicha URL');
+      return;
+    }
+
+    this.sitioService.agregarSitio(this.sitio);
+    this.sitio = { url: '', descripcion: '' };
+    this.sitios = this.sitioService.obtenerSitios();
+  }
+</pre>
+<p>El método agregar hace algunas validaciones como que hayamos ingresado una 'url' en el formulario o que dicha 'url' ya si haya cargado en el arreglo.</p>
+<p>Si pasa las validaciones llamamos al método agregarSitio del servicio sitioService y volvemos a actualizar el arreglo llamando a obtenerSitios.</p>
+<pre>
+  seleccionar(sitio: Sitio): void {
+    this.sitioSeleccionado = sitio.url; // Guardar la URL seleccionada
+    this.sitio.url = sitio.url;
+    this.sitio.descripcion = sitio.descripcion;
+  }
+</pre>
+<p>El método seleccionar se llama cuando se presiona en la plantilla el botón 'seleccionar', donde procedemos a almacenar en la propiedad sitioSeleccionado la url del sitio seleccionado. También actualizamos el formulario asignando valores al atributo 'sitio'.</p>
+<pre>
+  modificar(): void {
+    if (this.sitio.url.trim() === '') {
+      alert('Debe ingresar una URL de sitio');
+      return;
+    }
+
+    const sitioExistente = this.sitios.find((s) =&gt; s.url === this.sitio.url && s.url !== this.sitioSeleccionado);
+    if (sitioExistente) {
+      alert('Ya existe un sitio con dicha URL');
+      return;
+    }
+
+    if (this.sitioSeleccionado) {
+
+      const index = this.sitios.findIndex((s) =&gt; s.url === this.sitioSeleccionado);
+      if (index !== -1) {
+        this.sitios[index] = { ...this.sitio };
+        this.sitioService.modificarSitio(this.sitio,this.sitioSeleccionado);
+        this.sitio = { url: '', descripcion: '' };
+        this.sitios = this.sitioService.obtenerSitios();
+        this.sitioSeleccionado = '';
+      }
+    }
+  }
+</pre>
+<p>Finalmente el método modificar luego de hacer algunas validaciones procedemos a buscar el sitio que seleccionamos anteriormente y proceder a llamar al método modificarSitio del objeto sitioService pasando como parámetos los datos del formulario que se encuentran en el atributo 'sitio' y la url del sitio que anteriormente seleccionamos y almacenamos en la propiedad sitioSeleccionado.</p>
+</li>
+
+<li>
+<p>La plantilla muestra la tabla HTML con los sitios web y un formulario para la carga de sitios.</p>
+<p>app.component.html</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;h1&gt;Administración de sitios web&lt;/h1&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;URL&lt;/th&gt;
+        &lt;th&gt;Descripcion&lt;/th&gt;
+        &lt;th&gt;Borrar&lt;/th&gt;
+        &lt;th&gt;Seleccionar&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      @for(sitio of sitios; track sitio.url) {
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a href="https://www.{{sitio.url}}" target="_blank"&gt;{{sitio.url}}&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;{{sitio.descripcion}}&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="borrar(sitio.url)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="seleccionar(sitio)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      } @empty {
+        &lt;tr&gt;
+          &lt;td colspan="4"&gt;
+            No hay sitios.
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      }
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;div&gt;
+    &lt;p&gt;
+      URL:&lt;input type="text" [(ngModel)]="sitio.url" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      Descripcion:&lt;input type="text" [(ngModel)]="sitio.descripcion" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      &lt;button (click)="agregar()"&gt;Agregar&lt;/button&gt;
+      &lt;button (click)="modificar()"&gt;Modificar&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<pre>
+      @for(sitio of sitios; track sitio.url) {
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a href="https://www.{{sitio.url}}" target="_blank"&gt;{{sitio.url}}&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;{{sitio.descripcion}}&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="borrar(sitio.url)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="seleccionar(sitio)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      } @empty {
+        &lt;tr&gt;
+          &lt;td colspan="4"&gt;
+            No hay sitios.
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      }
+</pre>
+<p>Utilizamos la estructura repetitiva '@for' en la plantilla para mostrar el nombre del sitio, su descripción y dos botones que nos permiten borrar o seleccionar el sitio.</p>
+<p>Si el arreglo 'sitios' está vacío se ejecuta el bloque @empty.</p>
+</li>
+
+<li>
+<p>La hoja de estilo de la componente.</p>
+<p>app.component.css</p>
+<pre class="recuadro">
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</pre>
+</li>
+
+</ul>
+
+<p>Si ejecutamos la aplicación tenemos una interfaz similar a:</p>
+<img src="imagentema/fotonueva001.jpg" alt="interface angular aplicacion sitios favoritos" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto037/" target="_blank">aquí</a>.</p>
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Estructura y nombres de archivos y carpetas de un proyecto Angular - Carpeta 'src'</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>36 - Estructura y nombres de archivos y carpetas de un proyecto Angular - Carpeta 'src'</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>La carpeta 'src' (<strong>s</strong>ou<strong>rc</strong>e) depende directamente de la carpeta raiz del proyecto y contiene en su interior 1 carpetas y 3 archivos:</p>
+<img src="imagentema/foto109.jpg" alt="Angular carpeta src" border="0"><br>
+
+<h3>Archivos de la carpeta 'src'</h3>
+<ul>
+<li>
+  <p><strong>index.html</strong> Es la página HTML principal que se sirve cuando alguien visita el sitio web. Angular CLI agrega automáticamente todos los archivos JavaScript y CSS al compilar la aplicación, por lo que generalmente no necesita agregar ningún &lt;script&gt;o &lt;link&gt;.</p>
+<pre>
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Proyecto026&lt;/title&gt;
+  &lt;base href="/"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Si ejecutamos la aplicación y vemos el código que llega al navegador nos encontraremos un contenido similar a este (se agregan una serie de archivos *.js):</p>
+<pre>
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;script type="module" src="/@vite/client"&gt;&lt;/script&gt;
+
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Proyecto026&lt;/title&gt;
+  &lt;base href="/"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;script src="polyfills.js" type="module"&gt;&lt;/script&gt;&lt;script src="main.js" type="module"&gt;&lt;/script&gt;&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+<p>Podemos analizar que en el archivo original en el body se inserta una etiqueta de tipo 'app-root'. Esta etiqueta hace referencia a la única componente que se ha creado en forma automática y se encuentra almacenada en la carpeta hija llamada 'app' donde si abrimos el archivo 'app.component.ts' nos encontramos definido en la propiedad 'selector' el nombre de la etiqueta 'app-root':</p>
+<pre>
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: <strong>'app-root'</strong>,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'proyecto026';
+}
+</pre>
+<p>Si borraramos de la sección del body del archivo 'index.html' la etiqueta 'app-root' y lanzamos la aplicación, veremos que aparece una página web vacía.</p>
+</li>
+
+
+<li>
+  <p><strong>styles.css</strong> En este archivo definimos la hoja de estilo global del proyecto.</p>
+</li>
+
+
+<li>
+  <p><strong>main.ts</strong> Este archivo es el punto de entrada principal para la aplicación Angular: </p>
+<pre>
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) =&gt; console.error(err));
+</pre>
+<p>Se llama a la función bootstrapApplication y le pasamos en el primer parámetro la referencia de la componente principal.</p>
+</li>
+
+
+</ul>
+
+<div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

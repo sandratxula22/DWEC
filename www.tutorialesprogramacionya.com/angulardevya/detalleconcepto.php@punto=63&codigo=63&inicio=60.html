@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript y Angular: decorador @Directive</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>63 - TypeScript y Angular: decorador @Directive</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>En Angular hemos visto que el decorador @Directive se utiliza para definir una directiva personalizada. Las directivas son instrucciones que se aplican al DOM y pueden modificar su estructura, apariencia o comportamiento. A través del decorador @Directive, puedes crear tu propia directiva y luego usarla en los elementos del DOM dentro de tu aplicación Angular.</p>
+
+<h3>Problema</h3>
+<p>Crear una directiva que cambie dinámicamente el fondo de un elemento en función del tiempo actual del día. Llamaremos a esta directiva cambiarFondoSegunHora. La idea es que el fondo del elemento cambie de color dependiendo de si es de día, tarde o noche.</p>
+
+
+<ul>
+
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto041
+</pre>
+</li>
+
+<li><p>Creamos la directiva cambiarFondoSegunHora:</p>
+<pre>
+ng generate directive cambiarFondoSegunHora
+</pre>
+<p>Se nos crea el archivo 'cambiar-fondo-segun-hora.directive.ts' donde codificamos:</p>
+<pre class="recuadro">
+import { Directive, ElementRef, Renderer2, OnInit } from '@angular/core';
+
+@Directive({
+  selector: '[appCambiarFondoSegunHora]'
+})
+export class CambiarFondoSegunHoraDirective implements OnInit{
+  constructor(private el: ElementRef, private renderer: Renderer2) { }
+
+  ngOnInit() {
+    this.cambiarFondoSegunHora();
+  }
+
+  private cambiarFondoSegunHora() {
+    const horaActual = new Date().getHours();
+    let colorFondo = '';
+
+    if (horaActual &gt;= 6 && horaActual &lt; 12) {
+      colorFondo = 'yellow'; // Mañana
+    } else if (horaActual &gt;= 12 && horaActual &lt; 18) {
+      colorFondo = 'lightgray'; // Tarde
+    } else {
+      colorFondo = 'gray'; // Noche
+    }
+
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', colorFondo);
+  }
+}
+</pre>
+<pre>
+@Directive({
+  selector: '[appCambiarFondoSegunHora]'
+})
+</pre>
+<p>@Directive es un decorador que se utiliza para definir una directiva personalizada en Angular.</p>
+<pre>
+  selector: '[appCambiarFondoSegunHora]',
+</pre>
+<p>Indica que esta directiva se aplicará a elementos del DOM con el atributo appCambiarFondoSegunHora.</p>
+<pre>
+  constructor(private el: ElementRef, private renderer: Renderer2) { }
+</pre>
+<p>En el constructor, se inyectan las instancias de ElementRef y Renderer2. ElementRef proporciona acceso al elemento del DOM al que se aplica la directiva, y Renderer2 permite manipular el DOM de manera segura.</p>
+<pre>
+  ngOnInit() {
+    this.cambiarFondoSegunHora();
+  }
+</pre>
+<p>El método ngOnInit() se llama automáticamente después de que Angular haya inicializado la directiva. En este caso, se utiliza para llamar al método cambiarFondoSegunHora().</p>
+<pre>
+  private cambiarFondoSegunHora() {
+    const horaActual = new Date().getHours();
+    let colorFondo = '';
+
+    if (horaActual &gt;= 6 && horaActual &lt; 12) {
+      colorFondo = 'yellow'; // Mañana
+    } else if (horaActual &gt;= 12 && horaActual &lt; 18) {
+      colorFondo = 'lightgray'; // Tarde
+    } else {
+      colorFondo = 'gray'; // Noche
+    }
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', colorFondo);
+  }
+</pre>
+<p>El método privado cambiarFondoSegunHora() determina la hora actual y asigna un color de fondo según la hora del día. Luego, utiliza Renderer2 para establecer el estilo del fondo del elemento.</p>
+</li>
+<li>
+<p>Ahora en la clase principal de la aplicación hacemos uso de esta directiva.</p>
+<p>app.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CambiarFondoSegunHoraDirective } from './cambiar-fondo-segun-hora.directive';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, CambiarFondoSegunHoraDirective],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+
+}
+</pre>
+<p>Y en la plantilla disponemos la directiva que hemos creado:</p>
+<p>app.component.html</p>
+<pre class="recuadro">
+&lt;div appCambiarFondoSegunHora&gt;
+  Este fondo cambia según la hora del día.
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+<p>Podemos probar esta aplicación también en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto041/" target="_blank">aquí</a>.</p>
+</li>
+
+</ul>
+<div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

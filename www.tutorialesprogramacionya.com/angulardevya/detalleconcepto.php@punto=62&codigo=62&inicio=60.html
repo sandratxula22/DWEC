@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript y Angular: decorador @Injectable</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>62 - TypeScript y Angular: decorador @Injectable</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>El decorador @Injectable se utiliza para marcar una clase como un servicio inyectable. Cuando un servicio es inyectable, significa que puede ser incluido en la lista de dependencias y Angular puede proporcionar instancias de ese servicio a otras clases mediante la inyección de dependencias.</p>
+<p>Angular utiliza un sistema de inyección de dependencias para gestionar las dependencias entre diferentes partes de una aplicación. Esto permite la creación de instancias de clases y su provisión a otras clases que las necesitan.</p>
+<p>Se aplica el decorador @Injectable a la clase del servicio que se desea inyectar. Este decorador no requiere ninguna configuración adicional y se coloca en la parte superior de la declaración de la clase.</p>
+<pre>
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MiServicio {
+  // Métodos y propiedades del servicio
+}
+</pre>
+<p>@Injectable está configurado con { providedIn: 'root' } Esto significa que Angular proporcionará una única instancia de MiServicio en toda la aplicación (En ningún momento nosotros debemos instanciar la clase MiServicio)</p>
+
+<h3>Problema</h3>
+<p>Vamos a resolver el mismo problema que el concepto anterior, pero vamos a almacenar las tareas en el localStorage.</p>
+<p>Recordemos el problema: crear una aplicación que permita registrar tareas que se deben desarrollar y mediante controles checkbox tildar las ya realizadas, informando en la parte inferior cuantas de dichas tareas han sido finalizadas hasta dicho momento.</p>
+<p>Crear dos componentes, una llamada ListaTareas que muestre todas las tareas, permita ingresar nuevas tareas e informe las tareas finalizadas y por otro lado una componente llamada Tarea que tenga por objetivo mostrar una tarea, poder indicar que ya ha sido realizada e informar a la componente padre cada vez que cambia el estado de la tarea.</p>
+
+
+<p>La interfaz visual es similar a:</p>
+<img src="imagentema/fotonueva005.jpg" alt="Lista de tareas angular 17 @Injectable" border="0"><br>
+<p>Podemos probar esta aplicación también en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto040/" target="_blank">aquí</a>.</p>
+
+<ul>
+
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto040
+</pre>
+</li>
+
+<li><p>Creamos el modelo de dato que representa una tarea mediante una 'interface':</p>
+<pre>
+ng generate interface tarea
+</pre>
+<p>Se nos crea el archivo 'tarea.ts' donde definimos la interface:</p>
+<pre class="recuadro">
+export interface Tarea {
+  id: number,
+  descripcion: string,
+  finalizada: boolean
+}
+</pre>
+<p>Por cada tarea guardaremos su identificador, descripción y si la tarea fue finalizada.</p>
+</li>
+
+
+<li><p>Crearemos ahora el servicio que nos va a permitir almacenar, recuperar y modificar las tareas en el localStorage del navegador:</p>
+<pre>
+ng generate service tareas
+</pre>
+<p>Procedemos a crear la lógica del servicio:</p>
+<p>tareas.service.ts</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+import { Tarea } from './tarea';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TareaService {
+  private localStorageKey = 'datostareas';
+
+  obtenerTareas(): Tarea[] {
+    const tareasStr = localStorage.getItem(this.localStorageKey);
+    return tareasStr ? JSON.parse(tareasStr) : [];
+  }
+
+  guardarTareas(tareas: Tarea[]): void {
+    localStorage.setItem(this.localStorageKey, JSON.stringify(tareas));
+  }
+
+  agregarTarea(nuevaTarea: Tarea): void {
+    const tareas = this.obtenerTareas();
+    tareas.push(nuevaTarea);
+    this.guardarTareas(tareas);
+  }
+
+  borrarTarea(tareaId: number): void {
+    const tareas = this.obtenerTareas().filter(tarea =&gt; tarea.id !== tareaId);
+    this.guardarTareas(tareas);
+  }
+}
+</pre>
+</li>
+
+
+
+<li><p>Pasemos a crear ahora la componente "Tarea":</p>
+<pre>
+ng generate component tarea
+</pre>
+<p>Se nos crea una carpeta con los 4 archivos que representan la componente, procedemos a modificar la clase propiamente dicha y la plantilla HTML.</p>
+<p>tarea.component.ts</p>
+<pre class="recuadro">
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Tarea } from '../tarea';
+@Component({
+  selector: 'app-tarea',
+  imports: [],
+  templateUrl: './tarea.component.html',
+  styleUrl: './tarea.component.css'
+})
+export class TareaComponent {
+  @Input() tarea: Tarea = { id: 0, descripcion: '', finalizada: false };
+  @Output() borrarTarea: EventEmitter&lt;number&gt; = new EventEmitter&lt;number&gt;();
+  @Output() actualizarFinalizada: EventEmitter&lt;Tarea&gt; = new EventEmitter&lt;Tarea&gt;();
+
+  cambiarEstado() {
+    this.tarea.finalizada = !this.tarea.finalizada;
+    console.log(" mi")
+    this.actualizarFinalizada.emit(this.tarea);
+  }
+
+  borrar() {
+    this.borrarTarea.emit(this.tarea.id);
+  }
+}
+</pre>
+
+
+<p>La plantilla HTML para 'TareaComponent' es:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;input type="checkbox" [checked]="tarea.finalizada" (change)="cambiarEstado()"&gt;
+  {{ tarea.descripcion }}
+  &lt;button (click)="borrar()"&gt;Borrar&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+</li>
+
+
+<li><p>Pasemos a crear ahora la componente "listatareas":</p>
+<pre>
+ng generate component listatareas
+</pre>
+<p>Se nos crea una carpeta con los 4 archivos que representan la componente, procedemos a modificar la clase propiamente dicha y la plantilla HTML.</p>
+<p>listatareas.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { Tarea } from '../tarea';
+import { TareaComponent } from '../tarea/tarea.component';
+import { FormsModule } from '@angular/forms';
+import { TareaService } from '../tareas.service';
+
+@Component({
+  selector: 'app-listatareas',
+  imports: [TareaComponent, FormsModule],
+  templateUrl: './listatareas.component.html',
+  styleUrl: './listatareas.component.css'
+})
+export class ListatareasComponent {
+  tareas: Tarea[] = [];
+
+  descripcionTarea: string = '';
+
+  constructor(private tareaService: TareaService) {
+    this.tareas = this.tareaService.obtenerTareas();
+  }
+
+  agregarTarea() {
+    let nuevaTarea: Tarea;
+    if (this.tareas.length == 0) {
+      nuevaTarea = { id: 1, descripcion: this.descripcionTarea, finalizada: false };
+    } else {
+      nuevaTarea = { id: this.tareas[this.tareas.length - 1].id + 1, descripcion: this.descripcionTarea, finalizada: false };
+    }
+    this.tareas.push(nuevaTarea);
+    this.tareaService.agregarTarea(nuevaTarea);
+    this.descripcionTarea = '';
+  }
+
+  borrarTarea(tareaId: number) {
+    this.tareas = this.tareas.filter(tarea =&gt; tarea.id !== tareaId);
+    this.tareaService.borrarTarea(tareaId);
+  }
+
+  actualizarFinalizada(tarea: Tarea) {
+    this.tareas = this.tareas.map(ta =&gt; ta.id === tarea.id ? tarea : ta)
+    this.tareaService.guardarTareas(this.tareas);
+  }
+
+  cantidadTareasCompletadas(): number {
+    return this.tareas.filter(tarea =&gt; tarea.finalizada).length;
+  }
+
+}
+</pre>
+
+<p>La plantilla HTML para 'ListatareasComponent' es:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;h2&gt;Lista de tareas.&lt;/h2&gt;
+  @for(tarea of tareas; track tarea.id) {
+  &lt;app-tarea [tarea]="tarea" (borrarTarea)="borrarTarea($event)"
+    (actualizarFinalizada)="actualizarFinalizada(tarea)"&gt;&lt;/app-tarea&gt;
+  }
+  &lt;div&gt;
+    &lt;input [(ngModel)]="descripcionTarea" placeholder="Ingrese nueva tarea"&gt;
+    &lt;button (click)="agregarTarea()"&gt;Agregar tarea&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  Cantidad de tareas completadas: {{ cantidadTareasCompletadas() }}
+&lt;/div&gt;
+</pre>
+</li>
+
+<li><p>Por último debemos modificar la componente que crea Angular por defecto, donde agregaremos la lista de tareas:</p>
+<p>appcomponent.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ListatareasComponent } from './listatareas/listatareas.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ListatareasComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+
+}
+</pre>
+
+<p>La plantilla HTML para 'AppComponent' es:</p>
+<pre class="recuadro">
+&lt;app-listatareas&gt;&lt;/app-listatareas&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Incluimos la componente ListatareasComponent en la plantilla HTML mediante la etiqueta app-listatareas que se encuentra definida en la propidad select del decorador de la clase 'ListatareasComponent'.</p>
+</li>
+
+<li>
+<p>Ahora podemos ejecutar la aplicación:</p>
+<pre>
+ng serve -o
+</pre>
+<p>Podemos ver el localStorage con los datos de las tareas registradas hasta ese momento:</p>
+<img src="imagentema/fotonueva005.jpg" alt="Lista de tareas angular 17 @Injectable con localStorage" border="0"><br>
+<p>Podemos probar esta aplicación también en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto040/" target="_blank">aquí</a>.</p>
+</li>
+
+
+
+
+
+
+</ul>
+<div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

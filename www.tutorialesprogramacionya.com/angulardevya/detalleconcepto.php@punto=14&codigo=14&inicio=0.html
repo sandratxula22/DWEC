@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Formularios reactivos : ReactiveFormsModule, FormControl</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>14 - Formularios reactivos : ReactiveFormsModule, FormControl</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos dicho que Angular proporciona dos enfoques diferentes para manejar formularios:</p>
+<ol>
+<li>
+<p>Basado en plantillas (visto en el concepto anterior)</p>
+</li>
+<li>
+<p>Reactivos</p>
+</li>
+</ol>
+<p>Ambos capturan los eventos de entrada del usuario desde la vista, crean un modelo de formulario y un modelo de datos para actualizar y proporcionan una forma de rastrear los cambios. Hasta ahora nosotros hemos trabajado con el modelo basado en plantillas.</p>
+
+<p>El enfoque reactivo es más robusto, son más escalables, reutilizables y comprobables. Si los formularios son una parte clave de su aplicación, conviene utilizar el modelo reactivo.</p>
+<h3>Diferencias entre ambos modelos</h3>
+<ul>
+<li>
+<p>La configuración con el modelo de plantilla se hace mediante directivas y es menos explícito que el modelo reactivo que debe configurarse en la clase mediante código. </p>
+</li>
+
+<li>
+<p>En el formulario basado en plantillas el modelo de datos es más desestructurado.</p>
+</li>
+
+
+<li>
+<p>En el formulario basado en plantilla la validación se hace mediante directivas, en cambio en el modelo reactivo se hace mediante funciones.</p>
+</li>
+
+
+<li>
+<p>Las pruebas unitarias son más fácil de implementar en los formularios reactivos. </p>
+</li>
+
+<li>
+<p>Maneja cualquier escenario complejo es más fácil implementarlo con formularios reactivos.</p>
+</li>
+
+</ul>
+
+
+<p>Para trabajar con formularios reactivos necesitamos importar la clase 'ReactiveFormsModule' y crear un objeto de la clase FormControl por cada control visual que contendrá nuestro formulario.</p>
+<p>Nuestro primer problema con formularios reactivos será el más elemental, ya que contendrá un solo control 'input' para el ingreso de una cadena.</p>
+
+
+<h3>Problema</h3>
+<p>Confeccionar una aplicación que permita ingresar actividades pendientes mediante un control 'input' de tipo 'text'.</p>
+<p>Se deben listar todas las actividades ingresadas hasta el momento, además de poder borrar una en particular o todas a la vez.</p>
+<p>Almacenar en forma local en el navegador las actividades mediante el API localStorage para evitar que se pierdan las actividades cuando se cierre el navegador.</p>
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto009 
+</pre>
+</li>
+
+
+<li>
+<p>Trabajaremos con la componente que generar automáticamente Angular CLI cuando creamos el proyecto, pasamos a modificar la vista (app.component.html):</p>
+<pre  class="recuadro">
+&lt;p&gt; Actividad:
+  &lt;input type="text" [formControl]="actividad"&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;button (click)="agregar()"&gt;Agregar&lt;/button&gt;&lt;/p&gt;
+&lt;ol&gt;
+  @for(acti of lista;track $index) {
+  &lt;li&gt;
+    {{acti}} &lt;a (click)="borrar($index)" href="#"&gt;Borra?&lt;/a&gt;
+  &lt;/li&gt;
+  }
+&lt;/ol&gt;
+&lt;p&gt;&lt;button (click)="borrarTodas()"&gt;Borrar todas las actividades&lt;/button&gt;&lt;/p&gt;
+
+&lt;router-outlet /&gt;
+</pre>
+<p>Analizaremos este archivo en conjunto luego de presentar 'app.component.ts'</p>
+</li>
+
+
+<li><p>La clase asociada a la vista 'app.component.html' es el archivo 'app.component.ts' donde implementamos la siguiente lógica:</p>
+<pre  class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [ RouterOutlet, ReactiveFormsModule,],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+
+  actividad = new FormControl();
+
+  lista: string[];
+
+  constructor() {
+    this.lista = [];
+    let datos = localStorage.getItem("actividades");
+    if (datos != null) {
+      let arreglo = JSON.parse(datos);
+      if (arreglo != null)
+        for (let actividad of arreglo)
+          this.lista.push(actividad);
+    }
+  }
+
+  agregar() {
+    this.lista.push(this.actividad.value);
+    localStorage.setItem('actividades', JSON.stringify(this.lista));
+    this.actividad.setValue('');
+  }
+
+  borrar(pos: number) {
+    this.lista.splice(pos, 1);
+    localStorage.clear();
+    localStorage.setItem('actividades', JSON.stringify(this.lista));
+  }
+
+  borrarTodas() {
+    localStorage.clear();
+    this.lista = [];
+  }
+}
+</pre>
+
+
+
+<p>Lo primero que hacemos es importar la clase 'ReactiveFormsModule' y la interface 'FormControl':</p>
+<pre>
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+</pre>
+<p>Debemos importar en la componente la clase 'ReactiveFormsModule':</p>
+<pre>
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ReactiveFormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+</pre>
+
+<p>Dentro de la clase 'AppComponent' creamos un objeto de tipo 'FormControl' llamado 'actividad' (uno solo ya que solo tenemos un control de entrada de datos):</p>
+<pre>
+  actividad = new FormControl();
+</pre>
+<p>Este atributo 'actividad' se asocia con la vista mediante la sintaxis:</p>
+<pre>
+  &lt;input type="text" [formControl]="actividad"&gt;
+</pre>
+<p>La cadena que carga el operador en el control visual luego se la puede acceder mediante la propiedad 'value' y si queremos cambiar su contenido disponemos del método 'setValue'.</p>
+<p>El problema requiere que se almacenen todas las actividades que ingresa el usuario por teclado, esto sucede en el arreglo 'lista'. La definimos dentro de la clase:</p>
+<pre>
+  lista: string[];
+</pre>
+<p>Cuando el operador presiona el botón de 'Agregar' se llama el método 'agregar' y procedemos a recuperar el dato del control visual mediante la propiedad value y la agregamos al arreglo:</p>
+<pre>
+    this.lista.push(this.actividad.value);    
+</pre>
+<p>Inmediatamente procedemos a borrar el contenido del control visual llamando al método 'setValue':</p>
+<pre>
+    this.actividad.setValue('');
+</pre>
+
+<p>Nuestro problema requiere almacenar cada una de las actividades en un arreglo que se pasa a mostrar en la vista mediante la estructura  @for:</p>
+<pre>
+&lt;ol&gt;
+  @for(acti of lista;track $index) {
+  &lt;li&gt;
+    {{acti}} &lt;a (click)="borrar($index)" href="#"&gt;Borra?&lt;/a&gt;
+  &lt;/li&gt;
+  }
+&lt;/ol&gt;
+</pre>
+<p>Debemos especificar la variable especial $index que se numera de 0 en adelante. Dicho valor se pasa al método borrar: (click)="borrar($index)"
+</li>
+
+<li>
+<p>Vimos hasta ahora todo lo relacionado con el control FormControl, pero nuestro problema requiere que la lista de actividades no se borre al cerrar el navegador, para ello utilizamos el API localStorage que proporciona HTML5.</p>
+<p>Cuando se presiona el botón 'agregar', luego de guardar la actividad del formulario procedemos a almacenar mediante el método 'setItem' del objeto 'localStorage' los datos de la lista pero en formato JSON:</pp>
+<pre>
+  agregar() {
+    this.lista.push(this.actividad.value);    
+    localStorage.setItem('actividades', JSON.stringify(this.lista));
+    this.actividad.setValue('');
+  }
+</pre>
+<p>Si se presiona el botón de borrar todas las actividades procedemos por un lado a borrar los elementos del arreglo y además a borrar los datos almacenados en 'localStorage':</p>
+<pre>
+  borrarTodas() {
+    localStorage.clear();
+    this.lista=[];
+  }
+</pre>
+<p>Otro punto importante es que cuando se ejecuta el método constructor al cargar la componente, verificamos si hay datos almacenados en el 'localStorage' para leerlos y cargar el arreglo 'lista' con los datos previos de ejecuciones anteriores de la aplicación Angular:</p>
+<pre>
+  constructor() {
+    this.lista = [];
+    let datos = localStorage.getItem("actividades");
+    if (datos != null) {
+      let arreglo = JSON.parse(datos);
+      if (arreglo != null)
+        for (let actividad of arreglo)
+          this.lista.push(actividad);
+    }
+  }
+</pre>
+</li>
+
+</ul>
+<p>Si ejecutamos la aplicación tenemos una interfaz similar a:</p>
+<img src="imagentema/foto149.jpg" alt="Formularios reactivos angular ReactiveFormsModule FormControl" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto009/" target="_blank">aquí</a>.</p><div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

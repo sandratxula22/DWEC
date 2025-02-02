@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Consumir una API pública utilizando una interface para definir su estructura y la clase HttpClient</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>70 - Consumir una API pública utilizando una interface para definir su estructura y la clase HttpClient</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Ya hemos visto en conceptos anteriores como podemos solicitar información a un servidor utilizando la clase HttpClient, pero no habíamos visto hasta ese momento la declaración de interfaces.</p>
+<p>La declaración de la interface nos permite en tiempo de diseño identificar errores sobre nombre de atributos en los objetos.</p>
+<h2>Problema</h2>
+<p>La siguiente URL retorna un archivo JSON con los datos de distintos países:</p>
+<pre>
+https://www.ejerciciostutorialesya.com/cursojs/recuperarpaises.php
+</pre>
+<p>Como resultado tenemos un archivo similar a:</p>
+<pre>
+[
+  {
+    "nombre": "Argentina",
+    "capital": "Buenos Aires",
+    "idioma": "español",
+    "moneda": "peso",
+    "poblacion": 40000000,
+    "bandera": "https://www.ejerciciostutorialesya.com/cursojs/imagenes/argentina.png",
+    "limites": ["Chile", "Brasil", "Uruguay","Bolivia"]
+  },
+  {
+    "nombre": "Brasil",
+    "capital": "Brasilia",
+    "idioma": "portugués",
+    "moneda": "real",
+    "poblacion": 200000000,
+    "bandera": "https://www.ejerciciostutorialesya.com/cursojs/imagenes/brasil.png",
+    "limites": ["Argentina", "Chile", "Paraguay","Uruguay","Colombia","Venezuela","Bolivia","Peru","Ecuador","Guayana Francesa","Surinam","Guyana"]
+  },
+  {
+    "nombre": "Chile",
+    "capital": "Santiago",
+    "idioma": "español",
+    "moneda": "peso",
+    "poblacion": 18000000,
+    "bandera": "https://www.ejerciciostutorialesya.com/cursojs/imagenes/chile.png",
+    "limites": ["Argentina","Bolivia","Peru"]
+  }
+]
+</pre>
+<p>Confeccionar una aplicación en Angular que recupere los datos del servidor y los muestre en una tabla HTML.</p>
+<p>Vamos a codificar cada uno de los pasos para resolver el problema propuesto.</p>
+
+<p>El resultado final debe ser similar a:</p>
+<img src="imagentema/fotonueva007.jpg" alt="HttpClient" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto048/" target="_blank">aquí</a>.</p>
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto048
+</pre>
+</li>
+
+<li>
+<p>Debemos modificar el archivo 'app.config.ts' para poder hacer consultas a un servidor:</p>
+<pre class="recuadro">
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { withFetch } from '@angular/common/http';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(withFetch())]
+};
+</pre>
+</li>
+
+<li>
+<p>Creamos la interface con la estructura del archivo JSON:</p>
+<pre>
+ng generate interface Pais
+</pre>
+<p>Declaramos la estructura de la interface:</p>
+<pre class="recuadro">
+export interface Pais {
+  nombre: string,
+  capital: string,
+  idioma: string,
+  moneda: string,
+  poblacion: number,
+  bandera: string,
+  limites: string[]
+}
+</pre>
+<p>Como podemos ver los objetos contenidos del archivo JSON quedan mapeados con los nombres de las propiedades y sus tipos de datos. nombre es de tipo string, poblacion es numeric, limites es un array de string etc.</p>
+</li>
+
+<li>
+<p>Pasamos a crear ahora el servicio que va a emplear la clase HttpClient para comunicarse con el servidor y proceder a recuperar los datos en forma asíncrona:</p>
+<pre>
+ng generate service paises
+</pre>
+<p>El código a implementar en el servicio es:</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+import { Pais } from './pais';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PaisesService {
+  private urlApi = "https://www.ejerciciostutorialesya.com/cursojs/recuperarpaises.php"
+
+  constructor(private http: HttpClient) { }
+
+  retornar() {
+    return this.http.get&lt;Pais[]&gt;(this.urlApi);
+  }
+}
+</pre>
+<pre>
+import { HttpClient } from '@angular/common/http';
+</pre>
+<p>Recordemos que la clase HttpClient es un servicio proporcionado por Angular para hacer solicitudes HTTP.</p>
+<pre>
+import { Pais } from './pais';
+</pre>
+<p>Es la interfaz que define la estructura de un objeto "Pais".</p>
+<pre>
+  constructor(private http: HttpClient) { }
+</pre>
+<p>Al constructor se inyecta el servicio HttpClient.</p>
+<pre>
+  retornar() {
+    return this.http.get&lt;Pais[]&gt;(this.urlApi);
+  }
+</pre>
+<p>Este método utiliza el servicio HttpClient para realizar una solicitud GET a la URL especificada (this.urlApi).<br>
+El método devuelve un objeto de la clase Observable de tipo Pais[] (el próximo concepto ahondaremos el concepto de Observable). La notación <Pais[]> indica que se espera una respuesta que sea un array de objetos que coincidan con la interfaz Pais.</p>
+<p>Este método se utilizará en una componente donde se listarán los paises recuperados.</p>
+</li>
+
+
+<li>
+<p>Creamos la componente donde se mostrarán en una tabla HTML los paises:</p>
+<pre>
+ng generate component ListadoPaises
+</pre>
+
+
+<p>Codificamos la clase 'ListadoPaisesComponent' contenida en el archivo 'listado-paises.component.ts'</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { PaisesService } from '../paises.service';
+import { Pais } from '../pais';
+
+@Component({
+  selector: 'app-listado-paises',
+  imports: [],
+  templateUrl: './listado-paises.component.html',
+  styleUrl: './listado-paises.component.css'
+})
+export class ListadoPaisesComponent {
+  paises: Pais[] = [];
+
+  constructor(private paisesService: PaisesService) {
+    this.recuperar()
+  }
+
+  recuperar() {
+    this.paisesService.retornar().subscribe((paises: Pais[]) => {
+      this.paises = paises
+    });
+  }
+
+}
+</pre>
+<pre>
+  paises: Pais[] = [];
+</pre>
+<p>Definimos un arreglo inicialmente vacío, que almacenará los datos recuperados del servidor.</p>
+<pre>
+  constructor(private paisesService: PaisesService) {
+    this.recuperar()
+  }
+</pre>
+<p>El constructor del componente recibe el servicio PaisesService como una dependencia e invoca el método recuperar automáticamente.</p>
+<pre>
+  recuperar() {
+    this.paisesService.retornar().subscribe((paises: Pais[]) => {
+      this.paises = paises
+    });
+  }
+</pre>
+<p>El método recuperar utiliza el servicio PaisesService para recuperar la lista de países. Utiliza el método retornar() del servicio, que devuelve un observable (a partir del próximo concepto veremos en profundidad la clase Observable). El componente se suscribe al observable y actualiza la propiedad paises cuando se recibe la respuesta.</p>
+</li>
+
+
+
+<li>
+<p>Codificamos la clase la plantilla HTML 'listado-paises.component.html'</p>
+<pre class="recuadro">
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Nombre&lt;/th&gt;
+      &lt;th&gt;Capita&lt;/th&gt;
+      &lt;th&gt;Idioma&lt;/th&gt;
+      &lt;th&gt;Moneda&lt;/th&gt;
+      &lt;th&gt;Poblacion&lt;/th&gt;
+      &lt;th&gt;Paises limitrofes&lt;/th&gt;
+      &lt;th&gt;Bandera&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    @for(pais of paises;track pais.nombre) {
+    &lt;tr&gt;
+      &lt;td&gt;{{pais.nombre}}&lt;/td&gt;
+      &lt;td&gt;{{pais.capital}}&lt;/td&gt;
+      &lt;td&gt;{{pais.idioma}}&lt;/td&gt;
+      &lt;td&gt;{{pais.moneda}}&lt;/td&gt;
+      &lt;td&gt;{{pais.poblacion}}&lt;/td&gt;
+      &lt;td&gt;
+        @for(limite of pais.limites;track limite) {
+        {{limite}}&lt;br&gt;
+        }
+      &lt;/td&gt;
+      &lt;td&gt;&lt;img src="{{pais.bandera}}" alt="pais.nombre"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    }
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</li>
+
+<li>
+<p>Codificamos la hoja de estilo 'listado-paises.component.css'</p>
+<pre class="recuadro">
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</pre>
+</li>
+
+
+<li>
+
+<p>Ahora modificamos la componente principal que crea Angular por defecto 'app.component.ts'</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ListadoPaisesComponent } from './listado-paises/listado-paises.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ListadoPaisesComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+}
+</pre>
+</li>
+
+
+<p>Finalmente modificamos la plantilla HTML de la componente principal que crea Angular por defecto 'app.component.html'</p>
+<pre class="recuadro">
+&lt;app-listado-paises&gt;&lt;/app-listado-paises&gt;
+&lt;router-outlet /&gt;
+</pre>
+</li>
+</ul>
+
+<p>Ya podemos probar nuestra aplicación en forma local:</p>
+<pre>
+ng serve -o
+</pre>
+
+<p>Tenemos como resultado:</p>
+<img src="imagentema/fotonueva007.jpg" alt="HttpClient" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto048/" target="_blank">aquí</a>.</p>
+<div class="botonretorno"><a href="index.php@inicio=60.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

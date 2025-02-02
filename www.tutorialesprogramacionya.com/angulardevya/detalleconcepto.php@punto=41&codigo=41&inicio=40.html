@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Vistas diferidas : @defer {} @placeholder{}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>41 - Vistas diferidas : @defer {} @placeholder{}</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Las vistas diferidas es una nueva estructura que se puede emplear en la plantilla HTML y ha sido introducida a partir de Angular 17.</p>
+<p>La vistas diferidas permite renderizar un bloque HTML, componente etc. una vez que la página se ha cargado por completo, solo faltando el o los bloques de código diferido.</p>
+<p>La carga diferida tiene por objetivo mejorar la experiencia del usuario cuando interactúa con nuestra aplicación.</p>
+<h2>Sintaxis</h2>
+<p>La sintaxis más elemental sin parámetros es:</p>
+<pre>
+@defer {
+  aquí disponemos el bloque que se va a renderizar luego que se haya cargado toda la página
+} @placeholder {
+  aquí disponemos el bloque que debe renderizar inmediatamente
+}
+</pre>
+
+<p>El bloque @placeholder es opcional pero nos puede ser de mucha utilidad para informar al usuario que se va ha renderizar en dicho lugar, por ejemplo podemos reservar un área de la página donde se mostrará un gráfico estadístico que requiera datos de un servidor web.</p>
+
+<h2>Problema</h2>
+<p>Crear una página con un título, seguidamente muestre los números del 0 al 500000, al final de la página mostrar un pié página con un mensaje.</p>
+<p>Como podemos imaginar la generación y renderizado de la página va a ser lenta, debido a su tamaño. Lo más conveniente es que se muestre la página con un mensaje informando al usuario que se está generando la lista de números y tenga un poco de paciencia. Pasemos a crear  el proyecto:</p>
+<pre>
+ng new proyecto027
+</pre>
+<p>En la clase de la componente 'app.component.ts' creamos un arreglo de 500001 elementos con los valores comprendidos entre 0 y 500000:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  numeros = [...Array(500001).keys()];
+}
+</pre>
+<p>Es importante recordar en JavaScript y por lo tanto aplicable en TypeScript para generar en forma concisa el arreglo:</p>
+<ul>
+<li>
+Array(500001): Esto crea un nuevo array con una longitud de 500001 elementos. Los elementos en este array aún no tienen valores asignados y serán undefined.
+</li>
+<li>
+Array(500001).keys(): La función keys() devuelve un nuevo objeto Array que contiene las claves para cada índice del arreglo. En este caso, las claves serán los números desde 0 hasta 500000.
+</li>
+<li>
+[...Array(500001).keys()]: El operador de propagación (...), recordemos que se utiliza para expandir los elementos del objeto Array en un nuevo array. Esto crea un array que contiene los números del 0 al 500000.
+</li>
+</ul>
+<p>En resumen, después de ejecutar este código, la variable numeros contendrá un array con los números del 0 al 500000.</p>
+
+<p>Ahora veamos como creamos el bloque que generará la lista de números en forma diferible, pasamos a codificar en el archivo app.component.html:</p>
+<pre class="recuadro">
+&lt;h1&gt;Listado de numeros del 0 al 500000&lt;/h1&gt;
+@defer {
+  &lt;p&gt;
+  @for(num of numeros;track num) {
+    {{num}} -
+  }
+  &lt;/p&gt;
+}
+@placeholder {
+  &lt;p&gt;Generando numeros...&lt;/p&gt;
+}
+&lt;p&gt;Gracias por visitar el sitio.&lt;/p&gt;
+</pre>
+
+<p>Podemos ejecutar la aplicación y ver que inmediatamente se carga la página casi por completo, pero queda pendiente el bloque @defer:</p>
+<img src="imagentema/foto160.jpg" alt="@defer {} @placeholder {} Angular 17" border="0"><br> 
+<p>Mientras no se ha resuelto el contenido del bloque @defer se muestra el contenido del bloque @placeholder.</p>
+<p>Luego de algunos segundos, dependiendo de la velocidad de la computadora se remplaza el contenido del @placeholder por el contenido  del bloque @defer, en nuestro ejemplo mostrando la lista de números en pantalla :</p>
+<img src="imagentema/foto161.jpg" alt="@defer {} @placeholder {} Angular 17" border="0"><br> 
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto027/" target="_blank">aquí</a>.</p>
+
+<p>Sin vista diferida podemos comprobar que la página tarda varios segundos antes que se muestre en el navegador, lo cual genera una experiencia de usuario muy pobre. Puede modificar y probar el código sin el bloque de vista diferida:</p>
+<pre class="recuadro">
+&lt;h1&gt;Listado de numeros del 0 al 500000&lt;/h1&gt;
+&lt;p&gt;
+  @for(num of numeros;track num) {
+  {{num}} -
+  }
+&lt;/p&gt;
+&lt;p&gt;Generando numeros...&lt;/p&gt;
+&lt;p&gt;Gracias por visitar el sitio.&lt;/p&gt;
+</pre>
+<p>Seguramente sin vista diferida deberíamos utilizar otro algoritmo para que muestre parte de la página hasta que se muestre la lista de números.</p>
+<p>Si utilizamos una versión de Angular anterior a la 17, un algoritmo posible es el siguiente:</p>
+<pre class="recuadro">
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  numeros = [...Array(500001).keys()];
+  lista = 'generando la lista...';
+
+  ngOnInit() {
+    setTimeout(() =&gt; {
+      this.lista = this.numeros.join('-');
+    }, 0);
+  }
+
+}
+</pre>
+
+<p>OnInit es una interfaz que proporciona el método ngOnInit, que se ejecuta cuando la componente se inicializa.</p>
+<p>El método ngOnInit() se llama después de que la componente ha sido inicializada. En este caso, se utiliza para actualizar la propiedad lista después de un breve retraso, simbolizado por setTimeout. Este enfoque se utiliza para mostrar el mensaje 'generando la lista...' antes de que la lista completa de números se procese y actualice en la vista.</p>
+<p>Y su plantilla queda con el siguiente código:</p>
+<pre class="recuadro">
+&lt;h1&gt;Listado de numeros del 0 al 500000&lt;/h1&gt;
+{{lista}}
+&lt;p&gt;Gracias por visitar el sitio.&lt;/p&gt;
+</pre>
+<p>La vista diferida nos permite implementar un código más legible y veremos más adelante que tiene otras ventajas.</p>
+
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

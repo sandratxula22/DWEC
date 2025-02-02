@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: clases genéricas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>57 - TypeScript: clases genéricas</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>TypeScript permite crear clases y funciones que administren distintos tipos de datos. Esta característica no existe en JavaScript</p>
+<p>Se utilizan mucho para la administración de colecciones de datos (pilas, colas, listas etc.)</p>
+
+<p>Para entender las ventajas de definir clases genéricas implementaremos los algoritmos para administrar una pila de enteros y una pila de string. Primero lo haremos utilizando clases tradicionales y luego mediante una clase genérica.</p>
+
+<p>Para concentrarnos en la sintaxis plantearemos la pila utilizando un vector donde definiremos los dos métodos fundamentales de insertar y extraer (no haremos ningún tipo de validaciones por simplicidad)</p>
+<pre class="recuadro">
+class PilaEnteros {
+  private vec: number[] = [];
+
+  insertar(x: number) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+
+class PilaStrings {
+  private vec: string[] = [];
+
+  insertar(x: string) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+
+let pila1 = new PilaEnteros();
+pila1.insertar(20);
+pila1.insertar(43);
+pila1.insertar(1);
+console.log(pila1.extraer());
+
+let pila2 = new PilaStrings();
+pila2.insertar('juan');
+pila2.insertar('ana');
+pila2.insertar('luis');
+console.log(pila2.extraer());
+</pre>
+
+<p>Como podemos analizar hemos planteado dos clases, una para administrar una pila con tipos de dato enteros:</p>
+<pre>
+class PilaEnteros {
+  private vec: number[] = [];
+
+  insertar(x: number) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+</pre>
+<p>Y por otro lado otra clase para administrar una pila de tipo de dato string:</p>
+<pre>
+class PilaStrings {
+  private vec: string[] = [];
+
+  insertar(x: string) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+</pre>
+<p>Para probar estas dos clases definimos un objeto de la clase PilaEnteros e insertamos tres valores y luego extraemos uno:</p>
+<pre>
+let pila1=new PilaEnteros();
+pila1.insertar(20);
+pila1.insertar(43);
+pila1.insertar(1);
+console.log(pila1.extraer()); //se imprime un 1 ya que el último en entrar es el primero en salir en una pila.
+</pre>
+<p>De forma similar probamos creando un objeto de la clase PilaStrings:</p>
+<pre>
+let pila2=new PilaStrings();
+pila2.insertar('juan');
+pila2.insertar('ana');
+pila2.insertar('luis');
+console.log(pila2.extraer()); //se imprime 'luis'
+</pre>
+
+<p>Hasta este momento no hemos presentado ninguna novedad con respecto a lo que conocemos. Veamos ahora como podemos resolver este problema pero empleando una clase genérica:</p>
+<pre class="recuadro">
+class PilaGenerica&lt;T&gt;{
+  private vec: T[] = [];
+
+  insertar(x: T) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+
+let pila3: PilaGenerica&lt;number&gt;;
+pila3 = new PilaGenerica&lt;number&gt;();
+pila3.insertar(20);
+pila3.insertar(42);
+pila3.insertar(1);
+console.log(pila3.extraer());
+
+let pila4: PilaGenerica&lt;string&gt;;
+pila4 = new PilaGenerica&lt;string&gt;();
+pila4.insertar('juan');
+pila4.insertar('ana');
+pila4.insertar('luis');
+console.log(pila4.extraer());
+</pre>
+
+<p>Como vemos hemos declarado una sola clase llamada PilaGenerica y hemos sustituido en los lugares donde hacíamos referencia a number o string por el tipo 'T' que también tenemos que hacer referencia en donde declaramos la clase:</p>
+<pre>
+class PilaGenerica&lt;T&gt;{
+  private vec: T[] = [];
+
+  insertar(x: T) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+</pre>
+
+<p>Luego cuando creamos un objeto de la clase PilaGenerica debemos indicar cuando la creamos el tipo de datos que administrará nuestra pila:</p>
+<pre>
+let pila4:PilaGenerica&lt;string&gt;;
+pila4=new PilaGenerica&lt;string&gt;();
+</pre>
+
+<p>Podemos crear objetos de la clase PilaGenerica con cualquier tipo de dato primitivo (number, string, boolean etc.) o de otra clase.</p>
+<p>Problemos de codificar otro programa que cree una pila de otra clase creada por nosotros:</p>
+<pre class="recuadro">
+class PilaGenerica&lt;T&gt;{
+  private vec: T[] = [];
+
+  insertar(x: T) {
+    this.vec.push(x);
+  }
+
+  extraer() {
+    if (this.vec.length &gt; 0)
+      return this.vec.pop();
+    else
+      return null;
+  }
+}
+
+class Persona {
+  constructor(public nombre: string, public edad: number) { }
+}
+
+let pila5: PilaGenerica&lt;Persona&gt;;
+pila5 = new PilaGenerica&lt;Persona&gt;();
+pila5.insertar(new Persona('pedro', 33));
+pila5.insertar(new Persona('maria', 33));
+pila5.insertar(new Persona('marcos', 33));
+console.log(pila5.extraer());
+</pre>
+
+<p>Creamos un objeto de la clase PilaGenerica e indicamos que almacenará objetos de la clase Persona:</p>
+<pre>
+let pila5:PilaGenerica&lt;Persona&gt;;
+pila5=new PilaGenerica&lt;Persona&gt;();
+</pre>
+<p>Creamos tres objetos de la clase Persona y los insertamos en la Pila:</p>
+<pre>
+pila5.insertar(new Persona('pedro', 33));
+pila5.insertar(new Persona('maria', 33));
+pila5.insertar(new Persona('marcos', 33));
+</pre>
+<p>Si extraemos un elemento de la pila tenemos la última persona ingresada:</p>
+<pre>
+console.log(pila5.extraer());
+</pre>
+
+<p>El planteo de clases genéricas nos reduce tener que crear múltiples clases para administrar distintos tipos de datos.</p>
+
+
+
+
+
+
+
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

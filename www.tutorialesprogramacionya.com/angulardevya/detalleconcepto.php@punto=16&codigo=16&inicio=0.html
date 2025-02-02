@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Formularios reactivos : controles checkbox, radio y select </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>16 - Formularios reactivos : controles checkbox, radio y select </h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Vimos en los conceptos anteriores como trabajar con formularios reactivos en Angular, pero siempre utilizando un input de tipo text o un textarea. Ahora veremos como configurar los controles checkbox, radio y select.</p>
+
+
+<h3>Problema</h3>
+<p>Confeccionar un formulario que permita al usuario ingresar un valor decimal y luego pueda seleccionar:</p>
+<ul>
+<li>Mediante dos controles radio puede indicar si quiere la conversión a hexadecimal u octal.</li>
+<li>Mediante un control select indica si quiere calcular el valor ingresado elevado a la potencia 2, 3 o 4.</li>
+<li>Finalmente con un control checkbox puede indicar que muestre la cantidad de dígitos del valor ingresado.</li>
+</ul>
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto011
+</pre>
+</li>
+
+
+
+<li><p>Modificamos la vista de la componente que muestra el formulario reactivo (app.component.html):</p>
+<pre class="recuadro">
+&lt;form [formGroup]="formularioConversion" (ngSubmit)="submit()"&gt;
+  &lt;p&gt;Ingrese número decimal:
+    &lt;input type="text" formControlName="numerodecimal"&gt;
+  &lt;/p&gt;
+  &lt;p&gt;Convertir a:&lt;br&gt;
+    &lt;input type="radio" formControlName="base" value="octal"&gt;Octal
+    &lt;input type="radio" formControlName="base" value="hexadecimal"&gt;Hexadecimal
+  &lt;/p&gt;
+  &lt;p&gt;Elevar a:&lt;br&gt;
+    &lt;select formControlName="potencia"&gt;
+      &lt;option&gt;2&lt;/option&gt;
+      &lt;option&gt;3&lt;/option&gt;
+      &lt;option&gt;4&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/p&gt;  
+  &lt;p&gt;&lt;input type="checkbox" formControlName="largo"&gt;Mostrar cantidad de dígitos
+  &lt;/p&gt;
+  &lt;p&gt;&lt;button type="submit"&gt;Confirmar&lt;/button&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;div&gt;
+  &lt;p&gt;Conversion:{{conversion}}&lt;/p&gt;
+  &lt;p&gt;Potencia:{{potenciaNumero}}&lt;/p&gt;
+  &lt;p&gt;Cantidad de dígitos:{{cantidad}}&lt;/p&gt;  
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Analizaremos este archivo en conjunto luego de presentar 'app.component.ts'</p>
+</li>
+
+
+<li><p>La clase asociada a la vista es (app.component.ts):</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ReactiveFormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  conversion = '';
+  potenciaNumero = '';
+  cantidad = '';
+
+  formularioConversion = new FormGroup({
+    numerodecimal: new FormControl(''),
+    base: new FormControl('octal'),
+    potencia: new FormControl('2'),
+    largo: new FormControl(true)
+  });
+
+  submit() {
+    if (this.formularioConversion.value.numerodecimal) {
+      if (this.formularioConversion.value.base == "hexadecimal")
+        this.conversion = parseInt(this.formularioConversion.value.numerodecimal).toString(16);
+      if (this.formularioConversion.value.base == "octal")
+        this.conversion = parseInt(this.formularioConversion.value.numerodecimal).toString(8);
+      if (this.formularioConversion.value.numerodecimal && this.formularioConversion.value.potencia)
+        this.potenciaNumero = Math.pow(parseInt(this.formularioConversion.value.numerodecimal), parseInt(this.formularioConversion.value.potencia)).toString();
+      if (this.formularioConversion.value.largo)
+        this.cantidad = this.formularioConversion.value.numerodecimal.length.toString();
+    }
+  }
+
+}
+</pre>
+
+<p>Creamos un objeto de la clase FormGroup y le pasamos un objeto literal con la referencia a los 4 controles de formulario que necesitamos:</p>
+<pre>
+  formularioConversion = new FormGroup({
+    numerodecimal: new FormControl(''),
+    base: new FormControl('octal'),
+    potencia: new FormControl('2'),
+    largo: new FormControl(true)
+  });
+</pre>
+<p>El atributo base se asocia a los controles 'radio' de la vista, he indicamos que aparezca seleccionado por defecto aquel que almacena en value el valor 'octal':</p>
+<pre>
+  &lt;p&gt;Convertir a:&lt;br&gt;
+    &lt;input type="radio" formControlName="base" value="octal"&gt;Octal
+    &lt;input type="radio" formControlName="base" value="hexadecimal"&gt;Hexadecimal
+  &lt;/p&gt;
+</pre>
+<p>El control HTML select se asocia al atributo 'potencia', indicando que se muestre seleccionada la opción con valor '2':</p>
+<pre>
+    potencia: new FormControl('2'),
+</pre>
+<p>La vista para este FormControl es:</p>
+<pre>
+  &lt;p&gt;Elevar a:&lt;br&gt;
+    &lt;select formControlName="potencia"&gt;
+      &lt;option&gt;2&lt;/option&gt;
+      &lt;option&gt;3&lt;/option&gt;
+      &lt;option&gt;4&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/p&gt;  
+</pre>
+<p>Finalmente para el control checkbox indicamos que se muestre seleccionado por defecto al cargar el formulario:</p>
+<pre>
+    largo: new FormControl(true)
+</pre>
+<p>Cuando se presiona el botón se ejecuta el método 'submit', donde efectuamos las distintas operaciones según los valores seleccionados en el formulario:</p>
+<pre>
+  submit() {
+    if (this.formularioConversion.value.numerodecimal) {
+      if (this.formularioConversion.value.base == "hexadecimal")
+        this.conversion = parseInt(this.formularioConversion.value.numerodecimal).toString(16);
+      if (this.formularioConversion.value.base == "octal")
+        this.conversion = parseInt(this.formularioConversion.value.numerodecimal).toString(8);
+      if (this.formularioConversion.value.numerodecimal && this.formularioConversion.value.potencia)
+        this.potenciaNumero = Math.pow(parseInt(this.formularioConversion.value.numerodecimal), parseInt(this.formularioConversion.value.potencia)).toString();
+      if (this.formularioConversion.value.largo)
+        this.cantidad = this.formularioConversion.value.numerodecimal.length.toString();
+    }
+  }
+</pre>
+
+
+</ul>
+
+
+
+
+
+<p>Si ejecutamos la aplicación tenemos una interfaz similar a:</p>
+<img src="imagentema/foto151.jpg" alt="Formularios reactivos angular ReactiveFormsModule FormControl FormGroup" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto011/" target="_blank">aquí</a>.</p>
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

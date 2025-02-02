@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Pipes: creación de pipes personalizadas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>29 - Pipes: creación de pipes personalizadas</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Vimos en el concepto anterior que una pipe tiene por objetivo convertir un dato en la vista de la componente (html) con la finalidad que el usuario tenga una mejor experiencia.</p>
+<p>El framework Angular provee un conjunto de pipes por defecto como pueden ser: uppercase, lowercase, json, date etc</p>
+<p>Pero lo más importante que tenemos es que Angular nos permite crear nuestras propias pipes que se adapten a resolver problemas de nuestra aplicación.</p>
+<p>Veremos los pasos para crear una pipe haciendo uso de la herramienta Angular CLI para facilitar su codificación.</p>
+<h3>Problema</h3>
+<p>Crear una pipe que permita transformar un valor entero comprendido entre 1 y 7 en un string en castellano de dicho número. Además permitir pasar un parámetro opcional indicando que muestre dicho valor en 'ingles' o 'portugues'.</p>
+
+
+<ol>
+<li>
+<p>Desde la línea de comandos de Node.js procedemos a crear el proyecto024:</p>
+<pre>
+f:\angulardevya&gt; ng new proyecto024
+</pre>
+</li>
+
+<li>
+<p>Para crear una 'pipe' descendemos primero a la carpeta del proyecto que acabamos de crear y mediante angular Cli procedemos a ejecutar :</p>
+<pre>
+f:\angulardevya\proyecto024&gt; ng generate pipe letras
+</pre>
+
+<p>Luego de esto tenemos creados dos archivos:</p>
+<pre>
+letras.pipe.ts
+letras.pipe.spec.ts
+</pre>
+</li>
+
+<li>
+<p>El siguiente paso es codificar la clase 'LetrasPipe' que se encuentra almacenada en el archivo 'letras.pipe.ts':</p>
+<pre class="recuadro">
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'letras'
+})
+export class LetrasPipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+
+}
+</pre>
+
+<p>El método transform es el que se ejecuta cada vez que llamamos a la pipe 'letras' declarada en el decorador @Pipe.</p>
+<p>El método transform recibe un parámetro obligatorio que es 'value' y puede ser de cualquier tipo (number, string, array, object etc.) y un segundo parámetro opcional.</p>
+<p>Veamos la lógica como implementar la pipe que transforme un valor entero comprendido entre 1 y 7 a letras:</p>
+<pre class="recuadro">
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'letras'
+})
+export class LetrasPipe implements PipeTransform {
+
+  transform(value: any, args?: any): any {
+    if (args != null) {
+      if (args=='ingles')
+        switch (value) {
+          case 1: return 'one';
+          case 2: return 'two';
+          case 3: return 'three';
+          case 4: return 'four';
+          case 5: return 'five';
+          case 6: return 'six';
+          case 7: return 'seven';                        
+        }
+        if (args=='portugues')
+        switch (value) {
+          case 1: return 'um';
+          case 2: return 'dois';
+          case 3: return 'três';
+          case 4: return 'quatro';
+          case 5: return 'cinco';
+          case 6: return 'seis';
+          case 7: return 'sete';                        
+        }        
+    }
+    switch (value) {
+      case 1: return 'uno';
+      case 2: return 'dos';
+      case 3: return 'tres';
+      case 4: return 'cuatro';
+      case 5: return 'cinco';
+      case 6: return 'seis';
+      case 7: return 'siete';                        
+    }  
+    return null;
+  }
+}
+</pre>
+<p>El parámetro 'value' recibe el valor que debe procesar la pipe. El parámetro 'args' puede no llegar en dicho caso almacena un null.</p>
+<p>Si en 'args' llega un null luego ejecuta el último switch de la función retornando en castellano el número almacenado en 'value'.</p>
+
+<p>Luego en la componente importamos la clase LetrasPipe y definimos por ejemplo un vector con los números del 1 al 7 ('app.component.ts'):</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { LetrasPipe } from './letras.pipe';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, LetrasPipe],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  vector = [1,2,3,4,5,6,7];
+}
+</pre>
+
+<p>En el archivo 'app.component.html' es donde hacemos uso de la pipe 'letras' que acabamos de crear:</p>
+<pre class="recuadro">
+&lt;h1&gt;Números en castellano&lt;/h1&gt;
+&lt;ul&gt;
+  @for(valor of vector;track valor) {
+  &lt;li&gt;
+    {{valor | letras}}
+  &lt;/li&gt;
+  }
+&lt;/ul&gt;
+&lt;h1&gt;Números en inglés&lt;/h1&gt;
+&lt;ul&gt;
+  @for(valor of vector;track valor) {
+  &lt;li&gt;
+    {{valor | letras:'ingles'}}
+  &lt;/li&gt;
+  }
+&lt;/ul&gt;
+&lt;h1&gt;Números en portugués&lt;/h1&gt;
+&lt;ul&gt;
+  @for(valor of vector;track valor) {
+  &lt;li&gt;
+    {{valor | letras:'portugues'}}
+  &lt;/li&gt;
+  }
+&lt;/ul&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+
+</li>
+<p>La primer forma de llamar a la pipe sin parámetro es:</p>
+<pre>
+    {{valor | letras}}
+</pre>
+<p>De esta forma tenemos en pantalla los valores de los números en castellano.<p>
+<p>En el caso que le pasemos como parámetro alguno de los dos valores 'ingles' o 'portugues' tendremos como resultado la transformación del número a alguno de estos dos idiomas:</p>
+<pre>
+    {{valor | letras:'ingles'}}
+</pre>
+
+<li>
+<p>Y tenemos como resultado en el navegador:</p>
+<img src="imagentema/foto043.jpg" alt="pipes personalizadas angular" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto024/" target="_blank">aquí</a>.</p>
+</li>
+
+</ol>
+
+<div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

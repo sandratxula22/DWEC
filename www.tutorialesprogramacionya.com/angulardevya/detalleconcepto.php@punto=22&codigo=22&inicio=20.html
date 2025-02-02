@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Router : parámetros en una ruta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>22 - Router : parámetros en una ruta</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Angular se base en el concepto de SPA (Single Page Applications - Aplicaciones de una sola página), lo cual no significa que la URL del navegador sea siempre la misma.</p>
+<p>El objetivo de Angular es que cuando cambiamos de URL no se recupere la estructura de la página del servidor, sino que se recree en forma local (salvo que se tengan que hacer peticiones de datos dinámicos al servidor)</p>
+<p>Vimos que las rutas están dadas por las URL:</p>
+<pre>
+http://localhost:4200/
+http://localhost:4200/presentacion
+http://localhost:4200/articulos
+http://localhost:4200/contacto
+http://localhost:4200/acercade
+</pre>
+<p>Tenemos la ruta raiz '/', otra ruta es 'acercade' etc.</p>
+<p>Ahora veremos como trabajar en Angular si una ruta tiene uno o más parámetros. Un ejemplo de ruta con parámetros podría ser pasar el número de artículo en la ruta:</p>
+<pre>
+http://localhost:4200/articulos/323
+</pre>
+<p>Estamos pasando a la ruta 'articulos' el parámetro '323'. Como vimos anteriormente es obligatorio definir exactamente las rutas que puede procesar la aplicación Angular.</p>
+<p>Con un ejemplo analizaremos como declaramos las rutas, pasamos parámetros y como los recuperamos.</p>
+
+<h3>Problema</h3>
+<p>Definir en la componente principal de la aplicación 10 hipervínculos con los números del 1 al 10, que llamen a otra ruta de la aplicación que tenga por objetivo mostrar la tabla de multiplicar de dicho valor.</p>
+<p>Crear una segunda componente que reciba el parámetro y proceda a mostrar la tabla de multiplicar.</p>
+<p>Los enlaces de los números del 1 al 10 siempre deben quedar visibles, lo que debe actualizarse es la componente que calcula la tabla de multiplicar:</p>
+<img src="imagentema/foto140.jpg" alt="Router parametros angular" border="0"><br>
+
+<ul>
+<li><p>Crearemos primero el proyecto :</p>
+<pre>
+ng new proyecto017
+</pre>
+
+
+<li>
+<p>Procedemos a crear la componente 'TablanroComponent':</p>
+<pre>
+ng generate component tablanro
+</pre>
+<p>Modificamos el archivo 'tablanro.component.ts':</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+
+@Component({
+  selector: 'app-tablanro',
+  imports: [],
+  templateUrl: './tablanro.component.html',
+  styleUrl: './tablanro.component.css'
+})
+export class TablanroComponent {
+  nro=0;
+  tabla='';
+
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((parametros: ParamMap) =&gt; {
+      this.nro = parseInt(parametros.get("nro")!);
+      this.tabla = '';
+      for (let x = 1; x &lt;= 10; x++) {
+        let t = x * this.nro;
+        this.tabla += t + '-';
+      }
+    })
+  }
+}
+</pre>
+
+
+<p>Importamos la clase ActivedRoute y la interface ParamMap:</p>
+<pre>
+import { ActivatedRoute, ParamMap } from '@angular/router';
+</pre>
+<p>Al constructor inyectamos un objeto de tipo ActivedRoute:</p>
+<pre>
+  constructor(private activatedRoute: ActivatedRoute) { 
+</pre>
+<p>Definimos dos atributos 'nro' y 'tabla' que luego mediante interpolación mostraremos en la vista de la componente:</p>
+<pre>
+  nro=0;
+  tabla='';
+</pre>
+
+<p>El método constructor se ejecutará una única vez cuando se crea la componente, luego como el usuario puede presionar sucesivas veces los enlaces con la misma ruta pero con distintos valores en su parámetro, debemos tener alguna forma para que dichos valores se refresquen en la vista. La clase 'ActivatedRoute' dispone de un método llamado 'paramMap' que llamando a suscribe logramos que cada vez que cambia el valor del parámetro de la ruta se ejecute la función anónima que le pasamos como parámetro.</p>
+<p>La función anónima recibe como parámetro un objeto de la clase ParamMap que contiene entre otros un método llamado 'get' que nos permite recuperar el parámetro 'nro' de nuestro problema:</p>
+<pre>
+    this.activatedRoute.paramMap.subscribe((parametros: ParamMap) =&gt; {
+      this.nro = parseInt(parametros.get("nro")!);
+      this.tabla = '';
+      for (let x = 1; x &lt;= 10; x++) {
+        let t = x * this.nro;
+        this.tabla += t + '-';
+      }
+    })</pre>
+
+<p>Modificamos el archivo 'tablanro.component.html':</p>
+<pre class="recuadro">
+&lt;p&gt;Tabla del {{nro}}&lt;/p&gt;
+&lt;p&gt;{{tabla}}&lt;/p&gt;
+</pre>
+<p>En la vista mostramos el atributo 'nro' y el string con la tabla de multiplicar que lo recuperamos del atributo 'tabla'. Recordar que estos dos atributos se modifican en la función anónima que le pasamos al método 'suscribe' del objeto paramMap que almacena el objeto de la clase 'ActivadedRouter' que se le inyectó en el constructor.</p>
+</li>
+
+
+<li>
+<p>Codificamos la componente principal 'app.component.html':</p>
+<pre class="recuadro">
+@for(numero of [2,3,4,5,6,7,8,9,10];track $index) {
+&lt;span style="margin-right: 2rem;"&gt;
+  &lt;a routerLink="tabla/{{numero}}"&gt;Tabla del {{numero}}&lt;/a&gt;
+&lt;/span&gt;
+}
+&lt;div&gt;
+  &lt;router-outlet /&gt;
+&lt;/div&gt;
+</pre>
+<p>El template de la componente principal siempre está visible, mediante el @for generamos los enlaces:</p>
+<pre>
+@for(numero of [2,3,4,5,6,7,8,9,10];track $index) {
+&lt;span style="margin-right: 2rem;"&gt;
+  &lt;a routerLink="tabla/{{numero}}"&gt;Tabla del {{numero}}&lt;/a&gt;
+&lt;/span&gt;
+}
+</pre>
+<p>Es importante notar que mediante la propiedad 'routerLink' indicamos la ruta que debemos cargar y el parámetro a pasar:</p>
+<pre>
+routerLink="tabla/{{numero}}"
+</pre>
+<p>Luego es fundamental la etiqueta 'router-outlet', que es el lugar donde se sustituye con el contenido de la ruta seleccionada de un enlace de la página:</p>
+<pre>
+  &lt;router-outlet /&gt;
+</pre>
+<p>De esta forma logramos que siempre se muestren los enlaces y lo que cambia es la ruta que cargamos y se hace en el lugar que especificamos la etiqueta 'router-outlet'.</p>
+
+<li>
+<p>En la componente principal debemos importar la clase RouterLink:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet,  RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+}
+</pre>
+</li>
+
+<li>
+<p>También debemos modificar el archivo 'app.routes.ts':</p>
+<pre class="recuadro">
+import { Routes } from '@angular/router';
+import { TablanroComponent } from './tablanro/tablanro.component';
+
+export const routes: Routes = [{
+  path: "tabla/:nro",
+  component: TablanroComponent
+}];
+</pre>
+<p>Importamos la clase 'TablanroComponent' :</p>
+<pre>
+import { TablanroComponent } from './tablanro/tablanro.component';
+</pre>
+<p>Agregamos un objeto al arreglo 'routes' iniciando dos atributos: 'path' que indica el nombre de la ruta y en este caso el parámetro 'nro', y en 'component' indicamos el nombre de la componente que se debe mostrar:</p>
+<pre>
+export const routes: Routes = [{
+  path: "tabla/:nro",
+  component: TablanroComponent
+}];
+</pre>
+
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto017/" target="_blank">aquí</a>.</p>
+</li>
+</ul>
+
+<h3>Acotaciones</h3>
+<p>Una ruta puede tener más de un parámetro, por ejemplo si necesitamos pasar un segundo parámetro en el ejercicio anterior que indique la cantidad de términos de la tabla de multiplicar que se va a mostrar, deberíamos hacer los siguientes cambios:</p>
+<ul>
+</li>
+<p>En el archivo 'app.routes.ts' cambiar el atributo path de la ruta:</p>
+<pre>
+export const routes: Routes = [{
+  path: "tabla/:nro/:terminos",
+  component: TablanroComponent
+}];
+</pre>
+</li>
+
+<p>En la componente 'tablanro.component.ts' cambiar el for con el parámetro recibido:</p>
+<pre>
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((parametros: ParamMap) =&gt; {
+      this.nro = parseInt(parametros.get("nro")!);
+      this.tabla = '';
+      for (let x = 1; x &lt;= parseInt(parametros.get("terminos")!); x++) {
+        let t = x * this.nro;
+        this.tabla += t + '-';
+      }
+    })
+  }
+</pre>
+</li>
+<li>
+<p>Finalmente los enlaces en el archivo 'app.component.html' requieren dos parámetros, por ejemplo si queremos mostrar 20 términos de la tabla de multiplicar, el código debe ser:</p>
+<pre>
+  &lt;a routerLink="tabla/{{numero}}/20"&gt;Tabla del {{numero}}&lt;/a&gt;
+</pre>
+</li>
+
+
+</ul><div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

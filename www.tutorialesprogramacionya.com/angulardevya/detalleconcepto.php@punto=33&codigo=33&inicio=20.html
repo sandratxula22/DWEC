@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Herramienta Angular CLI - comando: ng generate</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>33 - Herramienta Angular CLI - comando: ng generate</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Otro comando que hemos utilizado a lo largo de los primeros conceptos de este curso de Angular es 'generate'.</p>
+<p>Mediante el comando 'generate' de la herramienta Angular CLI podemos crear:</p>
+
+<ul>
+<li>component</li>
+<li>service</li>
+<li>module</li>
+<li>pipe</li>
+<li>class</li>
+<li>interface</li>
+<li>enum</li>
+<li>directive</li>
+<li>application</li>
+<li>library</li>
+<li>guard</li>
+<li>service-worker</li>
+<li>web-worker</li>
+<li>resolver</li>
+<li>interceptor</li>
+<li>app-shell</li>
+</ul>
+
+<h3>ng generate component</h3>
+<p>Mediante el comando:</p>
+<pre>
+ng generate component dado
+</pre>
+<p>Se crea una componente 'dado' con los archivos respectivos.</p>
+<p>Se informa en la consola los archivos creados:</p>
+<img src="imagentema/foto060.jpg" alt="Angular.CLI ng generate component" border="0"><br>
+
+<p>Podemos pasar varias opciones cuando creamos la componente:</p>
+<pre>
+ng generate component dado --inline-style
+</pre>
+<p>Evita que se  cree el archivo dado.component.css</p>
+<p>Lo mismo podemos evitar que se cree el archivo HTML:</p>
+<pre>
+ng generate component dado --inline-template
+</pre>
+<p>Tenemos como resultado la no creación del archivo HTML:</p>
+<img src="imagentema/foto061.jpg" alt="Angular.CLI ng generate component dado --inline-template" border="0"><br>
+<p>Podemos definir el prefijo para la componente mediante la opción --prefix (alias: -p):</p>
+<pre>
+ng generate component dado --prefix juego
+</pre>
+<p>Luego la componente que se crea tiene dicho prefijo:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'juego-dado',
+  imports: [],
+  templateUrl: './dado.component.html',
+  styleUrl: './dado.component.css'
+})
+export class DadoComponent {
+
+}
+</pre>
+<p>Si queremos definir el nombre completo para el selector tenemos la opción --selector:</p>
+<pre>
+ng generate component dado --selector ju-dado
+</pre>
+<p>Luego la componente se crea con dicho nombre de selector:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: <strong>'ju-dado'</strong>,
+  imports: [],
+  templateUrl: './dado.component.html',
+  styleUrl: './dado.component.css'
+})
+export class DadoComponent {
+
+}
+</pre>
+
+
+<p>Para evitar que se cree el archivo 'dado.spec.js' debemos insertar el comando --skip-tests:</p>
+<pre>
+ng generate component dado --skip-tests
+</pre>
+<p>Luego no se genera el archivo 'dado.spec.js'.</p>
+
+<p>Tengamos en cuenta que todas estas opciones se pueden combinar y ejecutar en forma simultanea, por ejemplo si queremos generar solo el archivo *.ts de la componente y que no genere el archivo spec, *.css y *.html:</p>
+<pre>
+ng generate component dado --skip-tests --inline-template --inline-style
+</pre>
+<img src="imagentema/foto063.jpg" alt="Angular.CLI ng generate component dado --skip-tests --inline-template --inline-style" border="0"><br>
+<p>Otras opciones posibles cuando creamos una componente son: </p>
+<ul>
+<li>
+--force (alias: -f) Forzar la sobrescritura de los archivos existentes (se borra la componente anterior que tiene el mismo nombre)
+</li>
+<li>
+--dry-run (alias: -d) Informa los archivos que se crearán sin hacer dicha actividad.
+</li>
+
+</ul>
+<p>Angular CLI permite ingresar comandos en formato resumido utilizando el primer caracter:</p>
+<pre>
+ng g c dado
+</pre>
+<p>En lugar de escribir:</p>
+<pre>
+ng generate component dado
+</pre>
+
+
+<h3>ng generate service</h3>
+<p>Mediante el comando:</p>
+<pre>
+ng generate service articulos
+</pre>
+<p>Se crea una clase ArticulosService y se inyecta a nivel de 'root':</p>
+<pre class="recuadro">
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ArticulosService {
+
+  constructor() { }
+}
+</pre>
+
+<p>Disponemos de los siguientes opciones en este comando:</p>
+<ul>
+<li>--dry-run</li>
+<li>--force</li>
+<li>--skip-tests</li>
+</ul>
+
+<h3>ng generate pipe</h3>
+<p>Mediante el comando:</p>
+<pre>
+ ng generate pipe letras
+</pre>
+<p>Se genera el archivo 'letras.pipe.ts':</p>
+<pre class="recuadro">
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'letras'
+})
+export class LetrasPipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+
+}
+</pre>
+<p>Disponemos de los siguientes opciones en este comando:</p>
+<ul>
+<li>--dry-run</li>
+<li>--force</li>
+<li>--skip-tests</li>
+</ul>
+
+
+<h3>ng generate class</h3>
+<p>Mediante el comando:</p>
+<pre>
+ ng generate class articulo
+</pre>
+<p>Se crea el archivo 'articulo.ts':</p>
+<pre class="recuadro">
+export class Articulo {
+}
+</pre>
+
+
+<h3>ng generate interface</h3>
+<p>Mediante el comando:</p>
+<pre>
+ ng generate interface venta
+</pre>
+<p>Se crea el archivo 'venta.ts':</p>
+<pre class="recuadro">
+export interface Venta {
+}</pre>
+
+
+<h3>ng generate enum</h3>
+<p>Mediante el comando:</p>
+<pre>
+ ng generate enum operaciones
+</pre>
+<p>Se crea el archivo 'operaciones.enum.ts':</p>
+<pre class="recuadro">
+export enum Operaciones {
+}
+</pre>
+
+<div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

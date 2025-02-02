@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Vistas diferidas : @defer ([opciones de activación]) {}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>42 - Vistas diferidas : @defer ([opciones de activación]) {}</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>El bloque diferible podemos indicar bajo que circunstancias debe cargarse:</p>
+<ul>
+<p>on idle: La opción de activación por defecto. Por lo mismo es que no se la agrega:</p>
+<pre>
+@defer (on idle){
+  &lt;p&gt;
+  @for(num of numeros;track num) {
+    {{num}} -
+  }
+  &lt;/p&gt;
+}
+</pre>
+<p>En este caso lo más común es no disponer dicha activación:</p>
+<pre>
+@defer {
+  &lt;p&gt;
+  @for(num of numeros;track num) {
+    {{num}} -
+  }
+  &lt;/p&gt;
+}
+</pre>
+
+<li>
+<p>on timer: se activaría después de una duración específica. La duración es obligatoria y se puede especificar en 'ms'  o 's':</p>
+<pre>
+&lt;p&gt;¿Quién descubrió America?&lt;/p&gt;
+@defer (on timer(5s)) {
+  &lt;p&gt;Cristóbal Colón&lt;/p&gt;
+} @placeholder {
+  &lt;p&gt;¿?&lt;/p&gt;
+}
+</pre>
+<p>Primero se muestra el contenido del bloque @placeholder y luego de 5 segundos es remplazado por el contenido del bloque @defer.</p>
+<img src="imagentema/foto162.jpg" alt="@defer (on timer(5s){} @placeholder {} Angular 17" border="0"><br> 
+<p>Y luego de 5 segundos:</p>
+<img src="imagentema/foto163.jpg" alt="@defer (on timer(5s){} @placeholder {} Angular 17" border="0"><br> 
+</li>
+
+<li>
+<p>on interaction: Se activará el bloque diferido cuando el usuario interactúe con el elemento especificado en el @placeholder a través de los eventos click o keydown.</p>
+<pre>
+@defer (on interaction) {
+  &lt;p&gt;Cristóbal Colón&lt;/p&gt;
+} @placeholder {
+  &lt;button&gt;¿Quién descubrió America?&lt;/button&gt;
+}
+</pre>
+<p>Primero se muestra el botón:</p>
+<img src="imagentema/foto164.jpg" alt="@defer (on interaction)  Angular 17" border="0"><br> 
+<p>Y al ser presionado el botón aparece el párrafo remplazando el contenido del @placeholder:</p>
+<img src="imagentema/foto165.jpg" alt="@defer (on interaction)  @placeholder {} Angular 17" border="0"><br> 
+
+</li>
+
+<li>
+<p>on hover: se activa la carga diferida cuando el mouse se coloca sobre el área de activación. Los eventos utilizados para esto son mouseenter y focusin.</p>
+<pre>
+@defer (on hover) {
+  &lt;p&gt;Cristóbal Colón&lt;/p&gt;
+} @placeholder {
+  &lt;p&gt;¿Quién descubrió America?&lt;/p&gt;
+}
+</pre>
+<p>Si desplazamos la flecha del mouse sobre el párrafo '¿Quién descubrió America?', el mismo será actualizado por el párrafo 'Cristóbal Colón'.</p>
+</li>
+
+<li>
+<p>on viewport: se activa el bloque diferido cuando el contenido se encuentra en la ventana visible del navegador. Es muy útil si tenemos páginas que requieren un scroll casi infinito. No tenemos que renderizar si no avanzamos con el scroll de la página. El siguiente ejemplo que vamos a realizar utilizará esta opción de activación de la vista diferida.</p>
+</li>
+
+</ul>
+
+
+<h2>Problema</h2>
+<p>Crear una componente llamada 'tablamultiplicacion' que reciba en una propiedad el número del cual queremos que muestre la tabla de multiplicación y se encargue de mostrarla por pantalla.</p>
+<pre>
+&lt;app-tablamultiplicacion [tabla]="2" /&gt;
+</pre>
+<p>El resultado de visual de esta componente debe generar la siguiente pantalla:</p>
+<img src="imagentema/foto166.jpg" alt="@defer Angular 17" border="0"><br> 
+<p>Por otro lado la componente principal de la aplicación generar las tablas de multiplicar del 2 al 10000. Mediante vistas diferidas evitar que se generen todas las tablas en forma inmediata y haga que la experiencia de usuario sea aceptable.</p>
+
+<p>Creemos el proyecto:</p>
+<pre>
+ng new proyecto028
+</pre>
+
+<p>Primero creamos la componente:</p>
+<pre>
+ng generate component tablamultiplicacion
+</pre>
+<p>Codificamos la clase 'tablamultiplicacion.component.ts':</p>
+<pre class="recuadro">
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-tablamultiplicacion',
+  imports: [],
+  templateUrl: './tablamultiplicacion.component.html',
+  styleUrl: './tablamultiplicacion.component.css'
+})
+export class TablamultiplicacionComponent {
+  @Input() tabla:number=0;
+}
+</pre>
+
+<p>Por otro lado la vista 'tablamultiplicacion.component.html':</p>
+<pre class="recuadro">
+&lt;h1&gt;Tabla del {{tabla}}&lt;/h1&gt;
+@for(valor of [1,2,3,4,5,6,7,8,9,10];track $index) {
+  &lt;p&gt;
+    {{tabla}} * {{valor}}={{tabla*valor}}
+  &lt;/p&gt;
+}
+&lt;hr&gt;
+</pre>
+
+<p>Pasemos ahora a modificar la componente creada por defecto 'app.component.ts':</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { TablamultiplicacionComponent } from './tablamultiplicacion/tablamultiplicacion.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, TablamultiplicacionComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  numeros = [...Array(9999).keys()].map(num =&gt; num + 2);
+}
+</pre>
+<p>Creamos un arreglo llamado numeros donde guardamos los valores del 2 al 10000:</p>
+
+<p>Por último la plantillo donde hacemos uso de las vistas diferidas 'app.component.html':</p>
+
+<pre class="recuadro">
+@for(valor of numeros;track valor) {
+  @defer (on viewport)  {
+    &lt;app-tablamultiplicacion [tabla]="valor" /&gt;
+  }
+  @placeholder {
+    &lt;p&gt;Esperando la tabla del {{valor}}&lt;/p&gt;
+  }
+}
+&lt;router-outlet /&gt;
+</pre>
+<p>Dentro del ciclo @for creamos las 9999 vistas diferidas y su activación depende que se esté viendo en la pantalla del navegador, como podemos imaginar la mayoría de las tablas están fuera del viewport del navegador (según el tamaño de la pantalla pueden estar visibles 2 o tres tablas por pantalla)</p>
+<p>La experiencia de ejecución es aceptable gracias a que utilizamos la activación por viewport.</p>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto028/" target="_blank">aquí</a>.</p>
+
+<p>Probemos de eliminar el 'on viewport' y veremos que el navegador se toma su tiempo en renderizar las 9999 tablas de multiplicar:</p>
+<pre>
+@for(valor of numeros;track valor) {
+  @defer {
+    &lt;app-tablamultiplicacion [tabla]="valor" /&gt;
+  }
+  @placeholder {
+    &lt;p&gt;Esperando la tabla del {{valor}}&lt;/p&gt;
+  }
+}
+</pre>
+
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

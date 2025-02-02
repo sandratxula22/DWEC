@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Formularios : formulario basado en plantillas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>13 - Formularios : formulario basado en plantillas</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Angular proporciona dos enfoques diferentes para manejar formularios:</p>
+<ol>
+<li>
+<p>Formularios basados en plantillas</p>
+</li>
+<li>
+<p>Formularios reactivos</p>
+</li>
+</ol>
+<p>Ambos capturan los eventos de entrada del usuario desde la vista, crean un modelo de formulario y un modelo de datos para actualizar y proporcionan una forma de rastrear los cambios.</p>
+<p>Los formularios basados en plantillas son útiles para agregar un formulario simple a una aplicación. Son más fáciles de agregar que los formularios reactivos, pero no escalan tan bien como los formularios reactivos. Si tiene requisitos de formulario y lógica muy básica podemos utilizar sin problemas formularios basados en plantillas.</p>
+<p>Veremos en este concepto como implementar en Angular formularios basados en plantillas.</p>
+
+<h3>Formulario reactivo (directiva ngModel)</h3>
+
+<p>Por ejemplo si en la clase AppComponent tenemos la propiedad 'nombre' con el valor 'juan':</p>
+<pre>
+nombre='juan';
+</pre>
+<p>Luego en la vista definimos la directiva ngModel entre corchetes y le asignamos el nombre de la propiedad definida en la clase:</p>
+<pre>
+  &lt;input type="text" [ngModel]="nombre"&gt;
+</pre>
+<p>Cuando arrancamos la aplicación podemos observar que el control input aparece automáticamente con el valor 'juan':</p>
+<img src="imagentema/foto018.jpg" border="0" alt="ngModel"><br>
+
+<p>Para utilizar la directiva ngModel debemos importar el módulo 'FormsModule':</p>
+
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+<strong>import { FormsModule } from '@angular/forms';</strong>
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, <strong>FormsModule</strong>],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  nombre = 'juan';
+}
+
+</pre>
+
+<p>Lo que hay que tener en cuenta que es un enlace en una única dirección: el valor de la propiedad de la clase se refleja en la interfaz visual. Si el operador cambia el contenido del control 'input' por ejemplo por el nombre 'ana' luego la propiedad 'nombre' de la clase sigue almacenando el valor 'juan'.</p>
+<p>Si queremos que el enlace sea en las dos direcciones debemos utilizar la siguiente sintaxis:</p>
+<pre>
+&lt;input type="text" [(ngModel)]="nombre"&gt;
+</pre>
+
+
+<p>Un primer ejemplo muy corto que podemos hacer es crear un proyecto (proyecto007) para que se ingrese el nombre y apellido de una persona y se muestre inmediatamente en la parte inferior.</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  nombre = '';
+  apellido = '';
+}
+</pre>
+
+<p>El archivo app.component.html donde definimos las directiva ngModel para cada control es:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;p&gt;Ingrese nombre&lt;input type="text" [(ngModel)]="nombre"&gt;&lt;/p&gt;
+  &lt;p&gt;Ingrese apellido&lt;input type="text" [(ngModel)]="apellido"&gt;&lt;/p&gt;  
+  &lt;p&gt;Nombre completo:{{nombre}},{{apellido}}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;router-outlet /&gt;
+</pre>
+
+<p>Ejecutemos nuestra aplicación desde la línea de comandos de Node.js.</p>
+<p>En el navegador nos muestra como se actualizan las propiedades cada vez que ingresamos un caracter en los controles 'input':</p>
+<img src="imagentema/foto019.jpg" border="0" alt="ngModel"><br>
+
+<p>Es importante entender que hay un enlace en ambas direcciones. Si cambiamos el valor mediante el ingreso de datos por teclado en el control input, luego se ven reflejados en forma automática en las propiedades de la clase. De la misma forma si cambiamos el valor de la propiedad en la clase, luego se refleja en forma automática el valor en el formulario.</p>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto007/" target="_blank">aquí</a>.</p>
+
+
+
+
+
+<h3>Problema</h3>
+<p>Confeccionar una aplicación que permita administrar un vector de objetos que almacena en cada elemento el código, descripción y precio de un artículo. Se debe poder agregar, borrar y modificar los datos de un artículo.</p>
+<p>La interfaz visual de la aplicación debe ser similar a esta:</p>
+<img src="imagentema/foto021.jpg" border="0" alt="proyecto de altas, bajas y modificaciones en angular"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto008/" target="_blank">aquí</a>.</p>
+
+<p>Crearemos el proyecto008 para resolver este problema.</p>
+<ol>
+<li>
+Lo primero que debemos hacer es desde la línea de comandos de Node.js proceder a crear el proyecto008:</p>
+<pre>
+ng new proyecto008
+</pre>
+</li>
+
+<li>
+<p>Para facilidad por el momento crearemos todo en una única componente, es decir en la que se crea automáticamente al crear el proyecto.</p>
+<p>En el archivo app.component.css implementamos la hoja de estilo para la tabla HTML:</p>
+<pre class="recuadro">
+/* Estilo para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* Estilo para las celdas de encabezado */
+th, td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Estilo alternado para filas */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Estilo para el encabezado de la tabla */
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</pre>
+
+
+<p>En el archivo app.component.html es donde mostramos una tabla HTML y un formulario para ingresar datos:</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;h1&gt;Administración de artículos&lt;/h1&gt;
+  @if (hayRegistros()) {
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Codigo&lt;/th&gt;
+        &lt;th&gt;Descripcion&lt;/th&gt;
+        &lt;th&gt;Precio&lt;/th&gt;
+        &lt;th&gt;Borrar&lt;/th&gt;
+        &lt;th&gt;Seleccionar&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      @for(art of articulos; track art.codigo) {
+      &lt;tr&gt;
+        &lt;td&gt;{{art.codigo}}&lt;/td&gt;
+        &lt;td&gt;{{art.descripcion}}&lt;/td&gt;
+        &lt;td&gt;{{art.precio}}&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="borrar(art.codigo)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="seleccionar(art)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      }
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  } @else {
+  &lt;p&gt;No hay articulos.&lt;/p&gt;
+  }
+
+  &lt;div&gt;
+    &lt;p&gt;
+      Codigo:&lt;input type="number" [(ngModel)]="art.codigo" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      descripcion:&lt;input type="text" [(ngModel)]="art.descripcion" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      precio:&lt;input type="number" [(ngModel)]="art.precio" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      &lt;button (click)="agregar()"&gt;Agregar&lt;/button&gt;
+      &lt;button (click)="modificar()"&gt;Modificar&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;router-outlet /&gt;
+</pre>
+</li>
+
+<li>
+<p>La clase app.component.ts tenemos:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  art = {
+    codigo: 0,
+    descripcion: "",
+    precio: 0
+  }
+
+  articulos = [{ codigo: 1, descripcion: 'papas', precio: 10.55 },
+  { codigo: 2, descripcion: 'manzanas', precio: 12.10 },
+  { codigo: 3, descripcion: 'melon', precio: 52.30 },
+  { codigo: 4, descripcion: 'cebollas', precio: 17 },
+  { codigo: 5, descripcion: 'calabaza', precio: 20 },
+  ];
+
+  hayRegistros() {
+    return this.articulos.length &gt; 0;
+  }
+
+  borrar(codigo: number) {
+    for (let x = 0; x &lt; this.articulos.length; x++)
+      if (this.articulos[x].codigo == codigo) {
+        this.articulos.splice(x, 1);
+        return;
+      }
+  }
+
+  agregar() {
+    if (this.art.codigo == 0) {
+      alert('Debe ingresar un código de articulo distinto a cero');
+      return;
+    }
+    for (let x = 0; x &lt; this.articulos.length; x++)
+      if (this.articulos[x].codigo == this.art.codigo) {
+        alert('ya existe un articulo con dicho codigo');
+        return;
+      }
+    this.articulos.push({
+      codigo: this.art.codigo,
+      descripcion: this.art.descripcion,
+      precio: this.art.precio
+    });
+    this.art.codigo = 0;
+    this.art.descripcion = "";
+    this.art.precio = 0;
+  }
+
+  seleccionar(art: { codigo: number; descripcion: string; precio: number; }) {
+    this.art.codigo = art.codigo;
+    this.art.descripcion = art.descripcion;
+    this.art.precio = art.precio;
+  }
+
+  modificar() {
+    for (let x = 0; x &lt; this.articulos.length; x++)
+      if (this.articulos[x].codigo == this.art.codigo) {
+        this.articulos[x].descripcion = this.art.descripcion;
+        this.articulos[x].precio = this.art.precio;
+        return;
+      }
+    alert('No existe el código de articulo ingresado');
+  }
+}
+</pre>
+</li>
+
+
+<li>
+<p>Ejecutemos la aplicación desde la ventana de Node.js mediante el comando:</p>
+<pre>
+ng serve -o
+</pre>
+</li>
+
+</ol>
+<h3>Listado</h3>
+<p>Pasemos a analizar las distintas partes de nuestra aplicación. Los archivos app.component.ts y app.component.html están totalmente integrados y con objetivos bien definidos cada uno. El archivo '.html' almacena la vista y el archivo '.ts' almacena el modelo de datos.</p>
+<p>Definimos en el modelo (app.component.ts) un vector de objetos llamado 'articulos' y almacenamos 5 elementos:</p>
+<pre>
+  articulos = [{ codigo: 1, descripcion: 'papas', precio: 10.55 },
+  { codigo: 2, descripcion: 'manzanas', precio: 12.10 },
+  { codigo: 3, descripcion: 'melon', precio: 52.30 },
+  { codigo: 4, descripcion: 'cebollas', precio: 17 },
+  { codigo: 5, descripcion: 'calabaza', precio: 20 },
+  ];
+</pre>
+<p>En la vista (app.component.html) verificamos con un if si el vector tienen elementos:</p>
+<pre>
+  @if (hayRegistros()) {
+</pre>
+<p>Como vemos llamamos al método 'hayRegistros()' que se encuentra implementado en el archivo *.ts:</p>
+<pre>
+  hayRegistros() {
+    return this.articulos.length &gt; 0;
+  }
+</pre>
+<p>Si retorna true luego generamos una tabla HTML que muestre los datos del modelo y lo recorremos mediante un @for:</p>
+<pre>
+&lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Codigo&lt;/th&gt;
+        &lt;th&gt;Descripcion&lt;/th&gt;
+        &lt;th&gt;Precio&lt;/th&gt;
+        &lt;th&gt;Borrar&lt;/th&gt;
+        &lt;th&gt;Seleccionar&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      @for(art of articulos; track art.codigo) {
+      &lt;tr&gt;
+        &lt;td&gt;{{art.codigo}}&lt;/td&gt;
+        &lt;td&gt;{{art.descripcion}}&lt;/td&gt;
+        &lt;td&gt;{{art.precio}}&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="borrar(art.codigo)"&gt;Borrar?&lt;/button&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button (click)="seleccionar(art)"&gt;Seleccionar&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      }
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+</pre>
+
+<p>Disponemos en cada fila dos botones y definimos sus respectivos eventos 'click' para que al ser presionados llamen a métodos del modelo para borrar o seleccionar el artículo respectivo. Los métodos envían como parámetro el artículo para saber cual borrar o seleccionar.</p>
+<p>En la vista disponemos una serie de 'input' que nos permiten ingresar el código, descripción y precio de un artículo:</p>
+<pre>
+  &lt;div&gt;
+    &lt;p&gt;
+      Codigo:&lt;input type="number" [(ngModel)]="art.codigo" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      descripcion:&lt;input type="text" [(ngModel)]="art.descripcion" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      precio:&lt;input type="number" [(ngModel)]="art.precio" /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      &lt;button (click)="agregar()"&gt;Agregar&lt;/button&gt;
+      &lt;button (click)="modificar()"&gt;Modificar&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+</pre>
+
+
+<h3>Agregado</h3>
+<p>Podemos comprobar que los controles HTML tienen la directiva 'ngModel' bidireccional, es decir que cuando el operador carga un dato en el primer 'input' se actualiza automáticamente en el modelo el dato cargado en 'art.codigo':</p>
+<p>Podemos comprobar que en el modelo tenemos definido un objeto llamado art con tres propiedes:</p>
+<pre>
+  art={
+    codigo:0 ,
+    descripcion:"",
+    precio:0
+  }
+</pre>
+
+<p>Al presionar el botón agregar se ejecuta el método 'agregar':</p>
+<pre>
+  agregar() {
+    if (this.art.codigo == 0) {
+      alert('Debe ingresar un código de articulo distinto a cero');
+      return;
+    }
+    for (let x = 0; x &lt; this.articulos.length; x++)
+      if (this.articulos[x].codigo == this.art.codigo) {
+        alert('ya existe un articulo con dicho codigo');
+        return;
+      }
+    this.articulos.push({
+      codigo: this.art.codigo,
+      descripcion: this.art.descripcion,
+      precio: this.art.precio
+    });
+    this.art.codigo = 0;
+    this.art.descripcion = "";
+    this.art.precio = 0;
+  }
+</pre>
+<p>En este método primero recorremos el vector articulos para comprobar si hay algún otro artículo con el mismo código. En el caso que no exista procedemos a añadir un nuevo elemento llamando al método push y pasando un objeto que creamos en dicho momento con los datos almacenados en el objeto 'art' que se encuentra enlazado con el formulario.</p>
+<p>Luego asignamos cero y cadena vacía a todas las propiedades del objeto art con el objetivo de borrar todos los 'input' del formulario.</p>
+<p>Al agregar un elemento al vector 'Angular' se encarga de actualizar la vista sin tener que indicar nada en nuestro código.</p>
+
+<h3>Borrado</h3>
+<p>Cuando se presiona el botón de borrar se ejecuta el método 'borrar':</p>
+<pre>
+  borrar(codigo: number) {
+    for (let x = 0; x &lt; this.articulos.length; x++)
+      if (this.articulos[x].codigo == codigo) {
+        this.articulos.splice(x, 1);
+        return;
+      }
+  }
+</pre>
+<p>Recorremos el vector y controlamos uno a uno el código del artículo seleccionado con cada uno de los elementos del vector. El que coincide lo eliminamos del vector llamando al método splice indicando la posición y cuantas componentes borrar a partir de ese.</p>
+
+<h3>Selección</h3>
+<p>Cuando se presiona el botón de seleccionar se ejecuta el método 'seleccionar':</p>
+<pre>
+  seleccionar(art: { codigo: number; descripcion: string; precio: number; }) {
+    this.art.codigo=art.codigo;
+    this.art.descripcion=art.descripcion;
+    this.art.precio=art.precio;
+  }
+</pre>
+<p>Lo único que hacemos es actualizar el objeto art del modelo con el artículo que acaba de seleccionar el operador (llega como parámetro el artículo seleccionado)</p>
+
+<h3>Modificación</h3>
+<p>Cuando presiona el botón de modificación se ejecuta el método:</p>
+<pre>
+  modificar() {
+    for(let x=0;x&lt;this.articulos.length;x++)
+      if (this.articulos[x].codigo==this.art.codigo)
+      {
+        this.articulos[x].descripcion=this.art.descripcion;
+        this.articulos[x].precio=this.art.precio;
+        return;
+      }        
+    alert('No existe el código de articulo ingresado');
+  }
+</pre>
+<p>Buscamos el código de articulo del control 'input' dentro del vector, en caso de encontrarlo procedemos a modificar la descripción y precio.</p>
+
+<p>Tener en cuenta que por ahora estamos haciendo aplicaciones que almacenan sus datos en forma local y no estamos enviando los mismos a un servidor, luego veremos distintas alternativas de enviar y recuperar datos de un servidor.</p>
+
+<p>Recordar que podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto008/" target="_blank">aquí</a>.</p>
+
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

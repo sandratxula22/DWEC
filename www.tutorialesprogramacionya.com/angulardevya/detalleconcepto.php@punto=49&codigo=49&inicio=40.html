@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Directivas de atributo - creación y definición de propiedades</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>49 - Directivas de atributo - creación y definición de propiedades</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Vimos en el concepto anterior los pasos que debemos dar para crear una simple directiva. Ahora veremos que podemos pasar uno o más datos para personalizar la directiva con datos a enviarle.<br>
+
+
+<h3>Problema</h3>
+<p>Crear una directiva personalizada que se pueda asociar a cualquier elemento HTML y cuyo objetivo sea resaltar el texto que muestra, cambiando el color de fondo por amarillo por defecto o un color que le pasemos a dicha directiva. Agregar un segundo dato a enviar a la directiva que sea el tamaño de la fuente.</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto034
+</pre>
+</li>
+
+<li><p>Procedemos a crear la directiva de atributo personalizada llamando a la misma 'resaltado':</p>
+<pre>
+ng generate directive resaltado
+</pre>
+<p>Se crean dos archivos.</p>
+
+<p>Se crea propiamente el archivo que contendrá la lógica de la directiva y tiene como nombre 'resaltado.directive.ts':</p>
+<p>También se crea el archivo 'resaltado.directive.spec.ts' para especificar pruebas unitarias (por el momento no hemos trabajado con este tipo de archivos, no lo modificaremos ni analizaremos)</p>
+</li>
+
+<li>
+<p>Procedemos a modificar el archivo 'resaltado.directive.ts' implementando la lógica de nuestra directiva:</p>
+<pre class="recuadro">
+import { Directive, ElementRef, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+
+@Directive({
+  selector: '[appResaltado]',
+})
+export class ResaltadoDirective implements OnInit, OnChanges {
+
+  @Input('appResaltado') colorResaltado!: string;
+  @Input('tamano') tam: number = 0;
+
+  constructor(private elemento: ElementRef) {
+  }
+
+  ngOnInit(): void {
+    this.actualizar();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.actualizar();
+  }
+
+  actualizar() {
+    if (this.colorResaltado != null)
+      this.elemento.nativeElement.style.backgroundColor = this.colorResaltado;
+    else
+      this.elemento.nativeElement.style.backgroundColor = 'yellow';
+    if (this.tam &gt; 0)
+    {
+      console.log(this.elemento.nativeElement);
+      this.elemento.nativeElement.style.fontSize = this.tam + 'px';
+    }
+  }
+}
+</pre>
+<p>Se inyecta al constructor un objeto de la clase 'ElementRef':</p>
+<pre>
+  constructor(private elemento: ElementRef) {
+</pre>
+<p>Debemos importar 6 clases, que se almacenan en '@angular/core':</p>
+<pre>
+import { Directive, ElementRef, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+</pre>
+<p>El método onInit que se ejecuta una vez que la directiva ha sido creada y almacenado los datos en las propiedades appResaltado y tamano. Desde el método onInit llamamos al método 'actualizar'.</p>
+<p>El método actualizar modifica el color de fondo del elemento HTML según el dato recibido en la propiedad 'appResaltado' o en el caso que no lo recibe pinta el elemento de amarillo:</p>
+<pre>
+  actualizar() {
+    if (this.colorResaltado != null)
+      this.elemento.nativeElement.style.backgroundColor = this.colorResaltado;
+    else
+      this.elemento.nativeElement.style.backgroundColor = 'yellow';
+</pre>
+<p>También en el método actualizar si hemos inicializado la propiedad 'tamano' procedemos a modificar el tamaño de la fuente:</p>
+<pre>
+    if (this.tam &gt; 0)
+      this.elemento.nativeElement.style.fontSize = this.tam + 'px';
+</pre>
+
+<p>El método ngOnChanges se dispara si cambiamos el valor de una propiedad de la directiva, en cuyo caso procedemos a actualizar el color de fondo y tamaño de fuente llamando al método 'actualizar':</p>
+<pre>
+  ngOnChanges(changes: SimpleChanges) {
+    this.actualizar();
+  }
+</pre>
+</li>
+
+<li>
+<p>Para probar la directiva debemos importar la directiva en nuestro componente 'app.component.ts':</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ResaltadoDirective } from './resaltado.directive';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ResaltadoDirective],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  colorselect = "green";
+  tamanoFuente = 30;
+
+  cambiarColor(col:string) {
+    this.colorselect = col;
+  }
+  agrandar() {
+    this.tamanoFuente++;
+  }
+  achicar() {
+    this.tamanoFuente--;
+  }
+}
+</pre>
+<p>En la clase definimos 2 atributos llamados colorselect y tamanoFuente que almacenan los valores que se le pasan a las propiedades de la directiva que hemos creado.</p>
+
+<p>También modificamos el archivo 'app.component.html':</p>
+<pre class="recuadro">
+&lt;p&gt;Texto con resaltado : &lt;span [appResaltado]="colorselect" [tamano]="tamanoFuente"&gt;prueba de directiva&lt;/span&gt;&lt;/p&gt;
+&lt;button (click)="cambiarColor('red')"&gt;Rojo&lt;/button&gt;
+&lt;button (click)="cambiarColor('yellow')"&gt;Amarillo&lt;/button&gt;
+&lt;button (click)="agrandar()"&gt;Agrandar&lt;/button&gt;
+&lt;button (click)="achicar()"&gt;Achicar&lt;/button&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Para inicializar la propiedad que define el color inicial de la directiva le asignamos:
+<pre>[appResaltado]="colorselect"</pre>
+<p>En la misma etiqueta 'span' definimos el otro atributo:</p>
+<pre>
+[tamano]="tamanoFuente"
+</pre>
+<p>Si se presiona el botón con la etiqueta 'Rojo' se ejecuta el método:</p>
+<pre>
+  cambiarColor(col:string) {
+    this.colorselect = col;
+  }
+</pre>
+<p>Cuando cambiamos el valor del atributo 'colorselect', se actualiza el color de la etiqueta HTML que tiene asociada la directiva de atributo.</p>
+
+<p>Si ejecutamos la aplicación tenemos como resultado:</p>
+<img src="imagentema/foto136.jpg" alt="Creación de directiva con parámetros" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto034/" target="_blank">aquí</a>.</p>
+</ul>
+</li>
+
+</ul><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

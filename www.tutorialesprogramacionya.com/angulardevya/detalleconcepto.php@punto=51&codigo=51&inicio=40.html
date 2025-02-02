@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>51 - TypeScript</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos avanzado sobre muchas características del framework Angular y no nos hemos detenido sobre el lenguaje que lo soporta que es TypeScript.</p>
+<p>TypeScript es un superconjunto de JavaScript que compila a JavaScript.</p>
+<p>TypeScript agrega muchas características a JavaScript que nos facilitan la implementación de las aplicaciones.</p>
+<p>Cada vez que compilamos la aplicación Angular:</p>
+<pre>
+C:\angulardevya\proyecto035&gt; ng serve -o
+</pre>
+<p>Se convierten todos los archivos TypeScript (*.ts) en archivos JavaScript (*.js). Este proceso se hace en forma automática gracias a la herramienta Angular CLI. Como programadores en Angular solo nos concentramos en el desarrollo de la aplicación utilizando TypeScript y dejamos que la herramienta se encargue de todas las transformaciones para que luego se ejecute dentro de un navegador web (recordemos que los navegadores solo pueden interpretar archivos JavaScript y no TypeScript)</p>
+<p>Cuando creamos un proyecto con Angular CLI se instala en la carpeta 'node_modules' el compilador en la subcarpeta 'typescript'.</p>
+<p>Si abrimos el archivo package.json podemos identificar en las dependencias de desarrollo la versión de TypeScript que requiere nuestro proyecto:</p>
+<pre>
+{
+  "name": "proyecto035",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/router": "^19.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.0.2",
+    "@angular/cli": "^19.0.2",
+    "@angular/compiler-cli": "^19.0.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.4.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+<strong>    "typescript": "~5.6.2"</strong>
+  }
+}
+
+</pre>
+
+<h3>Ventajas</h3>
+<ul>
+<li>Facilita el desarrollo de aplicaciones complejas.</li>
+<li>
+Agrega la posibilidad de definir tipos (string, number, boolean etc.) a las variables que creamos. Con esta característica nos permite identificar problemas en nuestras aplicaciones en tiempo de compilación. Esta característica ayuda que nuestro programa sea más legible.<br>
+El origen del nombre de este lenguaje "TypeScript" es por la posibilidad de definir tipos (Type)  a las variables.
+</li>
+<li>Definición de sintaxis más claras en la declaración de clases y sus propiedades.</li>
+<li>Definición de herencia de clases e implementación de interfaces.</li>
+<li>Definición propiedades privadas, protegidas y públicas.</li>
+<li>Captura de errores cuando se compila el programa en TypeScript.</li>
+</ul>
+
+<p>TypeScript es un lenguaje creado por Microsoft y de distribución libre, el sitio oficial del lenguaje donde podemos consultar su documentación más actual está <a href="https://www.typescriptlang.org/" target="_blanck">aquí</a>. De todos modos recordemos que no necesitamos descargarlo e instalarlo ya que Angular CLI siempre hace esto por nosotros cada vez que creamos un proyecto.</p><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

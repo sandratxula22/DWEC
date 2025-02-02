@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Formularios reactivos : validaciones personalizadas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>19 - Formularios reactivos : validaciones personalizadas</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Hemos visto que Angular provee una serie de funcionalidades para validar si un email es correcto, cantidad de caracteres máximos o mínimos ingresados, patrones de cadenas ingresados etc.<br>
+Hay situaciones particulares en nuestros proyectos que no se adaptan a ninguna de esas funcionalidades, para esas situaciones podemos codificar nuestras propias funciones de validación.</p>
+<p>Veremos los pasos a dar para crear nuestra propia función de validación.</p>
+
+
+
+
+<h3>Problema</h3>
+<p>Confeccionar un formulario que solicite el ingreso de un número múltiplo de 5. Validar que el valor ingresado sea múltiplo de 5 para que se active el botón de envío.</p>
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto014
+</pre>
+</li>
+
+<li>
+<p>La función de validación se la podría definir en el mismo archivo de la componente, pero si la misma se empleará en más de un formulario, lo más conveniente es separarla en una clase independiente.</p>
+<p>Crearemos la clase 'ValidacionesPropias':</p>
+<pre>
+ng generate class ValidacionesPropias
+</pre>
+<p>Se genera el archivo 'validaciones-propias.ts' donde debemos implementar el algoritmo de validación y también se genera el archivo 'validaciones-propias.spec.ts' para implementar pruebas unitarias.</p>
+</li>
+
+
+<li>
+<p>Codificaremos ahora el método 'multiplo5' en la clase 'ValidacionesPropias':</p>
+<pre class="recuadro">
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+export class ValidacionesPropias {
+    static multiplo5(control: AbstractControl): ValidationErrors| null {
+        let nro = parseInt(control.value);
+        if (nro % 5 == 0)
+            return null;
+        else
+            return { multiplo5: true }
+    }
+
+}
+</pre>
+<p>El método debe retornar null si el dato es correcto, en nuestro caso si el valor ingresado en el 'FormControl' el resto de dividirlo por 5 genera un cero luego retornamos null, en caso contrario retornamos un tipo de dato ValidationErrors, definiendo un atributo con el nombre del método y como valor true.</p>
+</li>
+
+<li>
+<p>Modificamos la vista de la componente que muestra el formulario reactivo y eventualmente el mensaje de error de entrada de datos (app.component.html):</p>
+<pre class="recuadro">
+&lt;form [formGroup]="formularioContacto" (ngSubmit)="submit()"&gt;
+  &lt;p&gt;Ingrese un múltiplo de 5:
+    &lt;input type="number" formControlName="numero"&gt;
+    @if(this.formularioContacto.get('numero')?.errors?.['multiplo5']) {
+    &lt;span&gt;(El valor debe ser multiplo de 5)&lt;/span&gt;
+    }
+  &lt;/p&gt;
+  &lt;button type="submit" [disabled]="formularioContacto.invalid"&gt;Confirmar&lt;/button&gt;
+&lt;/form&gt;
+&lt;router-outlet /&gt;
+</pre>
+</li>
+
+
+<li><p>La clase asociada a la vista es (app.component.ts):</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
+import { ValidacionesPropias } from './validaciones-propias';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ReactiveFormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  formularioContacto = new FormGroup({
+    numero: new FormControl('', [ValidacionesPropias.multiplo5])
+  });
+
+  submit() {
+    alert('dato correcto');
+  }
+}
+</pre>
+<p>Importamos la clase que acabamos de crear:</p>
+<pre>
+import { ValidacionesPropias } from './validaciones-propias';
+</pre>
+<p>Pasamos al constructor de la clase FormControl la referencia del método que se encargará de validar el dato ingresado, de forma similar a las validaciones estándares:</p>
+<pre>
+  formularioContacto = new FormGroup({
+    numero: new FormControl('', [ValidacionesPropias.multiplo5])
+  });
+</pre>
+
+<p>En la vista mostramos el mensaje de error si existe el atributo, recordemos que si nuestra función de validación retorna null luego no existe en 'errors' el valor 'multiplo5':</p>
+<pre>
+    @if(this.formularioContacto.get('numero')?.errors?.['multiplo5']) {
+    &lt;span&gt;(El valor debe ser multiplo de 5)&lt;/span&gt;
+    }
+</pre>
+<p>Para que el botón del formulario permanezca desactivado mientras alguno de los datos del formulario no pase el test de validación disponemos:</p>
+<pre>
+  &lt;button type="submit" [disabled]="formularioContacto.invalid"&gt;Confirmar&lt;/button&gt;
+</pre>
+<p>'invalid' almacena true si alguno de los controles que estamos validando no es válido.</p>
+
+</ul>
+
+
+
+
+<p>Si ejecutamos la aplicación tenemos una interfaz similar a:</p>
+<img src="imagentema/foto154.jpg" alt="Formularios reactivos angular ReactiveFormsModule FormControl FormGroup validaciones personalizadas" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto014/" target="_blank">aquí</a>.</p>
+
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

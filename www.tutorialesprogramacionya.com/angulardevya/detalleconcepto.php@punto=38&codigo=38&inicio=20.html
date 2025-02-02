@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Estructura y nombres de archivos y carpetas de un proyecto Angular - Carpeta 'public'</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>38 - Estructura y nombres de archivos y carpetas de un proyecto Angular - Carpeta 'public'</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>A partir de la versión 18 de Angular se crea por defecto la carpeta public conteniendo el archivo 'favicon.ico'.</p>
+<p>En la carpeta public disponemos archivos de imágenes, videos y otros archivos (por ejemplo si tenemos una serie de archivos pdf que se descargan de nuestra aplicación) que se copiarán tal cual en la aplicación definitiva.</p>
+<p>La carpeta public en una carpeta hija del proyecto propiamente dicho:</p>
+<img src="imagentema/foto111.jpg" alt="Angular carpeta public" border="0"><br>
+<p>Podemos organizar en esta carpeta, subcarpetas agrupando las imágenes, videos y otros archivos. Crearemos una carpeta llamada 'paises' dentro de la carpeta 'public' e insertamos 3 imágenes de banderas de dichos paises:</p>
+<img src="imagentema/foto112.jpg" alt="Angular carpeta assets" border="0"><br>
+<p>Luego accedemos a las mismas indicando el siguiente camino:</p>
+<pre>
+&lt;img src="/paises/uruguay.png"&gt;
+</pre>
+<p>Por ejemplo podríamos disponer una serie de documentos *.docx para ser descargados desde el sitio:</p>
+<img src="imagentema/foto113.jpg" alt="Angular carpeta public con documentos docx" border="0"><br>
+<p>Luego accedemos a los documentos para ser descargados con el siguiente camino:</p>
+<pre>
+&lt;a href="/documentos/documento1.docx"&gt;Documento 1&lt;/a&gt;
+</pre>
+
+<p>Cuando compilamos la aplicación de Angular el contenido de la carpeta 'public' queda sin cambios y debe ser subida al servidor de internet junto con el resto de archivos.</p>
+
+<p>Luego de compilar la aplicación se genera la carpeta 'dist' en la raiz del proyecto, si vemos su contenido nos encontramos que tenemos una copia con todo el contenido de la carpeta 'public':</p>
+<img src="imagentema/foto114.jpg" alt="Angular carpeta public con documentos docx" border="0"><br><div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

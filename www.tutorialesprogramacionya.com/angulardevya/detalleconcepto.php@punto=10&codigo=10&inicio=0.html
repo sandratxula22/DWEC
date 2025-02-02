@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Componentes: disparo de eventos de la componente hija a la componente padre</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>10 - Componentes: disparo de eventos de la componente hija a la componente padre</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>En el concepto anterior vimos al final como podemos pasar un dato mediante el 'property binding' (la variable 'valor1' se encuentra definida en la clase):</p>
+<pre>
+&lt;app-dado [valor]="valor1"&gt;&lt;/app-dado&gt;
+</pre>
+<p>Ahora veremos como podemos captura un evento en la componente padre que emite la componente hija:</p>
+<pre>
+  &lt;app-cronometro [inicio]="15" (multiplo10)="actualizar($event)"&gt;&lt;/app-cronometro&gt;
+</pre>
+<p>En esta componente tenemos una propiedad llamada inicio que le enviamos un dato y capturamos un evento llamado 'multiplo10' que emite la componente app-cronometro.</p>
+<h3>Problema</h3>
+<p>Confeccionar una aplicación con dos componentes llamadas 'AppComponent' y 'CronometroComponent'. La componente 'CronometroComponent' muestra un cronómetro que se actualiza cada un segundo, cada vez que su valor es múltiplo de 10 informa a la componente padre de dicha situación informando el segundo actual.</p>
+<p>La componente 'AppComponent' define un cronómetro e informa cada vez que el cronómetro tiene un valor múltiplo de 10.</p>
+
+
+
+<ol>
+<li>
+<p>Desde la línea de comandos de Node.js procedemos a crear el proyecto004:</p>
+<pre>
+c:\angulardevya&gt; ng new proyecto004
+</pre>
+</li>
+
+<li>
+<p>Primero descendemos a la carpeta proyecto004 y nuevamente desde la línea de comandos procedemos a crear la componente 'cronometro' escribiendo:</p>
+<pre>
+c:\angulardevya\proyecto004&gt; ng generate component cronometro
+</pre>
+<p>Recordemos que al ejecutar este comando se crean 4 archivos.</p>
+<p>Además dentro de la carpeta 'app' se crea una carpeta llamada 'cronometro' y dentro de ella se localizan los cuatro archivos creados.</p>
+</li>
+
+<li>
+<p>En nuestro tercer paso vamos a implementar la vista de la componente 'cronometro' y su modelo. Abrimos el archivo 'cronometro.component.ts' y codificamos:</p>
+<pre class="recuadro">
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-cronometro',
+  imports: [],
+  templateUrl: './cronometro.component.html',
+  styleUrl: './cronometro.component.css'
+})
+export class CronometroComponent {
+  segundo = 0;
+  @Input() inicio: number = 0;
+  @Output() multiplo10 = new EventEmitter&lt;number&gt;();
+
+  ngOnInit() {
+    this.segundo = this.inicio;
+    setInterval(() =&gt; {
+      this.segundo++;
+      if (this.segundo % 10 == 0)
+        this.multiplo10.emit(this.segundo);
+    }, 1000);
+  }
+}
+</pre>
+<p>En la clase CronometroComponent podemos identificar la sintaxis para definir un evento que dispara un valor de tipo 'number':</p>
+<pre>
+  @Output() multiplo10 = new EventEmitter&lt;number&gt;();
+</pre>
+<p>Para definir los decoradores @Input(), @Output() debemos importar:</p>
+<pre>
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+</pre>
+<p>También hay que importar la clase EventEmitter.</p>
+<p>Aparece algo nuevo que es el método 'ngOnInit' que se ejecuta una vez que se han inicializado todos los atributos. En el mismo,
+inicializamos el atributo 'segundo' con el valor del decorador 'inicio'.</p>
+Mediante la función setInterval, especificamos que cada 1 segundo (1000 milisegundos), se ejecute la arrow function donde incrementamos el atributo 'segundo' y si el mismo es múltiplo de 10 procedemos a llamar a la función de la otra clase.</p>
+</li>
+
+<li>
+<p>Codificamos ahora el archivo 'cronometro.component.html':</p>
+<pre class="recuadro">
+&lt;div class="cronometro"&gt;
+  {{segundo}} Seg.
+&lt;/div&gt;
+</pre>
+</li>
+
+<li>
+<p>Para definir la hoja de estilo del 'cronometro' abrimos el archivo 'cronometro.component.css' y codificamos:</p>
+<pre class="recuadro">
+.cronometro {
+  width: 8rem;  
+  height: 3rem;
+  font-size: 2rem;
+  color:white;
+  background-color: black;
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin:10px;
+}
+</pre>
+</li>
+
+<li>
+<p>Abrimos ahora el archivo 'app.component.html' y remplazamos su contenido con la definición de un cronometro y un mensaje que se muestra mediante interpolación:</p>
+<pre class="recuadro">
+&lt;div style="text-align:center"&gt;
+  &lt;h1&gt;Prueba de la componente cronometro&lt;/h1&gt;
+  &lt;app-cronometro [inicio]="15" (multiplo10)="actualizar($event)"&gt;&lt;/app-cronometro&gt;
+  &lt;h2&gt;Evento&lt;/h2&gt;
+  &lt;h3&gt;{{mensaje}}&lt;/h3&gt;
+&lt;/div&gt;
+
+&lt;router-outlet /&gt;
+</pre>
+<p>Es importante entender la sintaxis del evento 'multiplo10' donde se llama al método actualizar.</p>
+<p>El $event es una variable especial en Angular que representa el objeto del evento que se está produciendo, en nuestro caso es el valor que se pasa desde el cronómetro del segundo actual:</p>
+<pre>
+        this.multiplo10.emit(this.segundo);
+</pre>
+</li>
+<li>
+<p>Ahora codificamos la clase AppComponent donde definimos el método que captura el evento emitido por el cronómetro:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CronometroComponent } from './cronometro/cronometro.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, CronometroComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  mensaje = '';
+
+  actualizar(t: number) {
+    this.mensaje = t + '(se actualiza cada 10 segundos)';
+  }
+}
+</pre>
+<p>El método 'actualizar' se llama cuando se dispara el evento 'multiplo10':</p>
+<pre>
+  &lt;app-cronometro [inicio]="15" (multiplo10)="actualizar($event)"&gt;&lt;/app-cronometro&gt;
+</pre>
+<p>El parámetro 't' del método recibe el valor de la variable especial de Angular llamada $event.</p>
+
+<p>Si ejecutamos ahora el proyecto:</p>
+<pre>
+ng server -o
+</pre>
+<p>Podemos ver que cada vez que el cronómetro tiene un valor múltiplo de 10 la componente principal actualiza un mensaje gracias al evento que emite la componente 'cronometro':</p>
+<img src="imagentema/foto027.jpg" border="0" alt="aplicación con componentes en Angular envío de datos @Input() y eventos @Output()"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto004/" target="_blank">aquí</a>.</p>
+</li>
+</ol>
+
+
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

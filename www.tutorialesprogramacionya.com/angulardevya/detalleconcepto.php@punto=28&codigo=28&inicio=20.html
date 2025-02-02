@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Pipes: definición</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>28 - Pipes: definición</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Las pipes también llamadas tuberías o filtros son funciones que se llaman en una vista (html) y que tienen por objetivo transformar un dato a mostrar para mejorar la experiencia del usuario.</p>
+<p>Hay una cantidad reducida de pipes que trae por defecto Angular y podemos hacer uso en cualquier vistas de nuestras componentes. Lo más importante es que podemos crear nuestras propias pipes, lo veremos en el próximo concepto.</p>
+
+<p>La llamada a estas funciones tiene una sintaxis muy distinta a la tradicional y su objetivo es hacer más claro la sintaxis de nuestra vista.</p>
+<p>Por ejemplo para mostrar el contenido de una variable toda en mayúsculas en la plantilla utilizamos la siguiente sintaxis:</p>
+<pre>
+&lt;p&gt;Nombre del cliente:{{ nombre | uppercase}}&lt;/p&gt;
+</pre>
+<p>Considerando que en la componente hemos definido la propiedad:</p>
+<pre>
+nombre = 'Juan Carlos';
+</pre>
+<p>La salida en el navegador será:</p>
+<pre>
+Nombre del cliente:JUAN CARLOS
+</pre>
+
+<p>Como vemos en la interpolación de la propiedad 'nombre' llamamos a la pipe después del caracter '|'.</p>
+<p>La pipe 'uppercase' transforma a mayúsculas el dato que se muestra en la página, no se modifica la propiedad 'nombre'.</p>
+<p>En algunas pipes podemos pasar parámetros:</p>
+<pre>
+&lt;p&gt;El saldo es:{{ saldo | currency:'$'}}&lt;/p&gt;
+</pre>
+<p>Seguido al nombre de la pipe disponemos cada parámetro antecedido por el caracter ':'.</p>
+
+<p>Podemos aplicar una pipe directamente a un valor indicado en la vista:</p>
+<pre>
+&lt;p&gt;{{ 'Hola' | uppercase }}&lt;/p&gt;
+</pre>
+<p>Como se trata de un string debemos indicarlo entre comillas. Luego cuando ejecutamos en el navegador tenemos como resultado 'HOLA'.</p>
+
+<h3>Problema</h3>
+<p>Confeccionar una aplicación que defina una serie de propiedades y muestre sus valores aplicando distintas pipes que trae por defecto Angular.</p>
+
+
+
+<ol>
+<li>
+<p>Desde la línea de comandos de Node.js procedemos a crear el proyecto023:</p>
+<pre>
+f:\angularya&gt; ng new proyecto023
+</pre>
+</li>
+
+<li>
+<p>Definimos ahora en la componente 'AppComponent' una serie de propiedades:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { UpperCasePipe, LowerCasePipe, CurrencyPipe, DatePipe, JsonPipe, SlicePipe } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, UpperCasePipe, LowerCasePipe, CurrencyPipe, DatePipe, JsonPipe, SlicePipe],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  nombre = 'Juan Carlos';
+  saldo = 1000.50;
+  dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  articulos = [{
+    codigo: 1,
+    descripcion: "papas",
+    precio: 12.33
+  }, {
+    codigo: 2,
+    descripcion: "manzanas",
+    precio: 54
+  }];
+  fechaActual = new Date();
+}
+</pre>
+<p>Debemos importar las clases respectivas que contienen las tuberías:</p>
+<pre>
+import { UpperCasePipe, LowerCasePipe, CurrencyPipe, DatePipe, JsonPipe, SlicePipe } from '@angular/common';
+</pre>
+
+<p>Hemos definido 5 propiedades de distintos tipos: string, number, vector con los días, vector de artículos con objetos y un objeto de tipo Date.</p>
+<p>El archivo de la vista 'app.component.html' queda con la siguiente sintaxis:</p>
+<pre class="recuadro">
+&lt;p&gt;Nombre del cliente:{{ nombre }}&lt;/p&gt;
+&lt;p&gt;Nombre del cliente en mayúsculas:{{ nombre | uppercase }}&lt;/p&gt;
+&lt;p&gt;Nombre del cliente en minúsculas:{{ nombre | lowercase }}&lt;/p&gt;
+&lt;p&gt;El saldo es:{{ saldo | currency:'$'}}&lt;/p&gt;
+&lt;p&gt;Días laborables: {{ dias | slice:1:6}}&lt;/p&gt;
+&lt;p&gt;{{ articulos | json }}&lt;/p&gt;
+&lt;p&gt;Fecha actual:{{ fechaActual | date:'d/M/y' }}&lt;/p&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Ya vimos las pipes: uppercase y lowercase:</p>
+<pre>
+&lt;p&gt;Nombre del cliente en mayúsculas:{{ nombre | uppercase }}&lt;/p&gt;
+&lt;p&gt;Nombre del cliente en minúsculas:{{ nombre | lowercase }}&lt;/p&gt;
+</pre>
+<p>Para mostrar un importe monetario podemos utilizar la pipe 'currency':</p>
+<pre>
+&lt;p&gt;El saldo es:{{ saldo | currency:'$'}}&lt;/p&gt;
+</pre>
+<p>Si necesitamos mostrar parte de un vector podemos utilizar la pipe 'slice' e indicar en dos parámetros a partir de que índice recuperar los datos y hasta que índice:</p>
+<pre>
+&lt;p&gt;Días laborables: {{ dias | slice:1:6}}&lt;/p&gt;
+</pre>
+<p>Otra pipe útil cuando tenemos que depurar programas es la impresión del contenido de una variable que almacena datos en formato JSON:</p>
+<pre>
+&lt;p&gt;{{ articulos | json }}&lt;/p&gt;
+</pre>
+<p>Finalmente utilizamos la pipe 'date':</p>
+<pre>
+&lt;p&gt;Fecha actual:{{ fechaActual | date:'d/M/y' }}&lt;/p&gt;
+</pre>
+</li>
+
+<li>
+<p>Para ver el resultado en el navegador ejecutamos la aplicación:</p>
+<pre>
+f:\angulardevya\proyecto023&gt; ng serve -o
+</pre>
+<p>Y tenemos como resultado en el navegador:</p>
+<img src="imagentema/foto042.jpg" alt="pipes angular" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto023/" target="_blank">aquí</a>.</p>
+</li>
+
+</ol>
+
+<div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

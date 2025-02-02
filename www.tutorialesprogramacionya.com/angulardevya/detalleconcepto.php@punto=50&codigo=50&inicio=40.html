@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Directivas de atributo - responder a eventos del usuario dentro de la directiva</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>50 - Directivas de atributo - responder a eventos del usuario dentro de la directiva</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Cuando creamos una directiva personalizada podemos capturar eventos dentro de la misma para reaccionar. Podemos por ejemplo detectar y reaccionar cuando el mouse entra o sale del elemento HTML que estamos aplicando la directiva.</p>
+
+
+
+
+<h3>Problema</h3>
+<p>Crear una directiva personalizada que se pueda asociar a cualquier elemento HTML y cuyo objetivo sea mediante la síntesis de voz hacer la lectura del contenido de texto que contiene la etiqueta. La lectura debe comenzar cuando el usuario dispone el mouse sobre la etiqueta y terminarla si saca la flecha del mouse.</p>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto</p>
+<pre>
+ng new proyecto035
+</pre>
+</li>
+
+<li><p>Procedemos a crear la directiva de atributo personalizada llamando a la misma 'textovoz' (indicamos que no queremos prefijo):</p>
+<pre>
+ng generate directive textovoz --prefix
+</pre>
+<p>Se crean dos archivos.</p>
+</li>
+
+<li>
+<p>Procedemos a modificar el archivo 'textovoz.directive.ts' implementando la lógica de nuestra directiva:</p>
+<pre class="recuadro">
+import { Directive, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[textovoz]'
+})
+export class TextovozDirective {
+
+  constructor(private elemento: ElementRef) {
+  }
+
+  @HostListener('mouseenter') entradaMouse() {
+    speechSynthesis.speak(new SpeechSynthesisUtterance(this.elemento.nativeElement.textContent));
+  }
+
+  @HostListener('mouseleave') salidaMouse() {
+    speechSynthesis.cancel();
+  }
+
+}
+</pre>
+<p>Se inyecta al constructor un objeto de la clase 'ElementRef':</p>
+<pre>
+  constructor(private elemento: ElementRef) {
+</pre>
+<p>Debemos importar 3 clases, que se almacenan en '@angular/core':</p>
+<pre>
+import { Directive, ElementRef, HostListener } from '@angular/core';
+</pre>
+<p>Para captura de eventos debemos utilizar la función decoradora @HostListener pasando como parámetro el nombre del evento a capturar:</p>
+<pre>
+  @HostListener('mouseenter')
+</pre>
+<p>Cuando el usuario ingresa la flecha del mouse dentro de la componente, mediante el objeto 'speechSynthesis' y la clase 'SpeechSynthesisUtterance' procede la alocución del string que le pasamos como parámetro, el mismo lo rescatamos del contenido de la etiqueta HTML:</p>
+<pre>
+  @HostListener('mouseenter') entradaMouse() {
+    speechSynthesis.speak(new SpeechSynthesisUtterance(this.elemento.nativeElement.textContent));
+  }
+</pre>
+
+<p>También capturamos el evento 'mouseleave' donde procedemos a cancelar la alocución del mensaje, en el caso que no se haya terminado previamente:</p>
+<pre>
+  @HostListener('mouseleave') salidaMouse() {
+    speechSynthesis.cancel();
+  }
+</pre>
+</li>
+
+<li>
+<p>Para probar la directiva 'textovoz' vamos a utilizar la componente que Angular nos ha creado por defecto, modificamos el archivo 'app.component.ts':</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { TextovozDirective } from './textovoz.directive';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, TextovozDirective],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'proyecto035';
+}
+</pre>
+
+<p>Y el archivo 'app.component.html':</p>
+<pre class="recuadro">
+&lt;p&gt;Como se pronuncia la palabra: &lt;span textovoz&gt;casa&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Como se pronuncia la palabra: &lt;span textovoz&gt;ventana&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Como se pronuncia la oración:&lt;/p&gt;
+&lt;pre textovoz&gt;
+    Aquí me pongo a cantar
+    al compás de la vihuela
+    que el hombre que lo desvela
+    una pena extraordinaria
+    como el ave solitaria
+    con el cantar se consuela
+  &lt;/pre&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Como vemos simplemente agregamos la directiva de atributo que hemos creado:</p>
+<pre>
+&lt;span textovoz&gt;casa&lt;/span&gt;
+</pre>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto035/" target="_blank">aquí</a>.</p>
+</ul>
+</li>
+
+</ul><div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

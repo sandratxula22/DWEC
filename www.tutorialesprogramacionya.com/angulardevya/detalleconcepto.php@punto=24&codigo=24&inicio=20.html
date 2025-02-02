@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Router : rutas anidadas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>24 - Router : rutas anidadas</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>En un comienzo trabajamos el desarrollo de aplicaciones Angular componiendo la misma como un conjunto de componentes todas en la misma ruta, por ejemplo:</p>
+<pre>
+https://www.sitio.com/
+</pre>
+<p>Luego vimos que cuando la aplicación comienza a ser más compleja es más conveniente agrupar sus funcionalidades en distintas rutas, con o sin parámetros:</p>
+<pre>
+https://www.sitio.com/inicio
+https://www.sitio.com/clientes
+https://www.sitio.com/contacto
+https://www.sitio.com/articulos
+</pre>
+<p>Esta forma de organizar las rutas nos permite crear un sitio más grande, pero ahora veremos que podemos crear rutas anidadas, por ejemplo:</p>
+<pre>
+https://www.sitio.com/inicio
+https://www.sitio.com/clientes/mayoristas
+https://www.sitio.com/clientes/minoristas
+</pre>
+<p>Veremos que Angular requiere una sintaxis específica cuando definimos el arreglo Routes para indicar que se trata de una ruta anidada.</p>
+
+
+
+<h3>Problema</h3>
+<p>Confeccionar una aplicación que muestre una barra de navegación con 2 rutas: 'America' y 'Europa'.<br>
+Cuando se selecciona 'America', mostrar el mapa de 'América' y una barra de navegación con 3 paises americanos, hacer lo mismo si se elije Europa, emplear rutas anidadas para cada país, de tal forma que se acceda a cada país con la siguiente sintaxis:</p>
+<pre>
+https://www.sitio.com
+https://www.sitio.com/america
+https://www.sitio.com/america/chile
+https://www.sitio.com/america/argentina
+https://www.sitio.com/america/uruguay
+https://www.sitio.com/europa
+https://www.sitio.com/europa/espana
+https://www.sitio.com/europa/francia
+https://www.sitio.com/europa/italia
+</pre>
+
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto019
+</pre>
+</li>
+
+<li>
+<p>Crearemos 2 componentes para cada continente y 6 componentes más para cada país (si copiamos y pegamos en la consola de VSCode podemos rápidamente crear las 8 componentes):</p>
+<pre>
+ng generate component america
+ng generate component america/chile
+ng generate component america/argentina
+ng generate component america/uruguay
+ng generate component europa
+ng generate component europa/espana
+ng generate component europa/francia
+ng generate component europa/italia
+</pre>
+<p>Podíamos crear todas las componentes en la misma altura y no crear subcarpetas para cada país, pero queda mucho más ordenada nuestra aplicación si comenzamos a agrupar las componentes en distintas carpetas y subcarpetas en forma jerárquica. Angular CLI crea automáticamente una subcarpeta cuando no existe al utilizar la sintaxis:</p>
+<pre>
+ng generate component america/chile
+</pre>
+<p>Se crea la carpeta 'america' y dentro de la misma se guardan los cuatro archivos asociados a la componente 'chile'.</p>
+<p>Podemos ver en el editor de texto las 8 componentes creadas:</p>
+<img src="imagentema/foto143.jpg" alt="Router rutas anidadas angular" border="0"><br>
+<p>El caracter 'ñ' no se puede utilizar como selector: <strong>Selector (app-españa) is invalid.</strong></p>
+</li>
+
+
+<li>
+<p>Procedemos a modificar el archivo 'app.routes.ts' definiendo las rutas principales y las anidadas:</p>
+<pre class="recuadro">
+import { Routes } from '@angular/router';
+import { AmericaComponent } from './america/america.component';
+import { ChileComponent } from './america/chile/chile.component';
+import { ArgentinaComponent } from './america/argentina/argentina.component';
+import { UruguayComponent } from './america/uruguay/uruguay.component';
+import { EuropaComponent } from './europa/europa.component';
+import { EspanaComponent } from './europa/espana/espana.component';
+import { FranciaComponent } from './europa/francia/francia.component';
+import { ItaliaComponent } from './europa/italia/italia.component';
+export const routes: Routes = [
+  {
+    path: 'america',
+    component: AmericaComponent,
+    children: [
+      {
+        path: 'chile',
+        component: ChileComponent
+      },
+      {
+        path: 'argentina',
+        component: ArgentinaComponent
+      },
+      {
+        path: 'uruguay',
+        component: UruguayComponent
+      }
+    ]
+  },
+  {
+    path: 'europa',
+    component: EuropaComponent,
+    children: [
+      {
+        path: 'espana',
+        component: EspanaComponent
+      },
+      {
+        path: 'francia',
+        component: FranciaComponent
+      },
+      {
+        path: 'italia',
+        component: ItaliaComponent
+      }
+    ]
+  }
+];
+</pre>
+<p>Agregamos en cada objeto que tiene rutas anidadas la propiedad 'children', la cual es un arreglo de objetos donde definimos todas las rutas anidadas.</p>
+<p>Luego podemos indicar en el navegador una ruta principal:</p>
+<pre>
+https://www.sitio.com/america
+</pre>
+<p>Pero también podemos acceder a una ruta anidada con la sintaxis:</p>
+<pre>
+https://www.sitio.com/america/chile
+</pre>
+
+</li>
+
+
+
+<li>
+<p>Procedemos a modificar la componente principal que nos genera Angular 'app.component.html':</p>
+<pre class="recuadro">
+&lt;div class="menu"&gt;
+  &lt;a routerLink="america"&gt;America&lt;/a&gt;
+  &lt;a routerLink="europa"&gt;Europa&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+  &lt;router-outlet /&gt;
+&lt;/div&gt;
+</pre>
+<p>La directiva 'router-outlet' es indispensable para que se muestren alguna de las dos componentes 'AmericaComponent' o 'EuropaComponent' según que enlace se seleccione.</p>
+
+<p>También modificamos el archivo app.component.ts:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'proyecto019';
+}
+</pre>
+</li>
+
+
+<li>
+<p>Cuando se selecciona la ruta 'america' se carga la componentes 'AmericaComponent', modificamos la vista de dicha componente 'america.component.html'</p>
+<pre class="recuadro">
+&lt;iframe
+  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d31536306.714862086!2d-54.01447990393665!3d-20.38062741924525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1583676893900!5m2!1ses!2sar"
+  width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""&gt;&lt;/iframe&gt;
+&lt;div class="menu"&gt;
+  &lt;a routerLink="chile"&gt;Chile&lt;/a&gt;
+  &lt;a routerLink="argentina"&gt;Argentina&lt;/a&gt;
+  &lt;a routerLink="uruguay"&gt;Uruguay&lt;/a&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Disponemos tres enlaces hacia las rutas anidadas, recordemos que esta componente se activa cuando se seleccionó la ruta 'america'.</p>
+<p>También esta componente dispone la etiqueta 'router-outlet' donde deben visualizarse las componentes 'ArgentinaComponent', 'ChileComponent' o 'UruguayComponent'.</p>
+</li>
+
+<li>
+<p>También debemos modificar el archivo 'america.component.ts' agregando los import respectivos</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+@Component({
+  selector: 'app-america',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './america.component.html',
+  styleUrl: './america.component.css'
+})
+export class AmericaComponent {
+
+}
+</pre>
+</li>
+
+
+
+<li>
+<p>Exactamente lo mismo hacemos para crear la componente 'europa.component.html':</p>
+<pre class="recuadro">
+&lt;iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d9880418.608500127!2d2.640727530399596!3d45.69187171781666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1583677509059!5m2!1ses!2sar" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""&gt;&lt;/iframe&gt;
+&lt;div class="menu"&gt;
+  &lt;a routerLink="espana"&gt;España&lt;/a&gt;
+  &lt;a routerLink="francia"&gt;Francia&lt;/a&gt;
+  &lt;a routerLink="italia"&gt;Italia&lt;/a&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+
+</li>
+<li>
+<p>También debemos modificar el archivo 'europa.component.ts' agregando los import respectivos</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-europa',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './europa.component.html',
+  styleUrl: './europa.component.css'
+})
+export class EuropaComponent {
+
+}
+</pre>
+</li>
+
+
+
+<li>
+<p>Ya tenemos prácticamente finalizado el ejemplo de rutas anidadas con Angular, podemos modificar las vistas de las componentes de cada país:</p>
+<pre>
+chile.component.html
+argentina.component.html
+uruguay.component.html
+espana.component.html
+francia.component.html
+italia.component.html
+</pre>
+</li>
+
+<li>
+<p>Vamos a disponer una serie de estilos comunes a todos los menúes de la aplicación, para ello modificamos el archivo 'styles.css' que se encuentra en la raiz del proyecto:</p>
+
+<pre class="recuadro">
+/* You can add global styles to this file, and also import other style files */
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333;
+  padding: 10px;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.menu a:hover {
+  background-color: #555;
+}
+</pre>
+</li>
+
+</ul>
+<p>Si seleccionamos la opción de América:</p>
+<img src="imagentema/foto144.jpg" alt="Router rutas anidadas angular" border="0"><br>
+<p>Finalmente si ingresamos a una ruta anidada por ejemplo Argentina:</p>
+<img src="imagentema/foto146.jpg" alt="Router rutas anidadas angular" border="0"><br>
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto019/" target="_blank">aquí</a>.</p><div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

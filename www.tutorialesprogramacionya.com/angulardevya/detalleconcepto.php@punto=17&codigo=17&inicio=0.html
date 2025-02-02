@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Formularios reactivos : FormGroup anidados</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>17 - Formularios reactivos : FormGroup anidados</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Cuando trabajamos con formularios reactivos en Angular normalmente creamos un FormGroup para agrupar los controles visuales que se les asocian un objeto de la clase FormControl a cada uno.</p>
+<p>Podemos crear dentro de un FormGroup otro FormGroup que agrupe un conjunto de controles relacionados.</p>
+
+
+<h3>Problema</h3>
+<p>Confeccionar un formulario que permita cargar los siguientes datos de un alumno: dni, nombre, materia y sus tres notas. Agrupar las tres notas dentro de un FormGroup anidado al principal.</p>
+<p>Al presionar un botón mostrar un mensaje si se encuentra aprobado (todas las notas mayores o iguales a 4)</p>
+</ul>
+
+<ul>
+<li><p>Crearemos primero el proyecto:</p>
+<pre>
+ng new proyecto012
+</pre>
+</li>
+
+
+
+<li><p>Modificamos la vista de la componente que muestra el formulario reactivo (app.component.html):</p>
+<pre class="recuadro">
+&lt;form [formGroup]="formAlumno" (ngSubmit)="submit()"&gt;
+  &lt;p&gt;Dni:
+    &lt;input type="text" formControlName="dni"&gt;
+  &lt;/p&gt;
+  &lt;p&gt;Nombre:
+    &lt;input type="text" formControlName="nombre"&gt;
+  &lt;/p&gt;
+  &lt;div formGroupName="notas"&gt;
+    &lt;p&gt;Primer nota:
+      &lt;input type="text" formControlName="nota1"&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Segunda nota:
+      &lt;input type="text" formControlName="nota2"&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Tercer nota:
+      &lt;input type="text" formControlName="nota3"&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p&gt;&lt;button type="submit"&gt;Confirmar&lt;/button&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;div&gt;
+  &lt;p&gt;Resultado:{{resultado}}&lt;/p&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Analizaremos este archivo en conjunto luego de presentar 'app.component.ts'</p>
+</li>
+
+
+<li><p>La clase asociada a la vista es (app.component.ts):</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ReactiveFormsModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  resultado = '';
+
+  formAlumno = new FormGroup({
+    dni: new FormControl(''),
+    nombre: new FormControl(''),
+    notas: new FormGroup({
+      nota1: new FormControl(''),
+      nota2: new FormControl(''),
+      nota3: new FormControl('')
+    })
+  });
+
+  submit() {
+    if (this.formAlumno.value.notas) {
+      if (this.formAlumno.value.notas.nota1 &&
+        this.formAlumno.value.notas.nota2 &&
+        this.formAlumno.value.notas.nota3) {
+        let nota1 = parseInt(this.formAlumno.value.notas.nota1);
+        let nota2 = parseInt(this.formAlumno.value.notas.nota2);
+        let nota3 = parseInt(this.formAlumno.value.notas.nota3);
+        if (nota1 &gt;= 4 && nota2 &gt;= 4 && nota3 &gt;= 4)
+          this.resultado = "El alumno queda aprobado por esas notas";
+        else
+          this.resultado = "El alumno no aprueba por esas notas";
+      }
+    }
+  }
+}
+</pre>
+
+<p>Creamos un objeto de la clase FormGroup y dentro de este otro objeto de la clase FormGroup que agrupa las tres notas:</p>
+<pre>
+  formAlumno = new FormGroup({
+    dni: new FormControl(''),
+    nombre: new FormControl(''),
+    notas: new FormGroup({
+      nota1: new FormControl(''),
+      nota2: new FormControl(''),
+      nota3: new FormControl('')
+    })
+  });
+</pre>
+<p>Esto provoca en la vista que cuando asociemos las tres notas debemos agruparlas dentro de un etiqueta HTML que defina una propiedad 'formGroupName':</p>
+<pre>
+  &lt;div formGroupName="notas"&gt;
+    &lt;p&gt;Primer nota:
+      &lt;input type="text" formControlName="nota1"&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Segunda nota:
+      &lt;input type="text" formControlName="nota2"&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Tercer nota:
+      &lt;input type="text" formControlName="nota3"&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+</pre>
+
+<p>Cuando se presiona el botón se verifica si las tres notas ingresadas son mayores o iguales a 4 para mostrar por pantalla si el alumno se encuentra aprobado o no (mediante los if verificamos que se hayan cargado valores en los controles input):</p>
+<pre>
+  submit() {
+    if (this.formAlumno.value.notas) {
+      if (this.formAlumno.value.notas.nota1 &&
+        this.formAlumno.value.notas.nota2 &&
+        this.formAlumno.value.notas.nota3) {
+        let nota1 = parseInt(this.formAlumno.value.notas.nota1);
+        let nota2 = parseInt(this.formAlumno.value.notas.nota2);
+        let nota3 = parseInt(this.formAlumno.value.notas.nota3);
+        if (nota1 &gt;= 4 && nota2 &gt;= 4 && nota3 &gt;= 4)
+          this.resultado = "El alumno queda aprobado por esas notas";
+        else
+          this.resultado = "El alumno no aprueba por esas notas";
+      }
+    }
+  }
+</pre>
+</ul>
+
+
+
+
+<p>Si ejecutamos la aplicación tenemos una interfaz similar a:</p>
+<img src="imagentema/foto152.jpg" alt="Formularios reactivos angular ReactiveFormsModule FormControl FormGroup anidados" border="0"><br>
+
+<p>Podemos probar esta aplicación en la web <a href="https://ejerciciostutorialesya.com/angulardev/proyecto012/" target="_blank">aquí</a>.</p>
+
+
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

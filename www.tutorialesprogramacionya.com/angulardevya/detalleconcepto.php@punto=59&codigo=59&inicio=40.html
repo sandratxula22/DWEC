@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>TypeScript: decoradores</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>59 - TypeScript: decoradores</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>En TypeScript, un decorador es una función especial que se utiliza para modificar o extender el comportamiento de clases, métodos, propiedades o parámetros.</p>
+<p>Las funciones decoradoras permiten agregar metadatos y comportamientos adicionales.</p> 
+<p>Las funciones decoradoras se ejecutan en Angular en tiempo de compilación de la aplicación, recordemos que el framework Angular compila el código TypeScript, HTML y CSS, generando JavaScript que es lo que puede interpretar un navegador web.</p>
+<p>Veremos con dos ejemplo cual es la sintaxis para crear funciones decoradoras en TypeScript y en los próximos conceptos veremos las funciones decoradoras que vienen en el framework de Angular.</p>
+<h3>Función decoradora de clase sin parámetros.</h3>
+<p>Podemos agregar el código siguiente a un proyecto que tengamos en Angular:</p>
+<p>app.component.ts</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+
+function MostrarMensajeDeCreacion(constructor: Function) {
+  console.log(constructor.toString());
+  const prototipo = constructor.prototype;
+  const nombresMetodos = Object.getOwnPropertyNames(prototipo)
+    .filter(nombre =&gt; typeof prototipo[nombre] === 'function');
+  console.log('Métodos:', nombresMetodos.join(', '));
+}
+
+// Aplicamos el decorador a una clase
+@MostrarMensajeDeCreacion
+class MiClase {
+
+  constructor() {
+    console.log('Objeto creado');
+  }
+
+  metodo1() {
+    console.log('Metodo 1 ejecutado');
+  }
+
+  metodo2() {
+    console.log('Metodo 2 ejecutado');
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent{
+  title = 'prueba';
+}
+</pre>
+<p>Para aplicar una función decoradora a una clase debemos anteceder al nombre de la clase el caracter @ seguido del nombre de la función decoradora:</p>
+<pre>
+@MostrarMensajeDeCreacion
+class MiClase {
+</pre>
+
+<p>La función decoradora MostrarMensajeDeCreacion llega una función (el constructor de la clase) como parámetro. En este caso, la función imprime la representación en cadena de la clase y los nombres de los métodos de la clase:</p>
+<pre>
+function MostrarMensajeDeCreacion(constructor: Function) {
+  console.log(constructor.toString());
+  const prototipo = constructor.prototype;
+  const nombresMetodos = Object.getOwnPropertyNames(prototipo)
+    .filter(nombre => typeof prototipo[nombre] === 'function');
+  console.log('Métodos:', nombresMetodos.join(', '));
+}
+</pre>
+<p>No hemos definido objetos de la clase 'MiClase' y podemos ver que el compilador de Angular ejecuta el decorador cuando compila la aplicación:</p>
+<img src="imagentema/fotonueva002.jpg" alt="funcion decoradora en Angular de clase" border="0"><br>
+<p>Es solo un ejemplo elemental para entender que la función decoradora se ejecuta independientemente a que definamos objetos de la clase. El decorador se ejecuta en tiempo de compilación y se utiliza para modificar o extender la funcionalidad de la clase, nosotros solo hemos hecho unas pocas salidas por la consola.</p>
+
+
+<h3>Función decoradora de clase con parámetros.</h3>
+<p>Podemos pasar parámetros a una función decoradora, veamos un ejemplo donde le pasamos un objeto de una determinada interface (en forma similar el framework Angular utiliza los decoradores para añadir funcionalidades por ejemplo a las componentes):</p>
+<pre class="recuadro">
+import { Component} from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+
+// Interfaz para el parámetro del decorador
+interface DetallesDeCreacion {
+  selector: string;
+  templateUrl: string;
+  styleUrl: string;
+}
+
+// Decorador de Clase para Mostrar Detalles de Creación con Parámetro de la Interfaz
+function MostrarDetallesDeCreacion(detalles: DetallesDeCreacion) {
+  return function (constructor: Function) {
+    console.log(constructor.toString());
+    // Mostrar información adicional sobre métodos y propiedades
+    const prototipo = constructor.prototype;
+    const nombresMetodos = Object.getOwnPropertyNames(prototipo)
+      .filter(nombre =&gt; typeof prototipo[nombre] === 'function');
+    console.log('Métodos:', nombresMetodos.join(', '));
+
+    console.log('Template URL:', detalles.templateUrl);
+    console.log('Style URL:', detalles.styleUrl);
+  };
+}
+
+// Aplicamos el decorador a una clase con un parámetro de la interfaz
+@MostrarDetallesDeCreacion({
+  selector: 'app-mi-clase',
+  templateUrl: 'mi-clase.component.html',
+  styleUrl: 'mi-clase.component.css',
+})
+class MiClase {
+
+  constructor() {
+    console.log('Objeto creado');
+  }
+
+  metodo1() {
+    console.log('Metodo 1 ejecutado');
+  }
+
+  metodo2() {
+    console.log('Metodo 2 ejecutado');
+  }
+}
+
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'prueba';
+}
+</pre>
+
+<pre>
+interface DetallesDeCreacion {
+  selector: string;
+  templateUrl: string;
+  styleUrl: string;
+}
+</pre>
+<p>Se define una interfaz llamada DetallesDeCreacion que especifica tres propiedades: selector, templateUrl, y styleUrl.
+Es solo un ejemplo y los nombres de las propiedades pueden ser cualquiera.</p>
+<pre>
+function MostrarDetallesDeCreacion(detalles: DetallesDeCreacion) {
+  return function (constructor: Function) {
+    console.log(constructor.toString());
+    // Mostrar información adicional sobre métodos y propiedades
+    const prototipo = constructor.prototype;
+    const nombresMetodos = Object.getOwnPropertyNames(prototipo)
+      .filter(nombre =&gt; typeof prototipo[nombre] === 'function');
+    console.log('Métodos:', nombresMetodos.join(', '));
+
+    console.log('Template URL:', detalles.templateUrl);
+    console.log('Style URL:', detalles.styleUrl);
+  };
+}
+</pre>
+<p>Se define una función llamada MostrarDetallesDeCreacion que toma un parámetro 'detalles' de tipo DetallesDeCreacion. Esta función devuelve otra función que actúa como el decorador real.</p>
+<p>Dentro de la función del decorador, se imprime la representación en cadena del constructor de la clase, así como los nombres de los métodos de la clase.</p>
+<p>Luego, imprime las propiedades del parámetro 'detalles' que fueron proporcionadas al aplicar el decorador.</p>
+<pre>
+// Aplicamos el decorador a una clase con un parámetro de la interfaz
+@MostrarDetallesDeCreacion({
+  selector: 'app-mi-clase',
+  templateUrl: 'mi-clase.component.html',
+  styleUrl: 'mi-clase.component.css',
+})
+class MiClase {
+
+  constructor() {
+    console.log('Objeto creado');
+  }
+
+  metodo1() {
+    console.log('Metodo 1 ejecutado');
+  }
+
+  metodo2() {
+    console.log('Metodo 2 ejecutado');
+  }
+}
+</pre>
+<p>Se aplica el decorador MostrarDetallesDeCreacion a la clase MiClase con un objeto que cumple con la interfaz DetallesDeCreacion.
+Los valores proporcionados (como selector, standalone, templateUrl, y styleUrl) se utilizarán dentro del decorador para mostrar información adicional.</p>
+<p>Tengamos en cuenta que no creamos objetos de la clase 'MiClase' y el compilador de Angular ejecuta la función decoradora aplicada a la clase:</p>
+<img src="imagentema/fotonueva003.jpg" alt="interface angular aplicacion sitios favoritos" border="0"><br>
+<p>Este ejemplo nos debe dar una idea como el compilador de Angular procesa el código de la componente AppComponent:</p>
+<pre>
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'prueba';
+}
+</pre>
+<p>Lo primero que hace es ejecutar la función decoradora @Component y le pasa como parámetro un objeto, en este caso inicializando 4 propiedades: selector, imports, templateUrl y styleUrls. Todos estos datos complementan a la clase AppComponent para acceder a los archivos: app.component.html y app.component.css</p>
+<div class="botonretorno"><a href="index.php@inicio=40.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

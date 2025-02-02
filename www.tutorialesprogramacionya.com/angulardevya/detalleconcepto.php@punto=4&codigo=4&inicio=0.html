@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Interpolación en los archivos HTML de Angular</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>4 - Interpolación en los archivos HTML de Angular</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Una de las características fundamentales en Angular es separar la vista del modelo de datos. En el modelo de datos tenemos las variables y en la vista implementamos como se muestran dichos datos.</p>
+<p>Modificaremos el proyecto001 para ver este concepto de interpolación.</p>
+<p>Abriremos el archivo que tiene la clase AppComponent (app.component.ts) y lo modificaremos con el siguiente código:</p>
+<pre class="recuadro">
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  nombre = 'Rodriguez Pablo';
+  edad = 40;
+  email = 'rpablo@gmail.com';
+  sueldos = [1700, 1600, 1900];
+  activo = true;
+
+  esActivo() {
+    if (this.activo)
+      return 'Trabajador Activo';
+    else
+      return 'Trabajador Inactivo';
+  }
+
+  ultimos3Sueldos() {
+    let suma = 0;
+    for (let x = 0; x &lt; this.sueldos.length; x++)
+      suma += this.sueldos[x];
+    return suma;
+  }
+}
+</pre>
+<p>La clase 'AppComponent' representa los datos de un empleado. Definimos e inicializamos 5 propiedades:</p>
+<pre>
+  nombre = 'Rodriguez Pablo';
+  edad = 40;
+  email = 'rpablo@gmail.com';
+  sueldos = [1700, 1600, 1900];
+  activo = true;
+</pre>
+<p>Definimos dos métodos, en el primero según el valor que almacena la propiedad 'activo' retornamos un string que informa si es un empleado activo o inactivo:</p>
+<pre>
+  esActivo() {
+    if (this.activo)
+      return 'Trabajador Activo';
+    else
+      return 'Trabajador Inactivo';
+  }
+</pre>
+<p>El segundo método retorna la suma de sus últimos 3 meses de trabajo que se almacenan en la propiedad 'sueldos':</p>
+<pre>
+  ultimos3Sueldos() {
+    let suma=0;
+    for(let x=0; x&lt;this.sueldos.length; x++)
+      suma+=this.sueldos[x];
+    return suma;
+  }
+</pre>
+
+<p>Veamos ahora el archivo html que muestra los datos, esto se encuentra en 'app.component.html':</p>
+<pre class="recuadro">
+&lt;div&gt;
+  &lt;p&gt;Nombre del Empleado:{{nombre}}&lt;/p&gt;
+  &lt;p&gt;Edad:{{edad}}&lt;/p&gt;  
+  &lt;p&gt;Los últimos tres sueldos son: {{sueldos[0]}}, {{sueldos[1]}} y {{sueldos[2]}}&lt;/p&gt;
+  &lt;p&gt;En los últimos 3 meses ha ganado: {{ultimos3Sueldos()}}&lt;/p&gt;
+  &lt;p&gt;{{esActivo()}}&lt;/p&gt;
+&lt;/div&gt;
+&lt;router-outlet /&gt;
+</pre>
+<p>Para acceder a las propiedades del objeto dentro del template del HTML debemos disponer dos llaves abiertas y cerradas y dentro el nombre de la propiedad:</p>
+<pre>
+  &lt;p&gt;Nombre del Empleado:{{nombre}}&lt;/p&gt;
+</pre>
+<p>Cuando se tratan de vectores la primer forma que podemos acceder es mediante un subíndice:</p>
+<pre>
+  &lt;p&gt;Los últimos tres sueldos son: {{sueldos[0]}}, {{sueldos[1]}} y {{sueldos[2]}}&lt;/p&gt;
+</pre>
+<p>Finalmente podemos llamar a métodos que tiene por objetivo consultar el valor de propiedades:</p>
+<pre>
+  &lt;p&gt;En los últimos 3 meses ha ganado: {{ultimos3Sueldos()}}&lt;/p&gt;
+  &lt;p&gt;{{esActivo()}}&lt;/p&gt;
+</pre>
+
+<p>Cuando ejecutamos nuestra aplicación desde la línea de comandos de Node.js:</p>
+<img src="imagentema/foto005.jpg" alt="ejecución de proyecto en Angular" border="0"><br>
+<p>En el navegador aparece el contenido de la vista pero con los valores sustituidos donde dispusimos las llaves {{}}:</p>
+<img src="imagentema/foto015.jpg" border="0" alt="interpolacion de string angular"><br>
+
+<p>En principio podríamos decir que si los datos son siempre los mismos no tiene sentido definir propiedades en la clase y sustituirlos luego en el HTML, pero luego veremos que las propiedades las vamos a cargar mediante una petición a un servidor web, en esas circunstancias veremos la potencia que tiene modificar las propiedades y luego en forma inmediata se modifica la vista.</p>
+
+<h3>Acotaciones</h3>
+<ul>
+<li>
+<p>Dentro de las dos llaves abiertas y cerradas Angular nos permite efectuar una operación:</p>
+<pre>
+&lt;p&gt;En los últimos 3 meses ha ganado: {{sueldos[0]+sueldos[1]+sueldos[2]}}&lt;/p&gt;  
+</pre>
+<p>Primero se opera la expresión dispuesta dentro de las llaves previo a mostrarla.</p>
+<p>Otro ejemplo:</p>
+<pre>
+&lt;p&gt;El empleado dentro de 5 años tendrá:{{edad+5}}&lt;/p&gt;
+</pre>
+</li>
+<li>
+<p>Podemos utilizar la interpolación como valor en propiedades de elementos HTML. Si en la clase tenemos definida la propiedad:</p>
+<pre>
+sitio='http://www.google.com';
+</pre>
+<p>Luego en la vista podemos interpolar la propiedad 'url' del elemento 'a' con la siguiente sintaxis:</p>
+<pre>
+&lt;p&gt;Puede visitar el sitio ingresando &lt;a href="{{sitio}}"&gt;aquí&lt;/a&gt;&lt;/p&gt;
+</pre>
+</li>
+</ul>
+
+
+<div class="botonretorno"><a href="index.php@inicio=0.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>

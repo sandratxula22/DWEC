@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWKWPBDEFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QWKWPBDEFK');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4669394804436935",
+    enable_page_level_ads: true
+  });
+</script>
+
+<title>Estructura y nombres de archivos y carpetas de un proyecto Angular - Carpetas '&lt;Nombre del proyecto&gt;\dist'</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<meta name="keywords" content="Angular, programación, tutorial">
+<meta name="description" content="El objetivo de este tutorial 
+es presentar los conceptos básicos del framework Angular">
+<meta name="author" content="Diego Moisset">
+
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="estilos.css">
+
+<style>
+html,body {
+	background-color: #D3E9D0;
+	font-family: sans-serif,arial;
+
+}
+</style>
+
+<style>
+.uno { width: 320px; height: 100px; }
+@media(min-width: 500px) { .uno { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .uno { width: 336px; height: 280px; } }
+
+.dos { width: 320px; height: 100px; }
+@media(min-width: 500px) { .dos { width: 320px; height: 100px; } }
+@media(min-width: 800px) { .dos { width: 336px; height: 280px; } }
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80268657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="titulodetalle">
+<h1>39 - Estructura y nombres de archivos y carpetas de un proyecto Angular - Carpetas '&lt;Nombre del proyecto&gt;\dist'</h1></div>
+
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col-md-12">
+
+<div class="cuerpodetalle">
+<div style="display:block;float:left;margin: 5px;"> 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable1 -->
+<ins class="adsbygoogle uno"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="4716538363"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+</div> 
+
+
+<p>Las carpetas '&lt;Nombre del proyecto&gt;\dist' no se generan inmediatamente al crear un proyecto Angular, sino cuando compilamos por primera vez:</p>
+<pre>
+ng build 
+</pre>
+<p>Luego de compilar el proyecto Angular por primera vez podemos ver que se han generado las carpetas 'proyecto36\dist' dependiendo de la raiz:</p>
+<img src="imagentema/foto114.jpg" alt="Angular carpeta dist" border="0"><br>
+<p>Dentro de la carpeta 'proyecto37' se localizan todos los archivos y carpeta 'assets' que deben ser subidos al servidor web.</p>
+<ul>
+<li>
+<p><strong>index.html</strong> El archivo index.html no es exactamente el mismo archivo que se encuentra en la raiz del proyecto, sino con los script necesarios de la aplicación Angular:</p>
+<pre class="recuadro">
+&lt;!doctype html&gt;
+&lt;html lang="en" data-critters-container&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Proyecto026&lt;/title&gt;
+  &lt;base href="/angulardev/proyecto026/"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;
+&lt;link rel="stylesheet" href="styles-5INURTSO.css"&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;script src="polyfills-LZBJRJJE.js" type="module"&gt;&lt;/script&gt;&lt;script src="main-BYMF447A.js" type="module"&gt;&lt;/script&gt;&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Si analizamos el código añadido podemos ver que se han agregado etiquetas 'script'.</p>
+</li>
+
+
+<li>
+<p><strong>styles.xxxxxxxx.css</strong> Contiene una copia de la hoja de estilo global del proyecto (borra saltos de línea y espacios en blanco para reducir su tamaño), recordemos que se almacena en la carpeta 'src' el archivo 'styles.css'.</p>
+</li>
+
+<li>
+<p><strong>mainxxxxxx.js</strong> Contiene el código JavaScript de la aplicación.</p>
+</li>
+
+<li>
+<p><strong>polyfillsxxxxxx.js</strong> Contiene más código JavaScript de la aplicación.</p>
+</li>
+
+
+<li>
+<p><strong>favicon.ico</strong> Es la copia del archivo que se encuentra en la carpeta raiz del proyecto.</p>
+</li>
+
+
+<li>
+<p><strong>3rdpartylicenses.txt</strong> Contiene las licencias de todos los módulos de terceros utilizados en el proyecto:</p>
+</li>
+
+</ul><div class="botonretorno"><a href="index.php@inicio=20.html">Retornar</a></div> 
+
+<div>
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!--publi-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adaptable2 -->
+<ins class="adsbygoogle dos"
+     style="display:inline-block"
+     data-ad-client="ca-pub-4669394804436935"
+     data-ad-slot="5774469161"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+
+
+
+</div>
+
+  </div>
+</div>  
+
+</div>
+
+<script type="text/javascript">
+function cambiar()
+{
+  var lista=document.getElementsByTagName('pre');
+  for(f=0;f<lista.length;f++)
+  {
+   lista[f].style.display='block';
+  }
+  document.getElementById('solucion').style.display='none';
+}
+
+</script>
+
+</body>
+
+</html>
