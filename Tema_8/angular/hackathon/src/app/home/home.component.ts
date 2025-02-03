@@ -1,18 +1,24 @@
 import { Component } from '@angular/core';
 import { Usuario } from '../usuario';
 import { HomeService } from '../home.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
   usuarios: Usuario[];
 
-  constructor(private homeServicio: HomeService){
+  addUserForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    job: new FormControl('', Validators.required),
+  });
+
+  constructor(private homeServicio: HomeService, private router: Router){
     this.usuarios = [];
   }
 
@@ -21,5 +27,32 @@ export class HomeComponent {
       console.log(response.data)
       this.usuarios = response.data;
     })
+
+    if(!localStorage.getItem('token')){
+      this.router.navigate(['/login']);
+    }
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+  }
+
+  onAddUser(){
+    if(this.addUserForm.valid){
+      const nuevoUser = this.addUserForm.value;
+
+      this.homeServicio.addUser(nuevoUser).subscribe((response) =>{
+        this.usuarios.push({
+          id: response.id,
+          email: '',
+          first_name: response.name,
+          last_name: '',
+          avatar: ''
+        });
+
+        // Limpiar el formulario después de agregar el usuario
+        this.addUserForm.reset();
+      });
+    }
   }
 }

@@ -11,6 +11,11 @@
     * home.component.html: routerLink="usuario/{{usuario.id}}"
     * app.routes.ts: path:'usuario/:id'
     * usuario-detalles.component.ts: import { ActivatedRoute, ParamMap } from '@angular/router';
+* Guardar token en localStorage para poder comprobar si existe o no y en función de eso redirigir
+* Crear logout para borrar el token
+* Añadir un modal para formulario para insertar usuarios
+    * home.service.ts ---> addUser();
+    * 
 
 
 HACER 13,14,15,16,17 (FORMGROUP)
