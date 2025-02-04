@@ -1,0 +1,10 @@
+<form [formGroup]="formularioContacto" (ngSubmit)="submit()">
+  <p>Ingrese un múltiplo de 5:
+    <input type="number" formControlName="numero">
+    @if(this.formularioContacto.get('numero')?.errors?.['multiplo5']) {
+    <span>(El valor debe ser multiplo de 5)</span>
+    }
+  </p>
+  <button type="submit" [disabled]="formularioContacto.invalid">Confirmar</button>
+</form>
+<router-outlet />

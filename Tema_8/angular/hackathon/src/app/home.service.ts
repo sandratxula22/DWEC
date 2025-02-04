@@ -25,7 +25,14 @@ export class HomeService {
   }
 
   addUser(usuario: any): Observable<any>{
-
     return this.http.post<any>("https://reqres.in/api/users", usuario);
   }
+
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete(`https://reqres.in/api/users/${id}`);
+  }
+  
+  updateUser(id: number, data: any): Observable<any> {
+    return this.http.put(`https://reqres.in/api/users/${id}`, data);
+  }  
 }

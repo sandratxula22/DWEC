@@ -39,6 +39,31 @@
     </div>
 </div>
 
+<!-- Modal de Editar Usuario -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editUserForm" (ngSubmit)="onEditUser()">
+                    <div class="mb-3">
+                        <label for="editName" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="editName" formControlName="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editJob" class="form-label">Trabajo</label>
+                        <input type="text" class="form-control" id="editJob" formControlName="job" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="editUserForm.invalid">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-4">
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @for(usuario of usuarios; track usuario.id){
@@ -49,6 +74,8 @@
                     <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
                     <p class="card-text">{{usuario.email}}</p>
                     <a routerLink="/usuario/{{usuario.id}}" class="btn btn-primary" data-mdb-ripple-init>Más Info</a>
+                    <button class="btn btn-warning" (click)="abrirModalEditar(usuario)">Editar</button>
+                    <button class="btn btn-danger" (click)="onDeleteUser(usuario.id)">Eliminar</button>
                 </div>
             </div>
         </div>

@@ -40,6 +40,7 @@
 
 - Proyecto 13: Formularios reactivos - validaciones estándar anidadas
     * Uso de ReactiveFormsModule, FormControl, FormGroup, Validators
+- Proyecto 14: Formularios reactivos - validaciones personalizadas
 - Proyecto 16: Definición de rutas
 - Proyecto 17: Párametros en una ruta
 - Proyecto 18: Captura de ruta no existente
