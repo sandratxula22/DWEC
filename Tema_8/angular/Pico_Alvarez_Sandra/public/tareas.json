@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "userId": 1,
+        "titulo": "Tarea 1",
+        "descripcion": "Corregir Examen DWEC"
+    },
+    {
+        "id": 2,
+        "userId": 1,
+        "titulo": "Tarea 2",
+        "descripcion": "Buscar empresas FCT"
+    },
+    {
+        "id": 3,
+        "userId": 2,
+        "titulo": "Tarea 1",
+        "descripcion": "Corregir Examen DWES"
+    },
+    {
+        "id": 4,
+        "userId": 3,
+        "titulo": "Tarea 1",
+        "descripcion": "Corregir Examen DIW"
+    }
+]

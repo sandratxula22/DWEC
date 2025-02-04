@@ -1,0 +1,39 @@
+<div class="container mt-4">
+    <input type="text" id="buscar">
+</div>
+
+<div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @for(usuario of usuarios; track usuario.id){
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{usuario.nombre}}</h5>
+                    <a routerLink="/usuario/tareas-usuario/{{usuario.id}}" class="btn btn-primary"
+                        data-mdb-ripple-init>Ver Tareas</a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <form [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Nombre</label>
+                        
+                        <input type="text" class="form-control" id="firstName" formControlName="name" required>
+                        @if(this.addUserForm.get('name')?.errors?.['masDeTres']){
+                            <span>El nombre tiene que tener más de tres letras</span>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="addUserForm.invalid">Añadir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,6 @@ export class UsuarioDetalleComponent {
   constructor(private homeServicio: HomeService, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void{
-
     this.activatedRoute.paramMap.subscribe((parametros: ParamMap) => {
       this.id = parametros.get("id") ?? "1";
     })
